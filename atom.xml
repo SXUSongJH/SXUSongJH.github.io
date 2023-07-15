@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2023-07-15T16:03:49.284Z</updated>
+  <updated>2023-07-15T15:36:43.187Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,31 +15,6 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>线性空间</title>
-    <link href="http://example.com/2023/07/15/%E7%BA%BF%E6%80%A7%E7%A9%BA%E9%97%B4/"/>
-    <id>http://example.com/2023/07/15/%E7%BA%BF%E6%80%A7%E7%A9%BA%E9%97%B4/</id>
-    <published>2023-07-15T15:47:02.000Z</published>
-    <updated>2023-07-15T16:03:49.284Z</updated>
-    
-    <content type="html"><![CDATA[<h1>线性空间</h1><h2 id="线性空间的定义">线性空间的定义</h2><p>定义~</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h1&gt;线性空间&lt;/h1&gt;
-&lt;h2 id=&quot;线性空间的定义&quot;&gt;线性空间的定义&lt;/h2&gt;
-&lt;p&gt;定义~&lt;/p&gt;
-</summary>
-      
-    
-    
-    
-    <category term="矩阵分析" scheme="http://example.com/categories/%E7%9F%A9%E9%98%B5%E5%88%86%E6%9E%90/"/>
-    
-    
-  </entry>
   
   <entry>
     <title>喵老师的理想</title>
