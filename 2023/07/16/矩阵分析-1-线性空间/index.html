@@ -16,16 +16,16 @@
   <meta name="author" content="喵老师">
   <meta name="keywords" content="">
   
-    <meta name="description" content="线性空间 线性空间的定义 定义~">
+    <meta name="description" content="线性空间 线性空间的定义 \[ E&#x3D;mc^2 \]">
 <meta property="og:type" content="article">
 <meta property="og:title" content="矩阵分析-1.线性空间">
 <meta property="og:url" content="http://example.com/2023/07/16/%E7%9F%A9%E9%98%B5%E5%88%86%E6%9E%90-1-%E7%BA%BF%E6%80%A7%E7%A9%BA%E9%97%B4/index.html">
 <meta property="og:site_name" content="喵老师&#39;s Blog">
-<meta property="og:description" content="线性空间 线性空间的定义 定义~">
+<meta property="og:description" content="线性空间 线性空间的定义 \[ E&#x3D;mc^2 \]">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s2.loli.net/2023/07/15/1XHx8vQMdBYuecy.png">
 <meta property="article:published_time" content="2023-07-15T16:38:23.000Z">
-<meta property="article:modified_time" content="2023-07-16T10:10:37.263Z">
+<meta property="article:modified_time" content="2023-07-16T13:12:29.170Z">
 <meta property="article:author" content="喵老师">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://s2.loli.net/2023/07/15/1XHx8vQMdBYuecy.png">
@@ -83,9 +83,9 @@
 
 
   
-<meta name="generator" content="Hexo 6.3.0">
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="喵老师's Blog" type="application/atom+xml">
+
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
-<link rel="alternate" href="/atom.xml" title="喵老师's Blog" type="application/atom+xml">
 </head>
 
 
@@ -224,7 +224,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          14 字
+          21 字
         
       </span>
     
@@ -277,9 +277,11 @@
             
               <div class="markdown-body">
                 
-                <h1>线性空间</h1>
+                <h1 id="线性空间">线性空间</h1>
 <h2 id="线性空间的定义">线性空间的定义</h2>
-<p>定义~</p>
+<p><span class="math display">\[
+E=mc^2
+\]</span></p>
 
                 
               </div>
@@ -434,6 +436,12 @@
 
 
   
+
+
+  
+  
+
+
 
 
 
@@ -627,6 +635,49 @@
 
 
   <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script  src="/js/local-search.js" ></script>
 
