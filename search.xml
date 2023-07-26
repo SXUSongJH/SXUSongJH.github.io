@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>矩阵分析-1.线性空间</title>
+      <link href="/2023/07/26/%E7%9F%A9%E9%98%B5%E5%88%86%E6%9E%90-1-%E7%BA%BF%E6%80%A7%E7%A9%BA%E9%97%B4/"/>
+      <url>/2023/07/26/%E7%9F%A9%E9%98%B5%E5%88%86%E6%9E%90-1-%E7%BA%BF%E6%80%A7%E7%A9%BA%E9%97%B4/</url>
+      
+        <content type="html"><![CDATA[<h1 id="线性空间">线性空间</h1><h2 id="加法与数乘">加法与数乘</h2><p><strong>加法的定义</strong><br>  给定非空集合V，若存在映射：<br><span class="math display">\[\sigma: V \times V \rarr V\]</span></p><p><span class="math display">\[(\alpha,\beta) \mapsto\sigma(\alpha,\beta)\]</span></p><p>即对V中任意元素<span class="math inline">\(\alpha\)</span>，<span class="math inline">\(\beta\)</span>，在集合V中都存在唯一元素<span class="math inline">\(\gamma\)</span>,使得<span class="math inline">\(\gamma=\alpha+\beta \in V\)</span>，则称映射<span class="math inline">\(\sigma\)</span>为集合V上的加法。</p><p><strong>数乘的定义</strong><br>  给定非空集合V和数域F，若存在映射： <span class="math display">\[\sigma: V \times F \rarr V\]</span></p><p><span class="math display">\[(\alpha,k) \mapsto\sigma(\alpha,k)\]</span></p><p>即对集合V中的任意元素<span class="math inline">\(\alpha\)</span>和数域F中任意元素k，在集合V中都存在唯一元素<span class="math inline">\(\gamma\)</span>，使得<span class="math inline">\(\gamma=\alpha k \in V\)</span>，则称映射<span class="math inline">\(\sigma\)</span>为集合V上的数乘。</p><ul><li><p><strong>注1：关于映射的符号</strong><br>  设映射<span class="math inline">\(\sigma\)</span>为正弦函数<span class="math inline">\(sin(*)\)</span>   “<span class="math inline">\(\rarr\)</span>”表示将集合映射到集合。例如 <span class="math inline">\(\sigma: R \rarr[-1,1]\)</span>，表示将实数集R映射到集合[-1,1]。<br>  “<span class="math inline">\(\mapsto\)</span>”表示将元素映射到元素。例如 <span class="math inline">\(\sigma: \pi \mapsto 0\)</span>，表示将元素<span class="math inline">\(\pi\)</span>映射到元素0。</p></li><li><p><strong>注2：集合的笛卡尔积</strong><br>  集合<span class="math inline">\(S_1\)</span>和<span class="math inline">\(S_2\)</span>的笛卡尔积的数学表示为： <span class="math display">\[S_1 \times S_1 = \{\begin{bmatrix}s_1\\s_2\\\end{bmatrix} \mid s_1 \in S_1,s_1 \in S_2\}\]</span></p></li><li><p><strong>注3：域的定义及常用的域</strong><br>  域的定义：包含加法与乘法的，满足通常运算规则的代数结构称为域。<br>  常用的域：<span class="math inline">\(\mathbb{Q}\)</span>(有理数域)、<span class="math inline">\(\mathbb{R}\)</span>(实数域)、<span class="math inline">\(\mathbb{C}\)</span>(复数域)等。</p></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> 矩阵分析 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>矩阵分析-0.引言</title>
       <link href="/2023/07/16/%E7%9F%A9%E9%98%B5%E5%88%86%E6%9E%90-0.%E5%BC%95%E8%A8%80/"/>
       <url>/2023/07/16/%E7%9F%A9%E9%98%B5%E5%88%86%E6%9E%90-0.%E5%BC%95%E8%A8%80/</url>

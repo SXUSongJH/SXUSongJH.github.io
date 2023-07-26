@@ -16,23 +16,25 @@
   <meta name="author" content="喵老师">
   <meta name="keywords" content="">
   
-    <meta name="description" content="致陌生的你：   我是一位统计在读研究生，写博客的初衷是想做知识管理与分享。我的博客主要会讨论数学、统计、人工智能方面的知识。作为一个本科非理工科的学生，大学时对于统数的专业知识基本靠自己摸索，为此走了不少弯路，我深知缺少交流与分享对于学习该领域知识的不利，如果对于同样正在学习统数知识的你，我的博客能够解决你的困惑，让你豁然开朗，那对于我便是最好的奖励！   倘若你对博客中的内容存在疑惑，或者想交">
-<meta property="og:type" content="website">
-<meta property="og:title" content="关于">
-<meta property="og:url" content="http://example.com/about/index.html">
+    <meta name="description" content="本节主要介绍线性空间的定义，以及一些具体实例。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="矩阵分析-1.线性空间">
+<meta property="og:url" content="http://example.com/2023/07/26/%E7%9F%A9%E9%98%B5%E5%88%86%E6%9E%90-1-%E7%BA%BF%E6%80%A7%E7%A9%BA%E9%97%B4/index.html">
 <meta property="og:site_name" content="喵老师&#39;s Blog">
-<meta property="og:description" content="致陌生的你：   我是一位统计在读研究生，写博客的初衷是想做知识管理与分享。我的博客主要会讨论数学、统计、人工智能方面的知识。作为一个本科非理工科的学生，大学时对于统数的专业知识基本靠自己摸索，为此走了不少弯路，我深知缺少交流与分享对于学习该领域知识的不利，如果对于同样正在学习统数知识的你，我的博客能够解决你的困惑，让你豁然开朗，那对于我便是最好的奖励！   倘若你对博客中的内容存在疑惑，或者想交">
+<meta property="og:description" content="本节主要介绍线性空间的定义，以及一些具体实例。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-07-15T16:00:00.000Z">
-<meta property="article:modified_time" content="2023-07-18T16:30:12.330Z">
+<meta property="og:image" content="https://s2.loli.net/2023/07/15/1XHx8vQMdBYuecy.png">
+<meta property="article:published_time" content="2023-07-25T16:27:03.000Z">
+<meta property="article:modified_time" content="2023-07-26T05:48:10.669Z">
 <meta property="article:author" content="喵老师">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://s2.loli.net/2023/07/15/1XHx8vQMdBYuecy.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>关于 - 喵老师&#39;s Blog</title>
+  <title>矩阵分析-1.线性空间 - 喵老师&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -95,7 +97,7 @@
   <header>
     
 
-<div class="header-inner" style="height: 60vh;">
+<div class="header-inner" style="height: 70vh;">
   <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand" href="/">
@@ -195,15 +197,55 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('https://s2.loli.net/2023/07/26/mnOuBDrWQgCHMw3.jpg') no-repeat center center; background-size: cover;">
+     style="background: url('https://s2.loli.net/2023/07/15/scNSLJbPfADu7WZ.png') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="关于"></span>
+            <span id="subtitle" data-typed-text="矩阵分析-1.线性空间"></span>
           
         </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-07-26 00:27" pubdate>
+          2023年7月26日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          795 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          7 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
 
         
       </div>
@@ -219,101 +261,151 @@
 
   <main>
     
-      <div class="container nopadding-x-md">
-        <div id="board"
-          >
-          
-            <div class="about-avatar">
-              <img src="https://s2.loli.net/2023/07/15/jIMKW4Odp5bPwCk.jpg" srcset="/img/loading.gif" lazyload class="img-fluid" alt="avatar">
-            </div>
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
-                
+      
 
-<div class="text-center">
-  <div class="about-info">
-    <div class="about-name">喵老师</div>
-    <div class="about-intro">努力自救的数学废物_</div>
-    <div class="about-icons">
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
       
-        
-        
-        
-        <a href=https://github.com/SXUSongJH class="
-           hint--bottom hint--rounded"
-           aria-label=GitHub
-           target="_blank"
-        >
-          <i class="iconfont icon-github-fill" aria-hidden="true"></i>
-          
-        </a>
-      
-        
-        
-        
-        <a href=https://www.zhihu.com/people/lian-dan-zhu-shi-45 class="
-           hint--bottom hint--rounded"
-           aria-label=知乎
-           target="_blank"
-        >
-          <i class="iconfont icon-zhihu-fill" aria-hidden="true"></i>
-          
-        </a>
-      
-        
-        
-        
-        <a href=https://space.bilibili.com/259406249 class="
-           hint--bottom hint--rounded"
-           aria-label=bilibili
-           target="_blank"
-        >
-          <i class="iconfont icon-bilibili-fill" aria-hidden="true"></i>
-          
-        </a>
-      
-        
-        
-        
-        <a  class="qr-trigger
-           "
-           
-           target="_self"
-        >
-          <i class="iconfont icon-wechat-fill" aria-hidden="true"></i>
-          
-            <img class="qr-img" src="/img/WeChat.jpg" srcset="/img/loading.gif" lazyload alt="qrcode" />
-          
-        </a>
-      
+
     </div>
-  </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">矩阵分析-1.线性空间</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="线性空间">线性空间</h1>
+<h2 id="加法与数乘">加法与数乘</h2>
+<p><strong>加法的定义</strong><br>
+  给定非空集合V，若存在映射：<br>
+<span class="math display">\[\sigma: V \times V \rarr V\]</span></p>
+<p><span class="math display">\[(\alpha,\beta) \mapsto
+\sigma(\alpha,\beta)\]</span></p>
+<p>即对V中任意元素<span class="math inline">\(\alpha\)</span>，<span class="math inline">\(\beta\)</span>，在集合V中都存在唯一元素<span class="math inline">\(\gamma\)</span>,使得<span class="math inline">\(\gamma=\alpha+\beta \in V\)</span>，则称映射<span class="math inline">\(\sigma\)</span>为集合V上的加法。</p>
+<p><strong>数乘的定义</strong><br>
+  给定非空集合V和数域F，若存在映射： <span class="math display">\[\sigma: V \times F \rarr V\]</span></p>
+<p><span class="math display">\[(\alpha,k) \mapsto
+\sigma(\alpha,k)\]</span></p>
+<p>即对集合V中的任意元素<span class="math inline">\(\alpha\)</span>和数域F中任意元素k，在集合V中都存在唯一元素<span class="math inline">\(\gamma\)</span>，使得<span class="math inline">\(\gamma=\alpha k \in V\)</span>，则称映射<span class="math inline">\(\sigma\)</span>为集合V上的数乘。</p>
+<ul>
+<li><p><strong>注1：关于映射的符号</strong><br>
+  设映射<span class="math inline">\(\sigma\)</span>为正弦函数<span class="math inline">\(sin(*)\)</span>   “<span class="math inline">\(\rarr\)</span>”表示将集合映射到集合。例如 <span class="math inline">\(\sigma: R \rarr
+[-1,1]\)</span>，表示将实数集R映射到集合[-1,1]。<br>
+  “<span class="math inline">\(\mapsto\)</span>”表示将元素映射到元素。例如 <span class="math inline">\(\sigma: \pi \mapsto 0\)</span>，表示将元素<span class="math inline">\(\pi\)</span>映射到元素0。</p></li>
+<li><p><strong>注2：集合的笛卡尔积</strong><br>
+  集合<span class="math inline">\(S_1\)</span>和<span class="math inline">\(S_2\)</span>的笛卡尔积的数学表示为： <span class="math display">\[S_1 \times S_1 = \{\begin{bmatrix}s_1\\s_2
+\\\end{bmatrix} \mid s_1 \in S_1,s_1 \in S_2\}\]</span></p></li>
+<li><p><strong>注3：域的定义及常用的域</strong><br>
+  域的定义：包含加法与乘法的，满足通常运算规则的代数结构称为域。<br>
+  常用的域：<span class="math inline">\(\mathbb{Q}\)</span>(有理数域)、<span class="math inline">\(\mathbb{R}\)</span>(实数域)、<span class="math inline">\(\mathbb{C}\)</span>(复数域)等。</p></li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%9F%A9%E9%98%B5%E5%88%86%E6%9E%90/" class="category-chain-item">矩阵分析</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
 </div>
 
-<article class="about-content page-content mt-5">
-  <div class="markdown-body">
-    <p>致陌生的你：</p>
-  我是一位统计在读研究生，写博客的初衷是想做知识管理与分享。我的博客主要会讨论数学、统计、人工智能方面的知识。作为一个本科非理工科的学生，大学时对于统数的专业知识基本靠自己摸索，为此走了不少弯路，我深知缺少交流与分享对于学习该领域知识的不利，如果对于同样正在学习统数知识的你，我的博客能够解决你的困惑，让你豁然开朗，那对于我便是最好的奖励！<br>
-  倘若你对博客中的内容存在疑惑，或者想交流对于知识的理解，请积极留言或者与我取得联系！<br>
 
-<p align="right">
-喵老师
-</p>
-<p align="right">
-2023.7.17
-</p>
+              
+  
 
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>矩阵分析-1.线性空间</div>
+      <div>http://example.com/2023/07/26/矩阵分析-1-线性空间/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>喵老师</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年7月26日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
   </div>
 
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/07/16/%E7%9F%A9%E9%98%B5%E5%88%86%E6%9E%90-0.%E5%BC%95%E8%A8%80/" title="矩阵分析-0.引言">
+                        <span class="hidden-mobile">矩阵分析-0.引言</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
   
-    <!-- Comments -->
+  
     <article id="comments" lazyload>
-      
-      
-        
-      
       
   <div id="valine"></div>
   <script type="text/javascript">
@@ -340,39 +432,67 @@
 
     </article>
   
-</article>
 
 
-
-
-
-  
-
-
-
-  
-
-
-
-  
-
-
-
-  
-
-
-
-  
-
-
-
-
-
-              </div>
-            </div>
-          </div>
+          </article>
         </div>
       </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
     
 
     
@@ -519,6 +639,46 @@
 
 
 
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
   <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
 
   <script>Fluid.plugins.codeWidget();</script>
@@ -571,6 +731,49 @@
 
 
   <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script  src="/js/local-search.js" ></script>
 
