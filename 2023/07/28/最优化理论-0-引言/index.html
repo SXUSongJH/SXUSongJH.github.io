@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s2.loli.net/2023/07/28/Df5KUh7yOLjebT9.png">
 <meta property="article:published_time" content="2023-07-27T16:17:50.000Z">
-<meta property="article:modified_time" content="2023-07-30T16:47:29.344Z">
+<meta property="article:modified_time" content="2023-07-30T16:49:34.164Z">
 <meta property="article:author" content="喵老师">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://s2.loli.net/2023/07/28/Df5KUh7yOLjebT9.png">
@@ -289,25 +289,35 @@ Vector
 Machine)的思想是在特征空间中找到一个超平面，使得不同类别的样本尽可能远离该超平面，从而实现分类。这些思想都可以用最优化模型表示，且都是一个凸优化问题，可以利用凸优化的方法得到最优解。在深度学习中，我们要通过最小化损失函数得到神经网络的权重参数，这实际上也是一个最优化问题。由于损失函数大多是非凸函数，我们通常使用梯度下降算法来求得近似最优解。<br>
   总得来说，最优化理论在当今是一门非常有用的学科，笔者认为对于统计与数据科学领域的学生来说，学好最优化理论是未来开展研究的基础。</p>
 <h2 id="最优化理论的主要内容">最优化理论的主要内容</h2>
-<p>  最优化理论的主要内容包括以下几个方面：<br>
-- <strong>最优化问题的表述</strong>:
+<p>  最优化理论的主要内容包括以下几个方面：</p>
+<ul>
+<li><strong>最优化问题的表述</strong>:
 最优化问题通常由目标函数和约束条件构成。目标函数是需要最大化或最小化的函数，而约束条件是问题的限制条件。<br>
-- <strong>最优解的定义</strong>:
+</li>
+<li><strong>最优解的定义</strong>:
 最优解是指满足约束条件的使得目标函数取得最大值或最小值的变量值。<br>
-- <strong>凸优化</strong>:
+</li>
+<li><strong>凸优化</strong>:
 凸优化是一类特殊的最优化问题，其中目标函数是凸函数，约束条件是凸集。凸优化问题具有良好的性质，可以高效地求解。<br>
-- <strong>等式约束与不等式约束</strong>:
+</li>
+<li><strong>等式约束与不等式约束</strong>:
 最优化问题的约束条件可以是等式约束，也可以是不等式约束。等式约束将变量限制在一个子空间内，而不等式约束则将变量限制在一个半空间内。<br>
-- <strong>无约束优化</strong>:
+</li>
+<li><strong>无约束优化</strong>:
 在无约束优化问题中，只需考虑目标函数的最大化或最小化，没有额外的约束条件。<br>
-- <strong>数值优化方法</strong>:
+</li>
+<li><strong>数值优化方法</strong>:
 为了求解最优化问题，需要使用各种数值优化方法。常见的数值优化方法包括梯度下降法、牛顿法、共轭梯度法、拟牛顿法等。<br>
-- <strong>条件极值与全局极值</strong>:
+</li>
+<li><strong>条件极值与全局极值</strong>:
 最优化问题可能存在多个极值点，包括局部极值和全局极值。局部极值是在某个特定区域内的最优解，而全局极值是在整个定义域内的最优解。<br>
-- <strong>敏感性分析</strong>:
+</li>
+<li><strong>敏感性分析</strong>:
 最优化理论还涉及敏感性分析，即研究目标函数和约束条件中参数的微小变化对最优解的影响。<br>
-- <strong>最优化理论在实际问题中的应用</strong>:
-最优化理论广泛应用于各个领域，如机器学习中的模型训练、工程中的设计优化、经济学中的资源分配问题等。</p>
+</li>
+<li><strong>最优化理论在实际问题中的应用</strong>:
+最优化理论广泛应用于各个领域，如机器学习中的模型训练、工程中的设计优化、经济学中的资源分配问题等。</li>
+</ul>
 <p>  最优化问题可分为凸优化问题与非凸优化问题，本系列首先会以凸优化为主展开讨论，之后再补充非凸优化的相关方法。</p>
 <h2 id="相关学习资料">相关学习资料</h2>
 <p>  本系列主要参考了以下学习资料:<br>
