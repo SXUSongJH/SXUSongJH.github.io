@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s2.loli.net/2023/07/15/1XHx8vQMdBYuecy.png">
 <meta property="article:published_time" content="2023-07-31T16:31:12.000Z">
-<meta property="article:modified_time" content="2023-08-02T16:47:29.569Z">
+<meta property="article:modified_time" content="2023-08-02T16:57:58.080Z">
 <meta property="article:author" content="喵老师">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://s2.loli.net/2023/07/15/1XHx8vQMdBYuecy.png">
@@ -226,7 +226,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.9k 字
+          5.2k 字
         
       </span>
     
@@ -237,7 +237,7 @@
         
         
         
-          41 分钟
+          44 分钟
         
       </span>
     
@@ -279,123 +279,144 @@
             
               <div class="markdown-body">
                 
-                <h1>向量组与线性相关性</h1>
+                <h1 id="向量组与线性相关性">向量组与线性相关性</h1>
 <h2 id="向量组">向量组</h2>
 <h3 id="向量组的定义">向量组的定义</h3>
-<p>  设$V$是数域$\mathbb{F}$上的线性空间，$V$中有限序列$\alpha_1,\alpha_2,\dots,\alpha_n$称为$V$中的一个向量组，记为向量组${\alpha_1,\alpha_2,\dots,\alpha_n}$。</p>
+<p>  设<span class="math inline">\(V\)</span>是数域<span class="math inline">\(\mathbb{F}\)</span>上的线性空间，<span class="math inline">\(V\)</span>中有限序列<span class="math inline">\(\alpha_1,\alpha_2,\dots,\alpha_n\)</span>称为<span class="math inline">\(V\)</span>中的一个向量组，记为向量组<span class="math inline">\(\{\alpha_1,\alpha_2,\dots,\alpha_n\}\)</span>。</p>
 <h3 id="向量组所拼成的抽象矩阵">向量组所拼成的抽象矩阵</h3>
-<p>  若矩阵$A$中的每一列是由向量组${\alpha_1,\alpha_2,\dots,\alpha_n}$所构成的，则称矩阵$A$是由向量组${\alpha_1,\alpha_2,\dots,\alpha_n}$所拼成的抽象矩阵，记为：</p>
-<p>$$A = \begin{bmatrix}<br>
-\alpha_1,\alpha_2,\dots,\alpha_n \<br>
-\end{bmatrix}$$</p>
+<p>  若矩阵<span class="math inline">\(A\)</span>中的每一列是由向量组<span class="math inline">\(\{\alpha_1,\alpha_2,\dots,\alpha_n\}\)</span>所构成的，则称矩阵<span class="math inline">\(A\)</span>是由向量组<span class="math inline">\(\{\alpha_1,\alpha_2,\dots,\alpha_n\}\)</span>所拼成的抽象矩阵，记为：</p>
+<p><span class="math display">\[A = \begin{bmatrix}
+    \alpha_1,\alpha_2,\dots,\alpha_n \\
+\end{bmatrix}\]</span></p>
 <h2 id="向量组的线性相关性">向量组的线性相关性</h2>
 <h3 id="线性相关与线性无关的定义">线性相关与线性无关的定义</h3>
-<p>  向量组${\alpha_1,\alpha_2,\dots,\alpha_p}$称为线性相关，如果存在不全为零的$P$个数$k_i \in \mathbb{F}, i=1,2,\dots,p$，使得：</p>
-<p>$$\begin{equation}<br>
-\alpha_1k_1+\alpha_2k_2+\dots+\alpha_pk_p=0<br>
-\end{equation}$$</p>
-<p>  向量组${\alpha_1,\alpha_2,\dots,\alpha_p}$称为线性无关，如果任意不全为零的$P$个数$k_i \in \mathbb{F}, i=1,2,\dots,p$，使得：</p>
-<p>$$\begin{equation}<br>
-\alpha_1k_1+\alpha_2k_2+\dots+\alpha_pk_p \ne 0<br>
-\end{equation}$$</p>
+<p>  向量组<span class="math inline">\(\{\alpha_1,\alpha_2,\dots,\alpha_p\}\)</span>称为线性相关，如果存在不全为零的<span class="math inline">\(P\)</span>个数<span class="math inline">\(k_i \in
+\mathbb{F}, i=1,2,\dots,p\)</span>，使得：</p>
+<p><span class="math display">\[\begin{equation}\
+\alpha_1k_1+\alpha_2k_2+\dots+\alpha_pk_p=0
+\end{equation}\]</span></p>
+<p>  向量组<span class="math inline">\(\{\alpha_1,\alpha_2,\dots,\alpha_p\}\)</span>称为线性无关，如果任意不全为零的<span class="math inline">\(P\)</span>个数<span class="math inline">\(k_i \in
+\mathbb{F}, i=1,2,\dots,p\)</span>，使得：</p>
+<p><span class="math display">\[\begin{equation}\
+\alpha_1k_1+\alpha_2k_2+\dots+\alpha_pk_p \ne 0
+\end{equation}\]</span></p>
 <ul>
 <li><strong>注1</strong> 线性无关的另外一种表述：<br>
-  向量组${\alpha_1,\alpha_2,\dots,\alpha_p}$称为线性无关，若 $\alpha_1k_1+\alpha_2k_2+\dots+\alpha_pk_p = 0$ 当且仅当 $k_i=0,i=1,\dots,p$ 时成立。</li>
+  向量组<span class="math inline">\(\{\alpha_1,\alpha_2,\dots,\alpha_p\}\)</span>称为线性无关，若
+<span class="math inline">\(\alpha_1k_1+\alpha_2k_2+\dots+\alpha_pk_p =
+0\)</span> 当且仅当 <span class="math inline">\(k_i=0,i=1,\dots,p\)</span> 时成立。</li>
 </ul>
 <h3 id="线性相关性的矩阵表述">线性相关性的矩阵表述</h3>
-<p>  设向量组${\alpha_1,\alpha_2,\dots,\alpha_n}$所拼成的抽象矩阵为$A$，向量$x = \begin{bmatrix}<br>
-x_1,x_2,\dots,x_p<br>
-\end{bmatrix}^T$，有齐次线性方程：</p>
-<p>$$\begin{equation}<br>
-Ax=\begin{bmatrix}<br>
-\alpha_1,\alpha_2,\dots,\alpha_p \<br>
-\end{bmatrix}\begin{bmatrix}<br>
-x_1 \<br>
-x_2 \<br>
-\vdots \<br>
-x_p<br>
-\end{bmatrix}=0<br>
-\end{equation}$$</p>
-<p><span style="color: green;">向量组${\alpha_1,\alpha_2,\dots,\alpha_p}$线性相关 $\Leftrightarrow$ 齐次线性方程(3)有非零解。</span><br>
-<span style="color: green;">向量组${\alpha_1,\alpha_2,\dots,\alpha_p}$线性无关 $\Leftrightarrow$ 齐次线性方程(3)只有零解。</span></p>
+<p>  设向量组<span class="math inline">\(\{\alpha_1,\alpha_2,\dots,\alpha_n\}\)</span>所拼成的抽象矩阵为<span class="math inline">\(A\)</span>，向量<span class="math inline">\(x =
+\begin{bmatrix}  x_1,x_2,\dots,x_p
+\end{bmatrix}^T\)</span>，有齐次线性方程：</p>
+<p><span class="math display">\[\begin{equation}
+    Ax=\begin{bmatrix}
+    \alpha_1,\alpha_2,\dots,\alpha_p \\
+\end{bmatrix}\begin{bmatrix}
+    x_1 \\
+    x_2 \\
+    \vdots \\
+    x_p
+\end{bmatrix}=0
+\end{equation}\]</span></p>
+<p><span style="color: green;">向量组<span class="math inline">\(\{\alpha_1,\alpha_2,\dots,\alpha_p\}\)</span>线性相关
+<span class="math inline">\(\Leftrightarrow\)</span>
+齐次线性方程(3)有非零解。</span><br>
+<span style="color: green;">向量组<span class="math inline">\(\{\alpha_1,\alpha_2,\dots,\alpha_p\}\)</span>线性无关
+<span class="math inline">\(\Leftrightarrow\)</span>
+齐次线性方程(3)只有零解。</span></p>
 <h2 id="向量组之间的线性表示">向量组之间的线性表示</h2>
 <h3 id="线性表示的定义">线性表示的定义</h3>
-<p>  设有向量组${\alpha_1,\alpha_2,\dots,\alpha_p}$，${\beta_1,\beta_2,\dots,\beta_q}$以及向量$\beta$。<br>
-  称向量$\beta$可由向量组${\alpha_1,\alpha_2,\dots,\alpha_p}$线性表示，如果$\exist k_1,k_2,\dots,k_p \in \mathbb{F}$，使得：<br>
-$$\begin{equation}<br>
-\beta = \alpha_1k_1+\alpha_2k_2+\dots+\alpha_pk_p<br>
-\end{equation}$$</p>
-<p>  称向量组${\beta_1,\beta_2,\dots,\beta_q}$可由向量组${\alpha_1,\alpha_2,\dots,\alpha_p}$线性表示，如果每个$\beta_i$均可由向量组${\alpha_1,\alpha_2,\dots,\alpha_p}$线性表示。</p>
+<p>  设有向量组<span class="math inline">\(\{\alpha_1,\alpha_2,\dots,\alpha_p\}\)</span>，<span class="math inline">\(\{\beta_1,\beta_2,\dots,\beta_q\}\)</span>以及向量<span class="math inline">\(\beta\)</span>。<br>
+  称向量<span class="math inline">\(\beta\)</span>可由向量组<span class="math inline">\(\{\alpha_1,\alpha_2,\dots,\alpha_p\}\)</span>线性表示，如果<span class="math inline">\(\exist k_1,k_2,\dots,k_p \in
+\mathbb{F}\)</span>，使得：<br>
+<span class="math display">\[\begin{equation}
+   \beta = \alpha_1k_1+\alpha_2k_2+\dots+\alpha_pk_p
+\end{equation}\]</span></p>
+<p>  称向量组<span class="math inline">\(\{\beta_1,\beta_2,\dots,\beta_q\}\)</span>可由向量组<span class="math inline">\(\{\alpha_1,\alpha_2,\dots,\alpha_p\}\)</span>线性表示，如果每个<span class="math inline">\(\beta_i\)</span>均可由向量组<span class="math inline">\(\{\alpha_1,\alpha_2,\dots,\alpha_p\}\)</span>线性表示。</p>
 <h3 id="线性表示的矩阵表述">线性表示的矩阵表述</h3>
-<p>  设向量组${\alpha_1,\alpha_2,\dots,\alpha_p}$所拼成的抽象矩阵为$A$，向量组${\beta_1,\beta_2,\dots,\beta_q}$所拼成的抽象矩阵为$B$,有非齐次线性方程：<br>
-$$\begin{equation}<br>
-Ax=\begin{bmatrix}<br>
-\alpha_1,\alpha_2,\dots,\alpha_p<br>
-\end{bmatrix}\begin{bmatrix}<br>
-x_1 \<br>
-x_2 \<br>
-\vdots \<br>
-x_p<br>
-\end{bmatrix} = \beta<br>
-\end{equation}$$</p>
-<p>$$\begin{equation}<br>
-AX= \begin{bmatrix}<br>
-\alpha_1,\alpha_2,\dots,\alpha_p<br>
-\end{bmatrix}\begin{bmatrix}<br>
-x_{11} &amp; x_{12} &amp; \dotsb &amp; x_{1q} \<br>
-x_{21} &amp; x_{22} &amp; \dotsb &amp; x_{2q} \<br>
-\vdots &amp; \vdots &amp;        &amp; \vdots \<br>
-x_{p1} &amp; x_{p2} &amp; \dotsb &amp; x_{pq} \<br>
-\end{bmatrix} = \begin{bmatrix}<br>
-\beta_1,\beta_2,\dots,\beta_q<br>
-\end{bmatrix}=B<br>
-\end{equation}$$</p>
-<p><span style="color: green;">向量$\beta$可由向量组${\alpha_1,\alpha_2,\dots,\alpha_p}$线性表示 $\Leftrightarrow$ 非齐次线性方程(5)有解。</span><br>
-<span style="color: green;">向量组${\beta_1,\beta_2,\dots,\beta_q}$可由向量组${\alpha_1,\alpha_2,\dots,\alpha_p}$线性表示 $\Leftrightarrow$ 非齐次线性方程组(6)有解。</span></p>
+<p>  设向量组<span class="math inline">\(\{\alpha_1,\alpha_2,\dots,\alpha_p\}\)</span>所拼成的抽象矩阵为<span class="math inline">\(A\)</span>，向量组<span class="math inline">\(\{\beta_1,\beta_2,\dots,\beta_q\}\)</span>所拼成的抽象矩阵为<span class="math inline">\(B\)</span>,有非齐次线性方程：<br>
+<span class="math display">\[\begin{equation}
+    Ax=\begin{bmatrix}
+        \alpha_1,\alpha_2,\dots,\alpha_p
+    \end{bmatrix}\begin{bmatrix}
+        x_1 \\
+        x_2 \\
+        \vdots \\
+        x_p
+    \end{bmatrix} = \beta
+\end{equation}\]</span></p>
+<p><span class="math display">\[\begin{equation}
+    AX= \begin{bmatrix}
+        \alpha_1,\alpha_2,\dots,\alpha_p
+    \end{bmatrix}\begin{bmatrix}
+        x_{11} &amp; x_{12} &amp; \dotsb &amp; x_{1q} \\
+        x_{21} &amp; x_{22} &amp; \dotsb &amp; x_{2q} \\
+        \vdots &amp; \vdots &amp;        &amp; \vdots \\
+        x_{p1} &amp; x_{p2} &amp; \dotsb &amp; x_{pq} \\
+    \end{bmatrix} = \begin{bmatrix}
+        \beta_1,\beta_2,\dots,\beta_q
+    \end{bmatrix}=B
+\end{equation}\]</span></p>
+<p><span style="color: green;">向量<span class="math inline">\(\beta\)</span>可由向量组<span class="math inline">\(\{\alpha_1,\alpha_2,\dots,\alpha_p\}\)</span>线性表示
+<span class="math inline">\(\Leftrightarrow\)</span>
+非齐次线性方程(5)有解。</span><br>
+<span style="color: green;">向量组<span class="math inline">\(\{\beta_1,\beta_2,\dots,\beta_q\}\)</span>可由向量组<span class="math inline">\(\{\alpha_1,\alpha_2,\dots,\alpha_p\}\)</span>线性表示
+<span class="math inline">\(\Leftrightarrow\)</span>
+非齐次线性方程组(6)有解。</span></p>
 <h3 id="线性表示的传递性">线性表示的传递性</h3>
-<p>  设有三个向量组${\alpha_1,\alpha_2,\dots,\alpha_p}$、${\beta_1,\beta_2,\dots,\beta_q}$、${v_1,v_2,\dots,v_t}$，其所拼成抽象矩阵分别为$A、B、C$。<br>
-  若向量组${\beta_1,\beta_2,\dots,\beta_q}$可由向量组${\alpha_1,\alpha_2,\dots,\alpha_p}$线性表示，而向量组${v_1,v_2,\dots,v_t}$可由向量组${\beta_1,\beta_2,\dots,\beta_q}$线性表示，则向量组${v_1,v_2,\dots,v_t}$可由向量组${\alpha_1,\alpha_2,\dots,\alpha_p}$线性表示。</p>
+<p>  设有三个向量组<span class="math inline">\(\{\alpha_1,\alpha_2,\dots,\alpha_p\}\)</span>、<span class="math inline">\(\{\beta_1,\beta_2,\dots,\beta_q\}\)</span>、<span class="math inline">\(\{v_1,v_2,\dots,v_t\}\)</span>，其所拼成抽象矩阵分别为<span class="math inline">\(A、B、C\)</span>。<br>
+  若向量组<span class="math inline">\(\{\beta_1,\beta_2,\dots,\beta_q\}\)</span>可由向量组<span class="math inline">\(\{\alpha_1,\alpha_2,\dots,\alpha_p\}\)</span>线性表示，而向量组<span class="math inline">\(\{v_1,v_2,\dots,v_t\}\)</span>可由向量组<span class="math inline">\(\{\beta_1,\beta_2,\dots,\beta_q\}\)</span>线性表示，则向量组<span class="math inline">\(\{v_1,v_2,\dots,v_t\}\)</span>可由向量组<span class="math inline">\(\{\alpha_1,\alpha_2,\dots,\alpha_p\}\)</span>线性表示。</p>
 <p><strong>证明：</strong><br>
-向量组${\beta_1,\beta_2,\dots,\beta_q}$可由向量组${\alpha_1,\alpha_2,\dots,\alpha_p}$线性表示 $\Rightarrow$ 矩阵方程 $AX_{p\times q}=B$ 有解<br>
-向量组${v_1,v_2,\dots,v_t}$可由向量组${\beta_1,\beta_2,\dots,\beta_q}$线性表示 $\Rightarrow$ 矩阵方程 $BY_{q\times t}=C$ 有解</p>
-<p>$$\left{<br>
-\begin{array}{lr}<br>
-AX_{p\times q}=B \<br>
-BY_{q \times t}=C<br>
-\end{array}<br>
-\right. \Rightarrow AXY=C \Rightarrow 矩阵方程AZ_{p \times t} = C 有解，Z_{p \times t}=XY$$</p>
-<p>故向量组${v_1,v_2,\dots,v_t}$可由向量组${\alpha_1,\alpha_2,\dots,\alpha_p}$线性表示。</p>
+向量组<span class="math inline">\(\{\beta_1,\beta_2,\dots,\beta_q\}\)</span>可由向量组<span class="math inline">\(\{\alpha_1,\alpha_2,\dots,\alpha_p\}\)</span>线性表示
+<span class="math inline">\(\Rightarrow\)</span> 矩阵方程 <span class="math inline">\(AX_{p\times q}=B\)</span> 有解<br>
+向量组<span class="math inline">\(\{v_1,v_2,\dots,v_t\}\)</span>可由向量组<span class="math inline">\(\{\beta_1,\beta_2,\dots,\beta_q\}\)</span>线性表示
+<span class="math inline">\(\Rightarrow\)</span> 矩阵方程 <span class="math inline">\(BY_{q\times t}=C\)</span> 有解</p>
+<p><span class="math display">\[\left\{
+             \begin{array}{lr}
+             AX_{p\times q}=B \\
+             BY_{q \times t}=C
+             \end{array}
+\right. \Rightarrow AXY=C \Rightarrow 矩阵方程AZ_{p \times t} = C
+有解，Z_{p \times t}=XY\]</span></p>
+<p>故向量组<span class="math inline">\(\{v_1,v_2,\dots,v_t\}\)</span>可由向量组<span class="math inline">\(\{\alpha_1,\alpha_2,\dots,\alpha_p\}\)</span>线性表示。</p>
 <h2 id="向量组的极大线性无关组">向量组的极大线性无关组</h2>
 <h3 id="极大线性无关组的定义">极大线性无关组的定义</h3>
-<p>  设向量组${\beta_1,\beta_2,\dots,\beta_s}$是向量组${\alpha_1,\alpha_2,\dots,\alpha_p}$的子组，即 ${\beta_1,\beta_2,\dots,\beta_s} \subseteq {\alpha_1,\alpha_2,\dots,\alpha_p}$。子组${\beta_1,\beta_2,\dots,\beta_s}$称为向量组${\alpha_1,\alpha_2,\dots,\alpha_p}$的极大线性无关组，若其满足：</p>
-<ol>
-<li>子组${\beta_1,\beta_2,\dots,\beta_s}$线性无关。</li>
-<li>若向量组${v_1,v_2,\dots,v_t}$也是向量组${\alpha_1,\alpha_2,\dots,\alpha_p}$的子组，且 $s &lt; t$，则子组${v_1,v_2,\dots,v_t}$线性相关。</li>
-</ol>
+<p>  设向量组<span class="math inline">\(\{\beta_1,\beta_2,\dots,\beta_s\}\)</span>是向量组<span class="math inline">\(\{\alpha_1,\alpha_2,\dots,\alpha_p\}\)</span>的子组，即
+<span class="math inline">\(\{\beta_1,\beta_2,\dots,\beta_s\} \subseteq
+\{\alpha_1,\alpha_2,\dots,\alpha_p\}\)</span>。子组<span class="math inline">\(\{\beta_1,\beta_2,\dots,\beta_s\}\)</span>称为向量组<span class="math inline">\(\{\alpha_1,\alpha_2,\dots,\alpha_p\}\)</span>的极大线性无关组，若其满足：<br>
+1. 子组<span class="math inline">\(\{\beta_1,\beta_2,\dots,\beta_s\}\)</span>线性无关。<br>
+2. 若向量组<span class="math inline">\(\{v_1,v_2,\dots,v_t\}\)</span>也是向量组<span class="math inline">\(\{\alpha_1,\alpha_2,\dots,\alpha_p\}\)</span>的子组，且
+<span class="math inline">\(s &lt; t\)</span>，则子组<span class="math inline">\(\{v_1,v_2,\dots,v_t\}\)</span>线性相关。</p>
 <ul>
 <li><strong>注：“极大性”的另一种说法：“生成性”。</strong></li>
 </ul>
-<p>  若子组${\beta_1,\beta_2,\dots,\beta_s}$线性无关，且 $\forall \alpha_i \in {\alpha_1,\alpha_2,\dots,\alpha_p}$，$\alpha_i$都可由子组${\beta_1,\beta_2,\dots,\beta_s}$线性表示，则子组${\beta_1,\beta_2,\dots,\beta_s}$是向量组${\alpha_1,\alpha_2,\dots,\alpha_p}$的极大线性无关组。</p>
-<p>$$\color{green} 极大线性无关组 \Leftrightarrow 线性无关生成组$$</p>
+<p>  若子组<span class="math inline">\(\{\beta_1,\beta_2,\dots,\beta_s\}\)</span>线性无关，且
+<span class="math inline">\(\forall \alpha_i \in
+\{\alpha_1,\alpha_2,\dots,\alpha_p\}\)</span>，<span class="math inline">\(\alpha_i\)</span>都可由子组<span class="math inline">\(\{\beta_1,\beta_2,\dots,\beta_s\}\)</span>线性表示，则子组<span class="math inline">\(\{\beta_1,\beta_2,\dots,\beta_s\}\)</span>是向量组<span class="math inline">\(\{\alpha_1,\alpha_2,\dots,\alpha_p\}\)</span>的极大线性无关组。</p>
+<p><span class="math display">\[\color{green} 极大线性无关组
+\Leftrightarrow 线性无关生成组\]</span></p>
 <h3 id="向量个数的唯一性">向量个数的唯一性</h3>
-<p><strong>定理：</strong> 向量组的极大线性无关组所含向量的个数是唯一的。<br>
+<p><strong>定理：</strong>
+向量组的极大线性无关组所含向量的个数是唯一的。<br>
 <strong>证明：</strong><br>
-  设有向量组${\alpha_1,\alpha_2,\dots,\alpha_p}$，向量组${\beta_1,\beta_2,\dots,\beta_s}$与${v_1,v_2,\dots,v_t}$均是其极大线性无关组，<br>
-  要证明 $ s=t $，可以利用反证法，假设 $s &lt; t$，<br>
-  设 $A = \begin{bmatrix}<br>
-\alpha_1,\alpha_2,\dots,\alpha_p<br>
-\end{bmatrix}$，$B=\begin{bmatrix}<br>
-\beta_1,\beta_2,\dots,\beta_s<br>
-\end{bmatrix}$，$C = \begin{bmatrix}<br>
-v_1,v_2,\dots,v_t<br>
-\end{bmatrix}$，<br>
-  $\because$ 向量组${\alpha_1,\alpha_2,\dots,\alpha_p}$可由其极大线性无关组${\beta_1,\beta_2,\dots,\beta_s}$、${v_1,v_2,\dots,v_t}$线性表示，<br>
-  $\therefore$ 矩阵方程 $BX=A, AY=C$均有解，<br>
-  $\Rightarrow$ 矩阵方程 $BZ=C$ 有解，其中$Z_{s \times t}=XY$，<br>
-  $ s &lt; t$ $\Rightarrow$ $rank(Z) &lt; t$ $\Rightarrow$ 矩阵方程$ZW= \textbf{0}$有无穷多解 $\Rightarrow$ 矩阵方程$ZW= \textbf{0}$必有非零解，<br>
-  设矩阵方程 $ZW= \textbf{0}$ 的非零解为$W$，将矩阵方程 $BZ=C$ 的两边同时乘以$W$，<br>
-  有 $B(ZW) = CW $，$\because ZW=\textbf{0}, \therefore CW= \textbf{0}$，与向量组${v_1,v_2,\dots,v_t}$线性无关矛盾，<br>
-  $\Rightarrow$ $s \nless t$，同理可证 $s \ngtr t$，故有 $s = t$</p>
+  设有向量组<span class="math inline">\(\{\alpha_1,\alpha_2,\dots,\alpha_p\}\)</span>，向量组<span class="math inline">\(\{\beta_1,\beta_2,\dots,\beta_s\}\)</span>与<span class="math inline">\(\{v_1,v_2,\dots,v_t\}\)</span>均是其极大线性无关组，<br>
+  要证明 $ s=t $，可以利用反证法，假设 <span class="math inline">\(s
+&lt; t\)</span>，<br>
+  设 <span class="math inline">\(A =
+\begin{bmatrix}  \alpha_1,\alpha_2,\dots,\alpha_p
+\end{bmatrix}\)</span>，<span class="math inline">\(B=\begin{bmatrix}  \beta_1,\beta_2,\dots,\beta_s
+\end{bmatrix}\)</span>，<span class="math inline">\(C =
+\begin{bmatrix}  v_1,v_2,\dots,v_t \end{bmatrix}\)</span>，<br>
+  <span class="math inline">\(\because\)</span> 向量组<span class="math inline">\(\{\alpha_1,\alpha_2,\dots,\alpha_p\}\)</span>可由其极大线性无关组<span class="math inline">\(\{\beta_1,\beta_2,\dots,\beta_s\}\)</span>、<span class="math inline">\(\{v_1,v_2,\dots,v_t\}\)</span>线性表示，<br>
+  <span class="math inline">\(\therefore\)</span> 矩阵方程 <span class="math inline">\(BX=A, AY=C\)</span>均有解，<br>
+  <span class="math inline">\(\Rightarrow\)</span> 矩阵方程 <span class="math inline">\(BZ=C\)</span> 有解，其中<span class="math inline">\(Z_{s \times t}=XY\)</span>，<br>
+  $ s &lt; t$ <span class="math inline">\(\Rightarrow\)</span> <span class="math inline">\(rank(Z) &lt; t\)</span> <span class="math inline">\(\Rightarrow\)</span> 矩阵方程<span class="math inline">\(ZW= \textbf{0}\)</span>有无穷多解 <span class="math inline">\(\Rightarrow\)</span> 矩阵方程<span class="math inline">\(ZW= \textbf{0}\)</span>必有非零解，<br>
+  设矩阵方程 <span class="math inline">\(ZW= \textbf{0}\)</span>
+的非零解为<span class="math inline">\(W\)</span>，将矩阵方程 <span class="math inline">\(BZ=C\)</span> 的两边同时乘以<span class="math inline">\(W\)</span>，<br>
+  有 $B(ZW) = CW <span class="math inline">\(，\)</span>ZW=, CW= <span class="math inline">\(，与向量组\)</span>{v_1,v_2,,v_t}<span class="math inline">\(线性无关矛盾， &amp;emsp;&amp;emsp;\)</span>$
+<span class="math inline">\(s \nless t\)</span>，同理可证 <span class="math inline">\(s \ngtr t\)</span>，故有 <span class="math inline">\(s = t\)</span></p>
 <h2 id="向量组的秩">向量组的秩</h2>
 <p>  <span style="color: green;">向量组的秩等于向量组的极大线性无关组所含向量的个数。</span></p>
 
