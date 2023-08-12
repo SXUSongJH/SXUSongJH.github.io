@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s2.loli.net/2023/07/28/Df5KUh7yOLjebT9.png">
 <meta property="article:published_time" content="2023-08-08T14:31:22.000Z">
-<meta property="article:modified_time" content="2023-08-12T18:01:40.288Z">
+<meta property="article:modified_time" content="2023-08-12T18:11:40.619Z">
 <meta property="article:author" content="喵老师">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://s2.loli.net/2023/07/28/Df5KUh7yOLjebT9.png">
@@ -85,9 +85,9 @@
 
 
   
-<meta name="generator" content="Hexo 6.3.0">
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="喵老师's Blog" type="application/atom+xml">
+
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
-<link rel="alternate" href="/atom.xml" title="喵老师's Blog" type="application/atom+xml">
 </head>
 
 
@@ -226,7 +226,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.5k 字
+          4.4k 字
         
       </span>
     
@@ -237,7 +237,7 @@
         
         
         
-          38 分钟
+          37 分钟
         
       </span>
     
@@ -290,7 +290,8 @@ i=1,\dots,m\]</span></p>
 <h2 id="仿射集">仿射集</h2>
 <p>  设<span class="math inline">\(x_1,x_2 \in
 \mathbb{R}^n\)</span>，且<span class="math inline">\(x_1 \neq
-x_2\)</span>，   经过<span class="math inline">\(x_1,x_2\)</span>两点的直线<span class="math inline">\(y\)</span>的表达式为：<span class="math inline">\(y=\theta x_1 + (1-\theta)x_2, \theta \in
+x_2\)</span>，<br>
+  经过<span class="math inline">\(x_1,x_2\)</span>两点的直线<span class="math inline">\(y\)</span>的表达式为：<span class="math inline">\(y=\theta x_1 + (1-\theta)x_2, \theta \in
 \mathbb{R}.\)</span><br>
   经过<span class="math inline">\(x_1,x_2\)</span>两点的线段<span class="math inline">\(y\)</span>的表达式为：<span class="math inline">\(y=\theta x_1 + (1-\theta)x_2, \theta \in
 [0,1].\)</span></p>
@@ -332,9 +333,10 @@ C,\theta_1,\theta_2,\dots,\theta_{t+1} \in \mathbb{R},
 \theta_i/\sum_{i=1}^{t}\theta_i, i=1,\dots t\)</span>，则有<span class="math inline">\(\sum_{i=1}^{t}\beta_i = 1\)</span>.<br>
   由前文的结论可知：<span class="math inline">\(\sum_{i=1}^{t}\beta_ix_i
 \in C\)</span>.<br>
-  令$ y = <em>{i=1}^{t}<em>ix_i C, x</em>{t+1} C<span class="math inline">\(，由前文的结论可知：\)</span>(</em>{i=1}<sup>{t}<em>i)y
-+ (1-</em>{i=1}</sup>{t}<em>i)x</em>{t+1} C<span class="math inline">\(.
-&amp;emsp;&amp;emsp;即：\)</span>_{i=1}^{t+1}_ix_i C$，证毕.</p>
+  令$ y = _{i=1}^{t}<em>ix_i C, x</em>{t+1} C$，由前文的结论可知: <span class="math inline">\((\sum_{i=1}^{t}\theta_i)y +
+(1-\sum_{i=1}^{t}\theta_i)x_{t+1} \in C\)</span>.<br>
+  即: <span class="math inline">\(\sum_{i=1}^{t+1}\theta_ix_i \in
+C\)</span>，证毕.</p>
 <p><strong>性质2：与仿射集相关的子空间也是仿射集.</strong><br>
   设集合<span class="math inline">\(C\)</span>是仿射集，对<span class="math inline">\(\forall x_0 \in C\)</span>，令<span class="math inline">\(V = C - x_0 = \{x-x_0 \vert x \in
 C\}\)</span>，称集合<span class="math inline">\(V\)</span>为与<span class="math inline">\(C\)</span>相关的子空间.<br>
@@ -412,10 +414,12 @@ C\)</span>是集合<span class="math inline">\(C\)</span>所能构造的最小�
 <h3 id="仿射包的实例">仿射包的实例</h3>
 <p><strong>例：二维空间中的仿射包</strong></p>
 <p>  设集合<span class="math inline">\(V\)</span>为二维平面，<span class="math inline">\(x_1,x_2,x_3\)</span>为二维平面中不在同一条直线上的三个点，<span class="math inline">\(L\)</span>为经过点<span class="math inline">\(x_1,x_2\)</span>的直线，如下图所示：</p>
-<div style="text-align:center">
-<pre><code class="hljs">&lt;img src="https://s2.loli.net/2023/08/13/mh4IpMxoERZ3sy9.png" width = 500 hight = 500 alt="二维平面及其元素" /&gt;
-&lt;div align="center"&gt;Image 1: 二维平面及其元素&lt;/div&gt;</code></pre>
+<center>
+<img src="https://s2.loli.net/2023/08/13/mh4IpMxoERZ3sy9.png" srcset="/img/loading.gif" lazyload width="75%">
+<div data-align="center">
+Image1: 二维平面及其元素
 </div>
+</center>
 <p><br></p>
 <p>  设集合<span class="math inline">\(C_1 =
 \{x_1,x_2\}\)</span>，则集合<span class="math inline">\(C_1\)</span>的仿射包<span class="math inline">\(aff \space C_1 = \{\theta_1x_1+\theta_2x_2 \vert
@@ -917,5 +921,20 @@ C_2\)</span>即为二维平面<span class="math inline">\(V\)</span>.</p>
   <noscript>
     <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
   </noscript>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>
