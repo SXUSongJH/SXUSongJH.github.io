@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2023-09-24T12:30:27.587Z</updated>
+  <updated>2023-09-24T12:49:55.013Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,25 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>机器学习-1.概论</title>
+    <link href="http://example.com/2023/09/24/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-1-%E6%A6%82%E8%AE%BA/"/>
+    <id>http://example.com/2023/09/24/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-1-%E6%A6%82%E8%AE%BA/</id>
+    <published>2023-09-24T12:34:29.000Z</published>
+    <updated>2023-09-24T12:49:55.013Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="概论">概论</h1><h2 id="机器学习的定义">机器学习的定义</h2>]]></content>
+    
+    
+    <summary type="html">本节主要介绍机器学习的定义、分类、三要素；模型评估与模型选择；正则化与交叉验证；模型泛化能力等内容。</summary>
+    
+    
+    
+    <category term="机器学习" scheme="http://example.com/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>矩阵分析-4.子空间</title>
