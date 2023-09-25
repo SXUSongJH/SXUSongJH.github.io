@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s2.loli.net/2023/09/24/IPRyoQXnsizEDMh.jpg">
 <meta property="article:published_time" content="2023-09-24T12:34:29.000Z">
-<meta property="article:modified_time" content="2023-09-24T14:30:41.756Z">
+<meta property="article:modified_time" content="2023-09-25T14:23:46.869Z">
 <meta property="article:author" content="喵老师">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://s2.loli.net/2023/09/24/IPRyoQXnsizEDMh.jpg">
@@ -226,7 +226,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.5k 字
+          2.7k 字
         
       </span>
     
@@ -237,7 +237,7 @@
         
         
         
-          13 分钟
+          23 分钟
         
       </span>
     
@@ -279,21 +279,25 @@
             
               <div class="markdown-body">
                 
-                <h1>概论</h1>
+                <h1 id="概论">概论</h1>
 <h2 id="机器学习">机器学习</h2>
-<p><strong>定义</strong><br>
-  机器学习(Machine Learning)是关于计算机基于数据构建模型并运用模型对数据进行预测与分析的一门学科。</p>
-<p><strong>特点</strong><br>
-  机器学习的主要特点是:<br>
-  (1) 机器学习以计算机及网络为<strong>平台</strong>，是建立在计算机网络上的。<br>
-  (2) 机器学习以数据为<strong>研究对象</strong>，是数据驱动的学科。<br>
+<p><strong>定义</strong>   机器学习(Machine
+Learning)是关于计算机基于数据构建模型并运用模型对数据进行预测与分析的一门学科。</p>
+<p><strong>特点</strong>   机器学习的主要特点是:<br>
+  (1)
+机器学习以计算机及网络为<strong>平台</strong>，是建立在计算机网络上的。<br>
+  (2)
+机器学习以数据为<strong>研究对象</strong>，是数据驱动的学科。<br>
   (3) 机器学习的<strong>目的</strong>是对数据进行预测与分析。<br>
-  (4) 机器学习以<strong>方法</strong>为中心，机器学习方法构建模型并应用模型进行预测与分析。<br>
-  (5) 机器学习是微积分、线性代数、概率论、统计学、信息论、数值计算、最优化及计算机科学等多个领域的交叉<strong>学科</strong>，并且在发展中逐步形成独自的理论体系与方法论。</p>
+  (4)
+机器学习以<strong>方法</strong>为中心，机器学习方法构建模型并应用模型进行预测与分析。<br>
+  (5)
+机器学习是微积分、线性代数、概率论、统计学、信息论、数值计算、最优化及计算机科学等多个领域的交叉<strong>学科</strong>，并且在发展中逐步形成独自的理论体系与方法论。</p>
 <p><strong>步骤</strong><br>
   实现机器学习方法的步骤：<br>
   <strong>(1) 得到一个有限的训练数据集合；</strong><br>
-  <strong>(2) 确定包含所有可能的模型的假设空间，即学习模型的集合；</strong><br>
+  <strong>(2)
+确定包含所有可能的模型的假设空间，即学习模型的集合；</strong><br>
   <strong>(3) 确定模型选择的准则，即学习的策略；</strong><br>
   <strong>(4) 实现求解最优模型的算法，即学习的算法；</strong><br>
   <strong>(5) 通过学习方法选择最优模型；</strong><br>
@@ -302,80 +306,142 @@
 <p>  我们可以从多个方面对机器学习方法进行分类。</p>
 <p>  (1) 基本分类</p>
 <ul>
-<li><strong>监督学习(Supervised Learning):</strong> 从标注数据中学习预测模型的机器学习问题。标注数据表示输入到输出的对应关系，预测模型对给定的输入产生相应的输出。监督学习的本质是学习输入到输出的映射的统计规律。
+<li><strong>监督学习(Supervised Learning):</strong>
+从标注数据中学习预测模型的机器学习问题。标注数据表示输入到输出的对应关系，预测模型对给定的输入产生相应的输出。监督学习的本质是学习输入到输出的映射的统计规律。
 <ul>
-<li><strong>监督学习的实例:</strong> 线性回归、逻辑回归、决策树、支持向量机、神经网络等。</li>
-</ul>
+<li><strong>监督学习的实例:</strong>
+线性回归、逻辑回归、决策树、支持向量机、神经网络等。<br>
 </li>
-<li><strong>无监督学习(Unsupervised Learning):</strong> 从无标注数据中学习预测模型的机器学习问题。无标注数据是自然得到的数据，预测模型表示数据的类别、转换或概率。无监督学习的本质是学习数据中的统计规律或潜在结构。
+</ul></li>
+<li><strong>无监督学习(Unsupervised Learning):</strong>
+从无标注数据中学习预测模型的机器学习问题。无标注数据是自然得到的数据，预测模型表示数据的类别、转换或概率。无监督学习的本质是学习数据中的统计规律或潜在结构。
 <ul>
-<li><strong>无监督学习的实例:</strong> 聚类分析、主成分分析、高斯混合模型、自编码等。</li>
-</ul>
-</li>
-<li><strong>强化学习(Reinforcement Learning):</strong> 指智能系统在与环境的连续互动中学习最优行为策略的机器学习问题。假设智能系统与环境的互动基于马尔可夫决策过程(Markov decision process)，智能系统能观测到的是与环境互动得到的数据序列。强化学习的本质是学习最优的序贯决策。
+<li><strong>无监督学习的实例:</strong>
+聚类分析、主成分分析、高斯混合模型、自编码等。</li>
+</ul></li>
+<li><strong>强化学习(Reinforcement Learning):</strong>
+指智能系统在与环境的连续互动中学习最优行为策略的机器学习问题。假设智能系统与环境的互动基于马尔可夫决策过程(Markov
+decision
+process)，智能系统能观测到的是与环境互动得到的数据序列。强化学习的本质是学习最优的序贯决策。
 <ul>
-<li><strong>强化学习的实例:</strong> Q-学习、深度Q网络、蒙特卡洛树搜索等。</li>
-</ul>
-</li>
+<li><strong>强化学习的实例:</strong>
+Q-学习、深度Q网络、蒙特卡洛树搜索等。</li>
+</ul></li>
 </ul>
 <p>  (2) 按模型分类</p>
 <ul>
 <li><strong>概率模型与非概率模型</strong>
 <ul>
-<li><strong>概率模型:</strong> 模型的形式为条件概率分布$P(y\vert x)$.
+<li><strong>概率模型:</strong> 模型的形式为条件概率分布<span class="math inline">\(P(y\vert x)\)</span>.
 <ul>
-<li><strong>概率模型的实例:</strong> 决策树、朴素贝叶斯、隐马尔可夫模型、条件随机场、概率图模型等。</li>
-</ul>
-</li>
-<li><strong>非概率模型:</strong> 模型的形式为决策函数$y = f(x)$.
+<li><strong>概率模型的实例:</strong>
+决策树、朴素贝叶斯、隐马尔可夫模型、条件随机场、概率图模型等。</li>
+</ul></li>
+<li><strong>非概率模型:</strong> 模型的形式为决策函数<span class="math inline">\(y = f(x)\)</span>.
 <ul>
-<li><strong>非概率模型的实例:</strong> 感知机、支持向量机、AdaBoost、神经网络等。</li>
-</ul>
-</li>
-</ul>
-</li>
+<li><strong>非概率模型的实例:</strong>
+感知机、支持向量机、AdaBoost、神经网络等。</li>
+</ul></li>
+</ul></li>
 <li><strong>线性模型与非线性模型</strong>
 <ul>
-<li><strong>线性模型:</strong> 非概率模型中，决策函数$y=f(x)$是线性函数的模型。
+<li><strong>线性模型:</strong> 非概率模型中，决策函数<span class="math inline">\(y=f(x)\)</span>是线性函数的模型。
 <ul>
-<li><strong>线性模型的实例:</strong> 感知机、线性支持向量机、k近邻、潜在语义分析等。</li>
-</ul>
+<li><strong>线性模型的实例:</strong>
+感知机、线性支持向量机、k近邻、潜在语义分析等。<br>
 </li>
-<li><strong>非线性模型:</strong> 非概率模型中，决策函数$y=f(x)$是非线性函数的模型。
+</ul></li>
+<li><strong>非线性模型:</strong> 非概率模型中，决策函数<span class="math inline">\(y=f(x)\)</span>是非线性函数的模型。
 <ul>
-<li><strong>非线性模型的实例:</strong> 核函数支持向量机、AdaBoost、神经网络等。</li>
-</ul>
+<li><strong>非线性模型的实例:</strong>
+核函数支持向量机、AdaBoost、神经网络等。<br>
 </li>
-</ul>
-</li>
+</ul></li>
+</ul></li>
 <li><strong>参数化模型与非参数化模型</strong>
 <ul>
-<li><strong>参数化模型:</strong> 假设模型参数的维数是固定的，模型可以由有限维参数完全刻画。
+<li><strong>参数化模型:</strong>
+假设模型参数的维数是固定的，模型可以由有限维参数完全刻画。
 <ul>
-<li><strong>参数化模型的实例:</strong>  感知机、朴素贝叶斯、逻辑回归、高斯混合模型等。</li>
-</ul>
-</li>
-<li><strong>非参数化模型:</strong> 假设模型参数的维度不固定或者说是无穷大，随着训练数据量的增加而不断增大。
+<li><strong>参数化模型的实例:</strong>
+感知机、朴素贝叶斯、逻辑回归、高斯混合模型等。</li>
+</ul></li>
+<li><strong>非参数化模型:</strong>
+假设模型参数的维度不固定或者说是无穷大，随着训练数据量的增加而不断增大。
 <ul>
-<li><strong>非参数化模型的实例:</strong> 决策树、支持向量机、AdaBoost、k近邻等。</li>
-</ul>
-</li>
-</ul>
-</li>
+<li><strong>非参数化模型的实例:</strong>
+决策树、支持向量机、AdaBoost、k近邻等。</li>
+</ul></li>
+</ul></li>
 </ul>
 <p>  (3) 按算法分类</p>
 <ul>
-<li><strong>在线学习(Online Learning):</strong> 指每次接受一个样本，进行预测，之后学习模型，并不断重复该操作的机器学习。
+<li><strong>在线学习(Online Learning):</strong>
+指每次接受一个样本，进行预测，之后学习模型，并不断重复该操作的机器学习。
 <ul>
-<li><strong>在线学习的实例:</strong> 在线线性回归、在线逻辑回归、在线决策树、在线神经网络等。</li>
-</ul>
+<li><strong>在线学习的实例:</strong>
+在线线性回归、在线逻辑回归、在线决策树、在线神经网络等。<br>
 </li>
-<li><strong>批量学习(Batch Learning):</strong> 一次性接受所有数据，学习模型，之后进行预测。
+</ul></li>
+<li><strong>批量学习(Batch Learning):</strong>
+一次性接受所有数据，学习模型，之后进行预测。
 <ul>
-<li><strong>批量学习的实例:</strong> 线性回归、逻辑回归、决策树、神经网络、支持向量机等。</li>
+<li><strong>批量学习的实例:</strong>
+线性回归、逻辑回归、决策树、神经网络、支持向量机等。</li>
+</ul></li>
 </ul>
+<h3 id="基本分类的相关概念">基本分类的相关概念</h3>
+<h4 id="监督学习">监督学习</h4>
+<ul>
+<li><strong>输入空间:</strong> 输入的所有可能取值的集合，记为<span class="math inline">\(\mathcal{X}\)</span>.<br>
 </li>
+<li><strong>输出空间:</strong> 输出的所有可能取值的集合，记为<span class="math inline">\(\mathcal{Y}\)</span>.<br>
+</li>
+<li><strong>实例:</strong> 每一个具体的输入，通常由特征向量表示：<br>
+<span class="math display">\[x_i = \begin{bmatrix}
+  x_{i}^{(1)}, x_{i}^{(2)}, \dots, x_{i}^{(n)}
+\end{bmatrix}^T\]</span></li>
 </ul>
+<p>  其中<span class="math inline">\(x_{i}^{(j)}\)</span>表示第<span class="math inline">\(i\)</span>个实例的第<span class="math inline">\(j\)</span>个特征。</p>
+<ul>
+<li><strong>特征空间:</strong>
+所有特征向量存在的空间称为特征空间，记为<span class="math inline">\(\mathcal{F}\)</span>。<br>
+</li>
+<li><strong>训练集:</strong> 模型用于学习的数据集合，样本容量为<span class="math inline">\(N\)</span>的训练集记为：<br>
+<span class="math display">\[T=\{(x_1,y_1),(x_2,y_2),\dots,(x_N,y_N)\}\]</span></li>
+</ul>
+<p>  输入变量<span class="math inline">\(X\)</span>和输出变量<span class="math inline">\(Y\)</span>有不同的类型，可以是连续的，也可以是离散的。人们根据输入输出变量的不同类型，对预测任务给予不同的名称：</p>
+<ul>
+<li><strong>回归问题:</strong>
+输入变量与输出变量均为连续变量的预测问题。<br>
+</li>
+<li><strong>分类问题:</strong>
+输出变量为有限个离散变量的预测问题。<br>
+</li>
+<li><strong>标注问题:</strong>
+输入变量与输出变量均为变量序列的预测问题。</li>
+</ul>
+<p>  对于监督学习，主要就是研究输入到输出之间的统计规律，所以要有关于输入和输出和模型的基本假设。</p>
+<ul>
+<li><p><strong>监督学习的基本假设:</strong> 输入变量<span class="math inline">\(X\)</span>与输出变量<span class="math inline">\(Y\)</span>具有联合概率分布<span class="math inline">\(P(X,Y)\)</span>。训练数据与测试数据被看作是依联合概率分布<span class="math inline">\(P(X,Y)\)</span>独立同分布产生的。<br>
+</p></li>
+<li><p><strong>监督学习的目的:</strong>
+学习一个输入空间到输出空间的映射，这一映射以模型的形式表示。<br>
+</p></li>
+<li><p><strong>模型形式:</strong>
+监督学习的模型可以是概率模型或非概率模型，由条件概率分布<span class="math inline">\(P(Y\vert X)\)</span>或决策函数<span class="math inline">\(Y=f(X)\)</span>表示，随具体学习方法而定。对具体的输入实例进行相应的输出预测时写作<span class="math inline">\(P(y \vert x)\)</span>或决策函数<span class="math inline">\(y=f(x)\)</span>.<br>
+</p></li>
+<li><p><strong>假设空间:</strong> 所有可能的模型的集合，记为<span class="math inline">\(\mathcal{H}\)</span>.</p></li>
+<li><p><strong>监督学习的过程:</strong>
+监督学习分为学习和预测两个过程，由学习系统和预测系统完成。在学习过程中，学习系统利用给定的训练数据集，通过学习(或训练)得到一个模型，表示为条件概率分布<span class="math inline">\(\hat{P}(Y \vert X)\)</span>或决策函数<span class="math inline">\(Y=\hat{f}(X)\)</span>。条件概率分布<span class="math inline">\(\hat{P}(Y \vert X)\)</span>或决策函数<span class="math inline">\(Y=\hat{f}(X)\)</span>描述输入与输出变量之间的映射关系。在预测过程中，预测系统对于给定的测试样本集中的输入<span class="math inline">\(X_{N+1}\)</span>，由模型<span class="math inline">\(\hat{y}_{N+1}=arg \space max \space \hat{P}(y
+\vert x_{N+1})\)</span>或<span class="math inline">\(\hat{y}_{N+1}=\hat{f}(x_{N+1})\)</span>给出相应的输出<span class="math inline">\(\hat{y}_{N+1}\)</span>。监督学习的过程可以用图1来描述。</p></li>
+</ul>
+<center>
+<img src="https://s2.loli.net/2023/09/25/6FAu9srNYcwDSkh.jpg" srcset="/img/loading.gif" lazyload width="60%" height="60%">
+<div data-align="center">
+Image1: 监督学习的过程
+</div>
+</center>
 
                 
               </div>
