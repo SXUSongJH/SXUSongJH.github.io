@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s2.loli.net/2023/09/24/IPRyoQXnsizEDMh.jpg">
 <meta property="article:published_time" content="2023-09-24T12:34:29.000Z">
-<meta property="article:modified_time" content="2023-09-27T04:25:18.278Z">
+<meta property="article:modified_time" content="2023-09-28T13:38:50.605Z">
 <meta property="article:author" content="喵老师">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://s2.loli.net/2023/09/24/IPRyoQXnsizEDMh.jpg">
@@ -226,7 +226,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.6k 字
+          7.2k 字
         
       </span>
     
@@ -237,7 +237,7 @@
         
         
         
-          31 分钟
+          60 分钟
         
       </span>
     
@@ -444,7 +444,7 @@ Q-学习、深度Q网络、蒙特卡洛树搜索等。</li>
 Image1: 监督学习的过程
 </div>
 </center>
-<h3 id="无监督学习">无监督学习</h3>
+<h4 id="无监督学习">无监督学习</h4>
 <p>  无监督学习中的大部分概率与监督学习中的一致，不同点主要在于以下几个方面：</p>
 <center>
 <table>
@@ -492,11 +492,11 @@ z_{N+1})\)</span>，进行概率估计。无监督学习的过程可以用图2�
 Image1: 无监督学习的过程
 </div>
 </center>
-<h3 id="强化学习">强化学习</h3>
+<h4 id="强化学习">强化学习</h4>
 <p>  强化学习其实要强调一个互动，互动是指的是智能系统与环境之间的一个连续互动，通过这个互动，学习一个最优的行为策略。</p>
 <ul>
 <li><strong>强化学习的过程:</strong> 在每一步<span class="math inline">\(t\)</span>，智能系统从环境中观测到一个状态<span class="math inline">\((state)s_t\)</span>，与一个奖励<span class="math inline">\((reward)r_t\)</span>，采取一个动作<span class="math inline">\((action)
-a_t\)</span>。环境根据智能系统选择的动作，决定下一步<span class="math inline">\(t+1\)</span>的状态<span class="math inline">\(s_{t+1}\)</span>与奖励<span class="math inline">\(r_{t+1}\)</span>。要学习的策略表示为给定的状态下采取的动作。智能系统的目标不是短期奖励的最大化，而是长期累积奖励的最大化。强化学习过程中，智能系统不断试错<span class="math inline">\((trial and
+a_t\)</span>。环境根据智能系统选择的动作，决定下一步<span class="math inline">\(t+1\)</span>的状态<span class="math inline">\(s_{t+1}\)</span>与奖励<span class="math inline">\(r_{t+1}\)</span>。要学习的策略表示为给定的状态下采取的动作。智能系统的目标不是短期奖励的最大化，而是长期累积奖励的最大化。强化学习过程中，智能系统不断试错<span class="math inline">\((trial \space\ and \space
 error)\)</span>，以达到学习最优策略的目的。强化学习的过程可以用图3来描述。</li>
 </ul>
 <center>
@@ -505,6 +505,132 @@ error)\)</span>，以达到学习最优策略的目的。强化学习的过程�
 Image1: 强化学习的过程
 </div>
 </center>
+<h2 id="机器学习方法的三要素">机器学习方法的三要素</h2>
+<p>  机器学习方法都是由模型、策略和算法构成，即机器学习方法由三要素构成，可以简单地表示为：<br>
+<span class="math display">\[方法(Method)=模型(Model)+策略(Strategy)+算法(Algorithm)\]</span></p>
+<p>  下面主要介绍监督学习的三要素。</p>
+<h3 id="监督学习的三要素">监督学习的三要素</h3>
+<h4 id="模型">模型</h4>
+<p>  对于监督学习，模型主要可以表示成两种形式，一种是条件概率形式<span class="math inline">\(P(y \vert x)\)</span>，另一种是决策函数的形式<span class="math inline">\(y=f(x)\)</span>。<br>
+  如果模型是由参数向量<span class="math inline">\(\theta\)</span>决定的，我们称所有可能的参数向量组成的空间为参数空间<span class="math inline">\(\Theta\)</span>，那么这个假设空间<span class="math inline">\(\mathcal{H}\)</span>就应该是由参数空间<span class="math inline">\(\Theta\)</span>决定的了。<br>
+  (1) 当用决策函数的形式表示模型时，定义：</p>
+<ul>
+<li><strong>决策函数:</strong> <span class="math inline">\(Y =
+f(X)\)</span></li>
+<li><strong>假设空间:</strong> 决策函数的集合<span class="math inline">\(\mathcal{H} = \{f \vert Y=f(X) \}\)</span>.<br>
+</li>
+<li><strong>函数族:</strong> 假设空间<span class="math inline">\(\mathcal{H}\)</span>是由一个参数向量<span class="math inline">\(\theta\)</span>决定的函数族构成: <span class="math inline">\(\mathcal{H}=\{f \vert Y=f_{\theta}(X),\theta \in
+\mathbb{R}^{n}\}\)</span>.<br>
+</li>
+<li><strong>参数空间:</strong> <span class="math inline">\(\Theta =
+\{\theta \vert \theta \in \mathbb{R}^{n} \}\)</span>.</li>
+</ul>
+<p>  以线性回归问题为例，这个问题的模型可以表示为决策函数的形式。</p>
+<ul>
+<li><strong>决策函数:</strong> <span class="math inline">\(f(x) =
+w^{T}x+b, x \in \mathbb{R}^{n},w \in \mathbb{R}^{n}, b \in
+\mathbb{R}\)</span>.<br>
+</li>
+<li><strong>假设空间:</strong> <span class="math inline">\(\mathcal{H}=\{f \vert y = f_{\theta}(x),
+\theta=(w,b), \theta \in \mathbb{R}^{n+1}\}\)</span><br>
+</li>
+<li><strong>参数空间:</strong> <span class="math inline">\(\Theta =
+\{\theta \vert \theta = (w,b),\theta \in
+\mathbb{R}^{n+1}\}\)</span>.</li>
+</ul>
+<p>  (2) 当用条件概率的形式表示模型时，定义:</p>
+<ul>
+<li><strong>条件概率分布:</strong> <span class="math inline">\(P(Y \vert
+X)\)</span>.<br>
+</li>
+<li><strong>假设空间:</strong> 条件概率分布的集合<span class="math inline">\(\mathcal{H}=\{P \vert P(Y \vert
+X)\}\)</span>.<br>
+</li>
+<li><strong>分布族:</strong> 假设空间<span class="math inline">\(\mathcal{H}\)</span>是由一个参数向量<span class="math inline">\(\theta\)</span>决定的分布族构成: <span class="math inline">\(\mathcal{H}=\{P\vert P_{\theta}(Y\vert X), \theta
+\in \mathbb{R}^{n}\}\)</span>.<br>
+</li>
+<li><strong>参数空间:</strong> <span class="math inline">\(\Theta =
+\{\theta \vert \theta \in \mathbb{R}^{n}\}\)</span>.</li>
+</ul>
+<p>  以二项Logistic回归为例，这个问题的模型可以用条件概率分布的形式表示。</p>
+<ul>
+<li><strong>条件概率分布:</strong></li>
+</ul>
+<p><span class="math display">\[P(Y=1 \vert x) =
+\frac{exp(wx+b)}{1+exp(wx+b)}\]</span></p>
+<p><span class="math display">\[P(Y=0 \vert x) =
+\frac{1}{1+exp(wx+b)}\]</span></p>
+<p>  其中，<span class="math inline">\(x \in \mathbb{R}^{n}, Y \in
+\{0,1\}, w \in \mathbb{R}^{n}, b \in \mathbb{R}\)</span>.</p>
+<ul>
+<li><strong>假设空间:</strong> <span class="math inline">\(\mathcal{H} =
+\{P \vert P_{\theta}(Y\vert X), \theta = (w,b), \theta \in
+\mathbb{R}^{n+1} \}\)</span>.<br>
+</li>
+<li><strong>参数空间:</strong> <span class="math inline">\(\Theta =
+\{\theta \vert \theta = (w,b), \theta \in \mathbb{R}^{n+1}
+\}\)</span>.</li>
+</ul>
+<h4 id="策略">策略</h4>
+<p>  有了模型的假设空间，机器学习接着需要考虑的是按照什么样的准则学习或者选择最优模型。机器学习的目标在于从假设空间中选取最优模型。所谓策略其实就是一种学习准则，用来选择最优模型的。想要选择模型，那么一定要知道如何度量模型的好坏。所以，这里先要引入几个概念。</p>
+<ul>
+<li><strong>损失函数(Loss function):</strong>
+度量模型一次预测的好坏，记作<span class="math inline">\(L(Y,f(X))\)</span>.几种常用的损失函数如下：</li>
+</ul>
+<p>  (1)<strong>0-1损失函数:</strong> 主要用于分类问题。</p>
+<p><span class="math display">\[L(Y,f(X))= \left \{
+\begin{array}{rcl}
+1, &amp; {Y \neq f(X)}\\
+0,&amp; {Y = f(X)}\\
+\end{array} \right.\]</span></p>
+<p>  (2)<strong>平方损失函数:</strong> 主要用于回归问题。</p>
+<p><span class="math display">\[L(Y,f(X))=(Y-f(X))^2\]</span></p>
+<p>  (3)<strong>绝对损失函数:</strong> 主要用于回归问题。</p>
+<p><span class="math display">\[L(Y,f(X))= \vert Y-f(X)
+\vert\]</span></p>
+<p>  (4) <strong>对数损失函数:</strong> 主要针对概率模型。</p>
+<p><span class="math display">\[L(Y,P(Y \vert X))= - \log P(Y \vert
+X)\]</span></p>
+<p>  损失函数越小说明模型的预测值与真实值越接近，模型的预测效果越好。但仅衡量一次预测的好坏是不够的，我们更想要知道模型在整个联合分布上的表现，这时就需要风险函数。</p>
+<ul>
+<li><strong>期望风险(Expexted risk):</strong>
+度量平均意义下模型预测的好坏。</li>
+</ul>
+<p><span class="math display">\[R_{exp}(f)=E_{P}[L(Y,f(X))]=\int_{\mathcal{X}
+\times \mathcal{Y}}L(y,f(x))P(x,y)dxdy\]</span></p>
+<p>  理论上我们需要计算期望风险来评估模型的好坏，但在实际中联合概率分布<span class="math inline">\(P(X,Y)\)</span>一般是未知的，期望风险无法直接计算，因此我们引入经验风险用于估计风险函数.</p>
+<ul>
+<li><strong>经验风险(Empirical risk):</strong>
+模型关于训练集的平均损失.</li>
+</ul>
+<p><span class="math display">\[R_{emp}(f)=\frac{1}{N}\sum_{i=1}^{N}L(y_i,f(x_i))\]</span></p>
+<p>  其中，训练集<span class="math inline">\(T=\{(x_1,y_1),(x_2,y_2),\dots,(x_N,y_N)\}\)</span>.</p>
+<p>  期望风险<span class="math inline">\(R_{exp}(f)\)</span>是模型关于联合分布的期望损失，经验风险<span class="math inline">\(R_{emp}(f)\)</span>是模型关于训练集的平均损失。我们知道训练集中的样本<span class="math inline">\((x_i,y_i)\)</span>都是独立同分布的，其损失函数的期望<span class="math inline">\(L(Y,f(X))\)</span>存在，由大数定律可知，当<span class="math inline">\(n \rightarrow \infty\)</span>时，有：</p>
+<p><span class="math display">\[R_{emp}(f)=\frac{1}{N}\sum_{i=1}^{N}L(y_i,f(x_i))
+\rightarrow R_{exp}(f)=E_{P}[L(Y,f(X))]\]</span></p>
+<p>  可是在现实生活中，样本容量<span class="math inline">\(N\)</span>一般是有限的，有的时候甚至会很小。因此，仅仅用经验风险来估计期望风险效果并不理想，需要对其进行一定的矫正。这里就涉及到监督学习的两个基本策略，一个是经验风险最小化策略，一个是结构风险最小化策略。</p>
+<ul>
+<li><strong>经验风险最小化策略:</strong> 求解使得经验风险<span class="math inline">\(R_{emp}(f)\)</span>最小的模型<span class="math inline">\(f^{*}\)</span>，模型<span class="math inline">\(f^{*}\)</span>即为最优的模型。根据这一策略，求解最优模型的问题就转化为求解最优化问题：</li>
+</ul>
+<p><span class="math display">\[\min_{f \in \mathcal{H}}
+\frac{1}{N}\sum_{i=1}^{N}L(y_i,f(x_i))\]</span></p>
+<p>  当样本容量足够大时，经验风险最小化能保证有很好的学习效果。但是，当样本容量很小时，经验风险最小化学习的效果就未必很好，会产生“过拟合”(over-fitting)现象。<br>
+  结构风险最小化策略是为了防止过拟合现象而提出的策略。结构风险在经验风险上加上表示模型复杂度的正则化项。</p>
+<ul>
+<li><strong>结构风险(Structural risk):</strong></li>
+</ul>
+<p><span class="math display">\[R_{srm}(f)=\frac{1}{N}\sum_{i=1}^{N}L(y_i,f(x_i))+\lambda
+J(f)\]</span></p>
+<p>  其中，正则化项<span class="math inline">\(J(f)\)</span>为模型复杂度，是定义在假设空间<span class="math inline">\(\mathcal{H}\)</span>上的泛函。模型<span class="math inline">\(f\)</span>越复杂，正则化项<span class="math inline">\(J(f)\)</span>就越大，反之，模型<span class="math inline">\(f\)</span>越简单，正则化项<span class="math inline">\(J(f)\)</span>就越小。<span class="math inline">\(\lambda &gt;
+0\)</span>是用于权衡经验风险与模型复杂度的系数。</p>
+<ul>
+<li><strong>结构风险最小化策略:</strong> 求解使得结构风险<span class="math inline">\(R_{srm}(f)\)</span>最小的模型<span class="math inline">\(f^{*}\)</span>，模型<span class="math inline">\(f^{*}\)</span>即为最优模型。这一策略同样可以转化为求解最优化问题：</li>
+</ul>
+<p><span class="math display">\[\min_{f \in \mathcal{H}}
+\frac{1}{N}\sum_{i=1}^{N}L(y_i,f(x_i))+\lambda J(f)\]</span></p>
+<p>  关于监督学习的策略，追根究底，就是选取一个目标函数，可以是经验风险，或者是结构风险，然后通过优化这个目标函数，达到学习模型的目的。</p>
+<h4 id="算法">算法</h4>
+<p>  在假设空间里面，根据策略去选择最优模型，需要一个具体的操作方案，操作方案也就是算法，是用来求解最优模型的。如果这个最优模型存在显式解析解，那么简单了，直接把这个结果写出来即可。但是往往这个显式解是不存在的，所以需要一定的数值计算方法，比如梯度下降法。</p>
 
                 
               </div>
