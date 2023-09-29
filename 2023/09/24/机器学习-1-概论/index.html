@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s2.loli.net/2023/09/24/IPRyoQXnsizEDMh.jpg">
 <meta property="article:published_time" content="2023-09-24T12:34:29.000Z">
-<meta property="article:modified_time" content="2023-09-28T13:38:50.605Z">
+<meta property="article:modified_time" content="2023-09-29T15:36:39.949Z">
 <meta property="article:author" content="喵老师">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://s2.loli.net/2023/09/24/IPRyoQXnsizEDMh.jpg">
@@ -85,9 +85,9 @@
 
 
   
-<meta name="generator" content="Hexo 6.3.0">
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="喵老师's Blog" type="application/atom+xml">
+
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
-<link rel="alternate" href="/atom.xml" title="喵老师's Blog" type="application/atom+xml">
 </head>
 
 
@@ -226,7 +226,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          7.2k 字
+          9.4k 字
         
       </span>
     
@@ -237,7 +237,7 @@
         
         
         
-          60 分钟
+          79 分钟
         
       </span>
     
@@ -489,7 +489,7 @@ z_{N+1})\)</span>，进行概率估计。无监督学习的过程可以用图2�
 <center>
 <img src="https://s2.loli.net/2023/09/27/itEGIlOMS9mWbhQ.jpg" srcset="/img/loading.gif" lazyload width="60%" height="60%">
 <div data-align="center">
-Image1: 无监督学习的过程
+Image2: 无监督学习的过程
 </div>
 </center>
 <h4 id="强化学习">强化学习</h4>
@@ -502,7 +502,7 @@ error)\)</span>，以达到学习最优策略的目的。强化学习的过程�
 <center>
 <img src="https://s2.loli.net/2023/09/27/x4InRw56OMVubzt.jpg" srcset="/img/loading.gif" lazyload width="60%" height="60%">
 <div data-align="center">
-Image1: 强化学习的过程
+Image3: 强化学习的过程
 </div>
 </center>
 <h2 id="机器学习方法的三要素">机器学习方法的三要素</h2>
@@ -601,7 +601,7 @@ X)\]</span></p>
 <p>  理论上我们需要计算期望风险来评估模型的好坏，但在实际中联合概率分布<span class="math inline">\(P(X,Y)\)</span>一般是未知的，期望风险无法直接计算，因此我们引入经验风险用于估计风险函数.</p>
 <ul>
 <li><strong>经验风险(Empirical risk):</strong>
-模型关于训练集的平均损失.</li>
+模型关于数据集的平均损失.</li>
 </ul>
 <p><span class="math display">\[R_{emp}(f)=\frac{1}{N}\sum_{i=1}^{N}L(y_i,f(x_i))\]</span></p>
 <p>  其中，训练集<span class="math inline">\(T=\{(x_1,y_1),(x_2,y_2),\dots,(x_N,y_N)\}\)</span>.</p>
@@ -631,6 +631,47 @@ J(f)\]</span></p>
 <p>  关于监督学习的策略，追根究底，就是选取一个目标函数，可以是经验风险，或者是结构风险，然后通过优化这个目标函数，达到学习模型的目的。</p>
 <h4 id="算法">算法</h4>
 <p>  在假设空间里面，根据策略去选择最优模型，需要一个具体的操作方案，操作方案也就是算法，是用来求解最优模型的。如果这个最优模型存在显式解析解，那么简单了，直接把这个结果写出来即可。但是往往这个显式解是不存在的，所以需要一定的数值计算方法，比如梯度下降法。</p>
+<h2 id="模型评估与模型选择">模型评估与模型选择</h2>
+<h3 id="模型评估">模型评估</h3>
+<p>  在通过策略训练完模型后，我们需要评估得到的模型在已知数据和未知数据上的预测效果。我们称模型在训练集上的预测误差为训练误差，在测试集上的误差为测试误差。</p>
+<h4 id="训练误差">训练误差</h4>
+<p>  假设我们定义完假设空间<span class="math inline">\(\mathcal{H}\)</span>后，通过策略与算法学习到的模型为:<br>
+<span class="math display">\[Y = \hat{f(X)}\]</span></p>
+<p>  训练数据集为：</p>
+<p><span class="math display">\[T_{train}=\{(x_1,y_1),(x_2,y_2),\dots,(x_{N_{1}}.y_{N_{1}})\}\]</span></p>
+<p>  其中<span class="math inline">\(N_1\)</span>表示训练样本容量。由前文的概念可知，我们可以使用模型在测试集上的经验风险<span class="math inline">\(R_{emp}\)</span>来表示训练误差：</p>
+<p><span class="math display">\[e_{train}(\hat{f})=\frac{1}{N_1}\sum_{i=1}^{N_1}L(y_i,\hat{f}(x_i))\]</span></p>
+<p>  训练误差<span class="math inline">\(e_{train}\)</span>表示模型<span class="math inline">\(\hat{f}\)</span>在训练集上预测效果的好坏，训练误差越小，说明模型在训练集上的预测效果越好。然而，仅仅获得模型对已知数据的预测效果并不足以能够正确评价模型性能，我们还需要评估模型对未知数据的预测效果，这就需要计算模型在测试集上的预测误差，即测试误差。</p>
+<h4 id="测试误差">测试误差</h4>
+<p>  若测试数据集为：</p>
+<p><span class="math display">\[T_{test}=\{(x_1,y_1),(x_2,y_2),\dots,(x_{N_{2}}.y_{N_{2}})\}\]</span></p>
+<p>  其中<span class="math inline">\(N_2\)</span>表示测试样本容量。同样使用模型在测试集上的经验风险<span class="math inline">\(R_{emp}\)</span>来表示测试误差：</p>
+<p><span class="math display">\[e_{test}(\hat{f})=\frac{1}{N_2}\sum_{i=1}^{N_2}L(y_i,\hat{f}(x_i))\]</span></p>
+<p>  测试误差<span class="math inline">\(e_{test}\)</span>表示模型<span class="math inline">\(\hat{f}\)</span>在测试集上的预测效果的好坏，测试误差越小，说明模型在测试集上的预测效果越好。训练误差反映了学习方法对未知的测试数据集的预测能力，是评估模型性能的重要指标。通常，我们将学习方法对未知数据的预测能力称为<strong>泛化能力(Generalization
+ability)</strong>。</p>
+<h3 id="模型选择">模型选择</h3>
+<p>  在得到模型的训练误差和测试误差后，我们便需要据此评估模型的性能，选择对实际问题性能最出众的模型。最理想的情况是，我们得到的模型在测试集和训练集上的误差都较小，这样我们可以认为模型对于该问题的效果是较好的。但在实际情况中，我们经常会发现模型在训练集上的误差较小，而在测试集上的误差较大，这表明模型的泛化能力交叉，我们称这样的现象为<strong>过拟合(Over-fitting)</strong>。</p>
+<h4 id="过拟合">过拟合</h4>
+<p>  过拟合是指学习时选择的模型所包含的参数过多，模型复杂度过高，以至于出现这一模型对已知数据预测得很好，但对未知数据预测得很差的现象。<br>
+  模型选择的目的实际上就是避免过拟合现象并提高模型的泛化能力。这里我们通过一个多项式函数拟合的问题来说明过拟合与模型选择。</p>
+<h4 id="关于模型选择的实例多项式拟合问题">关于模型选择的实例——多项式拟合问题</h4>
+<p>  假设输入空间<span class="math inline">\(\mathcal{X}=(0,1)\)</span>到输出空间<span class="math inline">\(\mathcal{Y}=[-1,1]\)</span>的真实映射为:</p>
+<p><span class="math display">\[Y = \sin(2\pi X)\]</span></p>
+<p>  由于误差的影响，抽取的样本为真实值加上一个随机误差，我们假设这个随机误差满足均值为0，方差为0.1的正态分布：</p>
+<p><span class="math display">\[y=\sin(2 \pi x)+\varepsilon, \varepsilon
+\sim N(0,0.1)\]</span></p>
+<p>  我们的样本数据集为：</p>
+<p><span class="math display">\[T=\{(x_1,y_1),(x_2,y_2),\dots,(x_N,y_N)\}\]</span></p>
+<p>  其中，样本容量<span class="math inline">\(N=30\)</span>.将样本数据集划分为样本容量为20的训练数据集与样本容量为10的测试数据集。以下给出了生成数成以及测试数据的散点图的代码。</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd<br><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt<br><span class="hljs-keyword">import</span> math<br>%matplotlib inline<br><br><span class="hljs-comment"># Data Generation</span><br>x = np.random.random((<span class="hljs-number">30</span>,)) <span class="hljs-comment"># x belong to (0,1)</span><br>r = np.random.normal(<span class="hljs-number">0</span>,<span class="hljs-number">0.1</span>,<span class="hljs-number">30</span>) <span class="hljs-comment"># r ~ N(0,0.1)</span><br>y = np.sin(<span class="hljs-number">2</span>*(math.pi)*x)+r<br>data = {<span class="hljs-string">"y"</span>:y,<span class="hljs-string">"x"</span>:x}<br>Data = pd.DataFrame(data,columns=[<span class="hljs-string">"y"</span>,<span class="hljs-string">"x"</span>])<br>train_data = Data[:<span class="hljs-number">20</span>] <span class="hljs-comment"># Train data</span><br>test_data = Data[<span class="hljs-number">20</span>:] <span class="hljs-comment"># Test data</span><br><br><span class="hljs-comment"># Tradin data scatter plot</span><br>plt.scatter(train_data[<span class="hljs-string">"x"</span>],train_data[<span class="hljs-string">"y"</span>],marker=<span class="hljs-string">"o"</span>,c=<span class="hljs-string">"black"</span>,label=<span class="hljs-string">"noise"</span>)<br><span class="hljs-comment"># Real line</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">real_func</span>(<span class="hljs-params">x</span>):<br>    <span class="hljs-keyword">return</span> np.sin(<span class="hljs-number">2</span>*np.pi*x)<br>x_points = np.linspace(<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1000</span>)<br>plt.plot(x_points,real_func(x_points),label=<span class="hljs-string">"real curve"</span>)<br>plt.xlabel(<span class="hljs-string">"x"</span>)<br>plt.ylabel(<span class="hljs-string">"y"</span>)<br>plt.legend()<br></code></pre></td></tr></tbody></table></figure>
+  得到的散点图如下图4所示：<br>
+
+<center>
+<img src="https://s2.loli.net/2023/09/29/2id8mFvbW1UEQay.png" srcset="/img/loading.gif" lazyload width="60%" height="60%">
+<div data-align="center">
+Image4: 训练数据散点图
+</div>
+</center>
 
                 
               </div>
