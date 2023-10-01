@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s2.loli.net/2023/09/24/IPRyoQXnsizEDMh.jpg">
 <meta property="article:published_time" content="2023-09-24T12:34:29.000Z">
-<meta property="article:modified_time" content="2023-09-30T16:00:01.176Z">
+<meta property="article:modified_time" content="2023-10-01T05:40:40.499Z">
 <meta property="article:author" content="喵老师">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://s2.loli.net/2023/09/24/IPRyoQXnsizEDMh.jpg">
@@ -226,7 +226,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          11k 字
+          14k 字
         
       </span>
     
@@ -237,7 +237,7 @@
         
         
         
-          93 分钟
+          121 分钟
         
       </span>
     
@@ -446,7 +446,19 @@ Image1: 监督学习的过程
 </center>
 <h4 id="无监督学习">无监督学习</h4>
 <p>  无监督学习中的大部分概率与监督学习中的一致，不同点主要在于以下几个方面：</p>
-<center>
+<style>
+.center 
+{
+  width: auto;
+  display: table;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+<p align="center">
+<font face="黑体" size="2.">表1 监督学习与无监督学习的区别</font>
+</p>
+<div class="center">
 <table>
 <thead>
 <tr class="header">
@@ -478,7 +490,7 @@ Image1: 监督学习的过程
 </tr>
 </tbody>
 </table>
-</center>
+</div>
 <ul>
 <li><strong>无监督学习的过程:</strong>
 和监督学习类似，无监督学习由学习系统与预测系统构成。在学习过程中，学习系统从训练数据集学习，得到一个最优模型，表示为<span class="math inline">\(z=\hat{g}(x)\)</span>，条件概率分布<span class="math inline">\(\hat{P}(z\vert x)\)</span>或者条件概率分布<span class="math inline">\(\hat{P}(x \vert
@@ -719,6 +731,27 @@ w}=X^TXw-X^Ty=0 \]</span></p>
 <p><span class="math display">\[e_{train}(\hat{f}_M)=\frac{1}{N_1}\sum_{i=1}^{N_1}L(y_i,\hat{f}_M(x_i,\hat{w}))\]</span></p>
 <p><span class="math display">\[e_{test}(\hat{f}_M)=\frac{1}{N_2}\sum_{i=1}^{N_2}L(y_i,\hat{f}_M(x_i,\hat{w}))\]</span></p>
 <p>  其中，<span class="math inline">\(N_2=10\)</span>，改变多项式的次数<span class="math inline">\(M\)</span>可以得到不同的模型形式，进而得到不同的<span class="math inline">\(e_{train}\)</span>和<span class="math inline">\(e_{test}\)</span>，我们可以通过比较这两个指标选择最优的多项式次数。下面是多项式回归的代码实现。</p>
+<p>  通过以下这段代码中的<code>ployreg()</code>函数，我们可以计算多项式回归的参数向量：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># Ploy-regression</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">ployreg</span>(<span class="hljs-params">M</span>):  <br>    <span class="hljs-keyword">global</span> train_data<br>    x = train_data[<span class="hljs-string">"x"</span>].values<br>    X = np.ones((<span class="hljs-built_in">len</span>(x),M+<span class="hljs-number">1</span>))  <br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(M):  <br>        X[:,i+<span class="hljs-number">1</span>]=np.power(x,i+<span class="hljs-number">1</span>)<br>    y = train_data[<span class="hljs-string">"y"</span>].values<br>    X_T = np.transpose(X)<br>    X_TX = np.dot(X_T,X)<br>    w = np.dot(np.linalg.inv(X_TX),np.dot(X_T,y))<br>    <span class="hljs-keyword">return</span> w.<span class="hljs-built_in">round</span>(<span class="hljs-number">4</span>)<br>```  <br>&amp;emsp;&amp;emsp;当我们设置多项式的次数$M=<span class="hljs-number">2</span>$时，得到的最优多项式函数为：  <br><br>$$\hat{f}(x)=<span class="hljs-number">0.6325</span>-<span class="hljs-number">1.0391</span>x-<span class="hljs-number">0.5826</span>x^<span class="hljs-number">2</span>$$  <br><br>&amp;emsp;&amp;emsp;在得到最优模型后，我们可以计算模型在训练集与测试集上的误差。通过设置不同的多项式次数$M$，我们可以比较不同模型的性能，从而选择最优的模型形式。以下代码中的`calerror()`函数便是用于计算模型在训练集与测试集上的误差。  <br><br>```python<br><span class="hljs-comment"># calculate error</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">calerror</span>(<span class="hljs-params">M</span>):<br>    <span class="hljs-keyword">global</span> train_data,test_data<br>    error = {}<br>    w = ployreg(M)<br>    <span class="hljs-comment"># train error</span><br>    x = train_data[<span class="hljs-string">"x"</span>].values<br>    X = np.ones((<span class="hljs-built_in">len</span>(x),M+<span class="hljs-number">1</span>))  <br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(M):  <br>        X[:,i+<span class="hljs-number">1</span>]=np.power(x,i+<span class="hljs-number">1</span>)<br>    y = train_data[<span class="hljs-string">"y"</span>].values<br>    e = np.dot(X,w)-y<br>    train_error = (np.dot(np.transpose(e),e))/<span class="hljs-built_in">len</span>(x)<br>    <span class="hljs-comment"># test error</span><br>    x = test_data[<span class="hljs-string">"x"</span>].values<br>    X = np.ones((<span class="hljs-built_in">len</span>(x),M+<span class="hljs-number">1</span>))  <br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(M):  <br>        X[:,i+<span class="hljs-number">1</span>]=np.power(x,i+<span class="hljs-number">1</span>)<br>    y = test_data[<span class="hljs-string">"y"</span>].values<br>    e = np.dot(X,w)-y<br>    test_error = (np.dot(np.transpose(e),e))/<span class="hljs-built_in">len</span>(x)<br>    error[<span class="hljs-string">"train error"</span>] = train_error.<span class="hljs-built_in">round</span>(<span class="hljs-number">4</span>)<br>    error[<span class="hljs-string">"test error"</span>] = test_error.<span class="hljs-built_in">round</span>(<span class="hljs-number">4</span>)<br>    <span class="hljs-keyword">return</span> error<br>```  <br><br>&amp;emsp;&amp;emsp;设置多项式次数为$M \<span class="hljs-keyword">in</span> [<span class="hljs-number">0</span>,<span class="hljs-number">9</span>]$，我们可以得到下表<span class="hljs-number">2</span>所示的计算结果：  <br><br>&lt;style&gt;<br>.center <br>{<br>  width: auto;<br>  display: table;<br>  margin-left: auto;<br>  margin-right: auto;<br>}<br>&lt;/style&gt;<br>&lt;p align=<span class="hljs-string">"center"</span>&gt;&lt;font face=<span class="hljs-string">"黑体"</span> size=<span class="hljs-number">2.</span>&gt;表<span class="hljs-number">2</span> 模型误差&lt;/font&gt;&lt;/p&gt;<br>&lt;div <span class="hljs-keyword">class</span>=<span class="hljs-string">"center"</span>&gt;<br><br>|   M     | Train error | Test error |<br>|  :---:  |  :------:   |  :--:      |  <br>|    <span class="hljs-number">0</span>    |  <span class="hljs-number">0.413</span>      | <span class="hljs-number">0.562</span>      |  <br>|    <span class="hljs-number">1</span>    |  <span class="hljs-number">0.1392</span>     | <span class="hljs-number">0.2668</span>     |<br>|    <span class="hljs-number">2</span>    |  <span class="hljs-number">0.1372</span>     | <span class="hljs-number">0.2398</span>     |<br>|    <span class="hljs-number">3</span>    |  <span class="hljs-number">0.0144</span>     | <span class="hljs-number">0.0182</span>     |<br>|    <span class="hljs-number">4</span>    |  <span class="hljs-number">0.0137</span>     | <span class="hljs-number">0.0151</span>     |<br>|    <span class="hljs-number">5</span>    |  <span class="hljs-number">0.0098</span>     | <span class="hljs-number">0.0065</span>     |<br>|    <span class="hljs-number">6</span>    |  <span class="hljs-number">0.0098</span>     | <span class="hljs-number">0.0065</span>     |<br>|    <span class="hljs-number">7</span>    |  <span class="hljs-number">0.0087</span>     | <span class="hljs-number">0.0074</span>     |<br>|    <span class="hljs-number">8</span>    |  <span class="hljs-number">0.0084</span>     | <span class="hljs-number">0.0121</span>     |<br>|    <span class="hljs-number">9</span>    |  <span class="hljs-number">0.0049</span>     | <span class="hljs-number">0.0388</span>     |<br>&lt;/div&gt;  <br><br>&amp;emsp;&amp;emsp;为了更直观的观察模型误差的变化，我们可以利用上表的数据绘制误差曲线图。通过以下代码中的`errorplot()`函数来绘制图像：  <br><br>```python<br><span class="hljs-comment"># learning curve</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">errorplot</span>():<br>    train_error = []<br>    test_error = []<br>    <span class="hljs-keyword">for</span> M <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">10</span>):<br>        error = calerror(M)<br>        train_error.append(error[<span class="hljs-string">'train error'</span>])<br>        test_error.append(error[<span class="hljs-string">'test error'</span>])<br>    M = <span class="hljs-built_in">range</span>(<span class="hljs-number">10</span>)<br>    <span class="hljs-comment"># train error curve</span><br>    plt.plot(M,train_error,c=<span class="hljs-string">"blue"</span>,label=<span class="hljs-string">"train error"</span>)<br>    <span class="hljs-comment"># test error curve</span><br>    plt.plot(M,test_error,c=<span class="hljs-string">"green"</span>,label=<span class="hljs-string">"test error"</span>)<br>    plt.xlabel(<span class="hljs-string">"M"</span>)<br>    plt.ylabel(<span class="hljs-string">"error"</span>)<br>    plt.legend()<br></code></pre></td></tr></tbody></table></figure>
+<p>  误差图如下图5所示：</p>
+<center>
+<img src="https://s2.loli.net/2023/10/01/yCiIKm39GYcWXFO.png" srcset="/img/loading.gif" lazyload width="60%" height="60%">
+<div data-align="center">
+Image5: 模型误差
+</div>
+</center>
+<p>  结合表1和图5，我们可以发现随着多项式次数<span class="math inline">\(M\)</span>的增加，训练误差是逐渐减小的，而测试误差会先减小后增大。我们知道模型的复杂度随着<span class="math inline">\(M\)</span>的增加而增加，实际上，当<span class="math inline">\(M\)</span>增加到7之后，虽然训练误差仍在下降，但测试误差不降反升，此时模型已经出现了过拟合现象，模型的泛化能力下降。当<span class="math inline">\(M=5\)</span>或<span class="math inline">\(M=6\)</span>时，模型的训练误差与测试误差均达到较低水平，此时模型达到最优。在同样的误差下，我们应当选择复杂度较小的模型，以降低预测时的计算量，因此我们选择<span class="math inline">\(M=5\)</span>时的模型作为该问题的最优模型：</p>
+<p><span class="math display">\[\hat{f}(x)=0.0320+4.6026x+15.8081x^2-107.3805x^3+142.5954x^4-55.7287x^5\]</span></p>
+<p>  通过以下代码中的<code>regcurve()</code>函数我们可以画出相应的多项式函数的曲线：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># draw regression curve</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">regcurve</span>(<span class="hljs-params">M</span>):<br>    <span class="hljs-keyword">global</span> train_data<br>    <span class="hljs-comment"># Tradin data scatter plot</span><br>    plt.scatter(train_data[<span class="hljs-string">"x"</span>],train_data[<span class="hljs-string">"y"</span>],marker=<span class="hljs-string">"o"</span>,c=<span class="hljs-string">"black"</span>,label=<span class="hljs-string">"train data"</span>)<br>    <span class="hljs-comment"># real line</span><br>    x_points = np.linspace(<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1000</span>)<br>    plt.plot(x_points,real_func(x_points),label=<span class="hljs-string">"real curve"</span>)<br>    <span class="hljs-comment"># regression curve</span><br>    w = ployreg(M)<br>    X_points = np.ones((<span class="hljs-built_in">len</span>(x_points),M+<span class="hljs-number">1</span>))<br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(M):<br>        X_points[:,i+<span class="hljs-number">1</span>] = np.power(x_points,i+<span class="hljs-number">1</span>)<br>    y_points = np.dot(X_points,w)<br>    plt.plot(x_points,y_points,c=<span class="hljs-string">"red"</span>,label=<span class="hljs-string">"regression curve"</span>)<br>    plt.xlabel(<span class="hljs-string">"x"</span>)<br>    plt.ylabel(<span class="hljs-string">"y"</span>)<br>    plt.title(<span class="hljs-string">f"M=<span class="hljs-subst">{M}</span>"</span>)<br>    plt.legend()<br></code></pre></td></tr></tbody></table></figure>
+<p>  画出<span class="math inline">\(M=0,1,5,9\)</span>时的拟合曲线的图像：</p>
+<center>
+<img src="https://s2.loli.net/2023/10/01/3zGbMkHDVx75t91.png" srcset="/img/loading.gif" lazyload width="80%" height="80%">
+<div data-align="center">
+Image6: 拟合曲线
+</div>
+</center>
+<p>  从图6可以看出，当<span class="math inline">\(M=0,1\)</span>时，模型过于简单，与真实曲线相差很大，模型误差也可以看出此时模型在训练集与测试集上的误差均较大，我们称模型出现了<strong>欠拟合</strong>现象。当<span class="math inline">\(M=5\)</span>时，拟合曲线与真实曲线几乎一致，且模型在训练集上的误差也很小，模型效果很好。当<span class="math inline">\(M=9\)</span>时，模型几乎能够预测所有的训练数据，模型的训练误差非常小，但拟合曲线与真实曲线相差较大，模型在测试集上的误差较大，泛化能力较差，此时模型出现了<strong>过拟合</strong>现象。</p>
 
                 
               </div>
