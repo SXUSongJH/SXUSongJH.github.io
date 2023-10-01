@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s2.loli.net/2023/07/26/tDhLZgxV4HaIizX.jpg">
 <meta property="article:published_time" content="2023-08-14T05:43:29.000Z">
-<meta property="article:modified_time" content="2023-08-15T17:32:44.757Z">
+<meta property="article:modified_time" content="2023-10-01T09:32:26.934Z">
 <meta property="article:author" content="喵老师">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://s2.loli.net/2023/07/26/tDhLZgxV4HaIizX.jpg">
@@ -458,7 +458,7 @@ Gradient Descent，SGD）优化算法。SGD
 <p>  设置我们在整个任务中所需要用到的参数：<br>
 </p><figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python">device = <span class="hljs-string">'cuda'</span> <span class="hljs-keyword">if</span> torch.cuda.is_available() <span class="hljs-keyword">else</span> <span class="hljs-string">'cpu'</span><br>config = {<br>    <span class="hljs-string">'seed'</span>: <span class="hljs-number">5201314</span>,      <span class="hljs-comment"># random seed</span><br>    <span class="hljs-string">'select_all'</span>: <span class="hljs-literal">True</span>,   <span class="hljs-comment"># Whether to use all features.</span><br>    <span class="hljs-string">'valid_ratio'</span>: <span class="hljs-number">0.2</span>,   <span class="hljs-comment"># validation_size = train_size * valid_ratio</span><br>    <span class="hljs-string">'n_epochs'</span>: <span class="hljs-number">3000</span>,     <span class="hljs-comment"># Number of epochs.            </span><br>    <span class="hljs-string">'batch_size'</span>: <span class="hljs-number">256</span>, <br>    <span class="hljs-string">'learning_rate'</span>: <span class="hljs-number">1e-5</span>,              <br>    <span class="hljs-string">'early_stop'</span>: <span class="hljs-number">400</span>,    <span class="hljs-comment"># If model has not improved for this many consecutive epochs, stop training.     </span><br>    <span class="hljs-string">'save_path'</span>: <span class="hljs-string">'./models/model.ckpt'</span>  <span class="hljs-comment"># Your model will be saved here.</span><br>}<br></code></pre></td></tr></tbody></table></figure><p></p>
 <h2 id="start-training">Start training!</h2>
-<p>  完事具备，开始训练我们的模型吧！<br>
+<p>  万事俱备，开始训练我们的模型吧！<br>
 </p><figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">model = My_Model(input_dim=x_train.shape[<span class="hljs-number">1</span>]).to(device) <span class="hljs-comment"># put your model and data on the same computation device.</span><br>trainer(train_loader, valid_loader, model, config, device)<br></code></pre></td></tr></tbody></table></figure><p></p>
 <p>  由于深度学习模型的参数量一般较大，训练可能会花费一定的时间，待训练完成后我们便得到了已更新好参数的神经网络模型。</p>
 <h2 id="plot-learning-curves-with-tensorboard">Plot learning curves with
