@@ -23,12 +23,12 @@
 <meta property="og:site_name" content="喵老师&#39;s Blog">
 <meta property="og:description" content="本节主要介绍机器学习的定义、分类、三要素；模型评估与模型选择；正则化与交叉验证；模型泛化能力等内容。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://s2.loli.net/2023/09/24/IPRyoQXnsizEDMh.jpg">
+<meta property="og:image" content="https://s2.loli.net/2023/07/26/mnOuBDrWQgCHMw3.jpg">
 <meta property="article:published_time" content="2023-09-24T12:34:29.000Z">
-<meta property="article:modified_time" content="2023-10-02T04:08:29.302Z">
+<meta property="article:modified_time" content="2023-10-02T12:57:10.932Z">
 <meta property="article:author" content="喵老师">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://s2.loli.net/2023/09/24/IPRyoQXnsizEDMh.jpg">
+<meta name="twitter:image" content="https://s2.loli.net/2023/07/26/mnOuBDrWQgCHMw3.jpg">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
@@ -226,7 +226,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          20k 字
+          25k 字
         
       </span>
     
@@ -237,7 +237,7 @@
         
         
         
-          168 分钟
+          205 分钟
         
       </span>
     
@@ -955,8 +955,11 @@ error bound)。泛化误差上界通常具有以下性质：</p>
 <span class="math inline">\(X_1,X_2,\dots,X_N\)</span>的均值，即<span class="math inline">\(\bar{X}=\frac{1}{N}\sum_{i=1}^{N}X_i\)</span>，则对
 <span class="math inline">\(\forall t &gt;
 0\)</span>，有以下不等式成立：</p>
-<p><span class="math display">\[P \left( | \bar{X}-E(\bar{X}) | \ge t
+<p><span class="math display">\[P \left(  \bar{X}-E(\bar{X})  \ge t
 \right) \leq exp \left( -\frac{2N^2t^2}{\sum_{i=1}^{N}(b_i-a_i)^2}
+\right)\]</span></p>
+<p><span class="math display">\[P \left( | \bar{X}-E(\bar{X}) | \ge t
+\right) \leq 2exp \left( -\frac{2N^2t^2}{\sum_{i=1}^{N}(b_i-a_i)^2}
 \right)\]</span></p>
 <p>  <span class="math inline">\(Hoeffding\)</span>不等式的证明放在附录中，感兴趣的读者可以自行阅读，下面我们来正式证明关于二分类问题的误差上界的定理。</p>
 <p><strong>证明</strong><br>
@@ -998,6 +1001,149 @@ L(y_i,f(x_i))\)</span>，由于样本<span class="math inline">\((x_i,y_i)\)</sp
 <p>  证毕.</p>
 <h2 id="附录">附录</h2>
 <h3 id="关于-hoeffding-不等式的证明">关于 <span class="math inline">\(Hoeffding\)</span> 不等式的证明</h3>
+<p>  <span class="math inline">\(Hoeffding\)</span> 不等式的证明需要使用
+<span class="math inline">\(Markov\)</span> 不等式与 <span class="math inline">\(Hoeffding\)</span>
+不等式引理，这里我们首先证明这两个结论。</p>
+<h4 id="markov-不等式"><span class="math inline">\(Markov\)</span>
+不等式</h4>
+<p><strong>结论</strong><br>
+  对任意非负随变量<span class="math inline">\(X\)</span>，<span class="math inline">\(\varepsilon &gt; 0\)</span>，有：</p>
+<p><span class="math display">\[P(X \ge \varepsilon) \leq
+\frac{E(X)}{\varepsilon}\]</span></p>
+<p><strong>证明:</strong><br>
+  设随机变量<span class="math inline">\(X\)</span>的概率密度函数为<span class="math inline">\(f(x)\)</span>，则有：</p>
+<p><span class="math display">\[E(X)=\int_{0}^{\infty}xf(x) \leq
+\int_{\varepsilon}^{\infty}xf(x)dx \leq \varepsilon
+\int_{\varepsilon}^{\infty}f(x)dx=\varepsilon P(X \ge
+\varepsilon)\]</span></p>
+<p><span class="math display">\[\Rightarrow P(X \ge \varepsilon) \leq
+\frac{E(X)}{\varepsilon}\]</span></p>
+<p>  证毕.</p>
+<h4 id="hoeffding-不等式引理"><span class="math inline">\(Hoeffding\)</span> 不等式引理</h4>
+<p><strong>结论</strong><br>
+  对任意随机变量<span class="math inline">\(X\)</span>，若其满足<span class="math inline">\(P(X \in [a,b])=1\)</span>和<span class="math inline">\(E(X)=0\)</span>，则有以下不等式成立：</p>
+<p><span class="math display">\[E(e^{sX}) \leq
+e^{\frac{s^2(b-a)^2}{8}}\]</span></p>
+<p><strong>证明:</strong><br>
+  设<span class="math inline">\(f(x)=e^{sx}\)</span>，且<span class="math inline">\(dom f = [a,b]\)</span>,<br>
+  <span class="math inline">\(\because f(x)\)</span>二阶可微，<span class="math inline">\(dom f\)</span>为凸集，且<span class="math inline">\(f^{''}(x)=s^2e^{sx} \ge 0\)</span>,<br>
+  由凸函数的二阶条件可知：<span class="math inline">\(f(x)\)</span>为凸函数,<br>
+  由凸函数的性质可知：对<span class="math inline">\(\forall X_1,X_2 \in
+[a,b]\)</span>，有以下不等式成立：</p>
+<p><span class="math display">\[f(\alpha X_1+\beta X_2) \leq \alpha
+f(X_1)+\beta f(X_2),\space \forall \alpha,\beta &gt; 0,
+\alpha+\beta=1\]</span></p>
+<p>  令<span class="math inline">\(\alpha=\frac{b-X}{b-a},
+\beta=\frac{X-a}{b-a}, X_1=a, X_2=b\)</span>，则有：</p>
+<p><span class="math display">\[f(\alpha X_1+\beta
+X_2)=f(X)=e^{sX}\]</span></p>
+<p><span class="math display">\[\alpha f(X_1)+\beta
+f(X_2)=\frac{b-X}{b-a}e^{sa}+\frac{X-a}{b-a}e^{sb}\]</span></p>
+<p>  由凸函数的性质的得：</p>
+<p><span class="math display">\[e^{sX} \leq
+\frac{b-X}{b-a}e^{sa}+\frac{X-a}{b-a}e^{sb}\]</span></p>
+<p>  两边同时对<span class="math inline">\(X\)</span>取期望，由<span class="math inline">\(E(X)=0\)</span>，得：</p>
+<p><span class="math display">\[0 \leq E(e^{sX}) \leq
+\frac{be^{sa}-ae^{sb}}{b-a}\]</span></p>
+<p>  现要证明以下不等式成立：</p>
+<p><span class="math display">\[\frac{be^{sa}-ae^{sb}}{b-a} \leq
+e^{\frac{s^2(b-a)^2}{8}}\]</span></p>
+<p>  两边同时取对数，则等价于证明以下不等式成立：</p>
+<p><span class="math display">\[\log \left( \frac{be^{sa}-ae^{sb}}{b-a}
+\right) \leq \frac{s^2(b-a)^2}{8}\]</span></p>
+<p>  令<span class="math inline">\(t=b-a\)</span>，则<span class="math inline">\(b=t+a\)</span>，则不等式可作如下变换：</p>
+<p><span class="math display">\[\begin{align*}
+    \log \left( \frac{be^{sa}-ae^{sb}}{b-a} \right) &amp;=
+\log(be^{sa}-ae^{sb})-\log(b-a) \\
+    &amp;= \log(te^{sa}+ae^{sa}-ae^{s(t+a)})-\log t  \\
+    &amp;= sa + \log(t+a-ae^{st}) - \log t \\
+    &amp;\leq \frac{s^2t^2}{8}
+\end{align*}\]</span></p>
+<p>  令<span class="math inline">\(u=st, g(u)=sa +
+\log(t+a-ae^{st})-\log t\)</span>，则以上不等式等价于：</p>
+<p><span class="math display">\[g(u) \leq \frac{1}{8}u^2\]</span></p>
+<p>  对<span class="math inline">\(g(u)\)</span>求一阶导数和二阶导数得：</p>
+<p><span class="math display">\[g^{'}(u)=\frac{-ae^u}{t+a-ae^u},\space
+g^{''}(x)=\frac{-ae^u(t+a)}{(t+a-ae^u)^2}\]</span></p>
+<p>  将<span class="math inline">\(g(u)\)</span>在<span class="math inline">\(u=0\)</span>处进行泰勒展开：</p>
+<p><span class="math display">\[g(u)=g(0)+g^{'}(0)u+\frac{1}{2}g^{''}(\varepsilon)u^2=\frac{1}{2}g^{''}(\varepsilon)u^2\]</span></p>
+<p><span class="math display">\[\begin{align*}
+    g^{''}(\varepsilon) &amp;=
+\frac{-ae^{\varepsilon}(t+a)}{(t+a-ae^{\varepsilon})^2}=\frac{t+a}{t+a-ae^{\varepsilon}}
+\cdot \frac{-ae^{\varepsilon}}{t+a-ae^{\varepsilon}}  \\
+    &amp;= \left( \frac{t+a}{t+a-ae^{\varepsilon}} \right) \cdot \left(
+1- \frac{t+a}{t+a-ae^{\varepsilon}} \right)  = m(1-m) \leq \frac{1}{4}  
+\end{align*}\]</span></p>
+<p>  故可证明以下不等式成立：</p>
+<p><span class="math display">\[g(u) =
+\frac{1}{2}g^{''}(\varepsilon)u^2 \leq
+\frac{1}{8}u^2\]</span></p>
+<p>  证毕.</p>
+<p>  有了<span class="math inline">\(Markov\)</span>不等式与 <span class="math inline">\(Hodeffding\)</span>
+不等式引理作为基础，下面我们开始正式证明 <span class="math inline">\(Hoeffding\)</span> 不等式。</p>
+<p><strong>证明:</strong><br>
+  取 <span class="math inline">\(s &gt; 0, t &gt; 0\)</span>，由<span class="math inline">\(Markov\)</span>不等式得：</p>
+<p><span class="math display">\[P(\bar{X}-E(\bar{X}) \ge t)=P \left(
+e^{s(\bar{X}-E(\bar{X}))} \ge e^{st} \right) \leq e^{-st}E \left(
+e^{s(\bar{X}-E(\bar{X}))} \right)\]</span></p>
+<p>   <span class="math inline">\(\because
+\bar{X}=\frac{1}{N}\sum_{i=1}^{N}X_i, \space
+E(\bar{X})=\frac{1}{N}\sum_{i=1}^{N}E(X_i)\)</span>，故有：</p>
+<p><span class="math display">\[E \left( e^{s(\bar{X}-E(\bar{X}))}
+\right) = E \left( e^{s \sum_{i=1}^{N} \frac{X_i-E(X_i)}{N}} \right) =
+\prod_{i=1}^{N}E \left( e^{s \frac{X_i-E(X_i)}{N}} \right)\]</span></p>
+<p>  令<span class="math inline">\(Y_i =
+\frac{X_i-E(X_i)}{N}\)</span>，则<span class="math inline">\(Y_i\)</span>相互独立，且有<span class="math inline">\(E(Y_i)=0, Y_i \in
+[\frac{a_i-E(X_i)}{N},\frac{b_i-E(X_i)}{N}]\)</span>，由 <span class="math inline">\(Hoeffding\)</span> 不等式引理得：</p>
+<p><span class="math display">\[E \left( e^{sY_i} \right) \leq e^{s
+\frac{(b_i-a_i)^2}{8N^2}}, i=1,2,\dots,N\]</span></p>
+<p>  由以上不等式可得：</p>
+<p><span class="math display">\[E \left( e^{s(\bar{X}-E(\bar{X}))}
+\right) = \prod_{i=1}^{N}E \left( e^{sY_i} \right) \leq \prod_{i=1}^{N}
+e^{s^2 \frac{(b_i-a_i)^2}{8N^2}} = e^{s^2 \sum_{i=1}^{N}
+\frac{(b_i-a_i)^2}{N}}\]</span></p>
+<p>  则有：</p>
+<p><span class="math display">\[P(\bar{X}-E(\bar{X}) \ge t) \leq
+e^{-st}E \left( e^{s(\bar{X}-E(\bar{X}))} \right) \leq e^{-st+s^2
+\sum_{i=1}^{N} \frac{(b_i-a_i)^2}{N}}\]</span></p>
+<p>  对 <span class="math inline">\(\forall s &gt; 0\)</span>
+均有以上不等式成立，故不等式右端对<span class="math inline">\(s\)</span>取最小值，不等式仍然成立：<br>
+  令<span class="math inline">\(h(s) = -st+s^2 \sum_{i=1}^{N}
+\frac{(b_i-a_i)^2}{N}\)</span>，对其求一阶导数并令其为零：</p>
+<p><span class="math display">\[h^{'}(s)=-t+s
+\frac{\sum_{i=1}^{N}(b_i-a_i)^2}{4N^2}=0 \Rightarrow
+s^{'}=\frac{4N^2t}{\sum_{i=1}^{N}(b_i-a_i)^2}\]</span></p>
+<p>  代入<span class="math inline">\(s^{'}\)</span>可以得到<span class="math inline">\(h(s)\)</span>的最小值：</p>
+<p><span class="math display">\[h_{min}(s)=h(s^{'})=\frac{-2N^2t^2}{\sum_{i=1}^{N}(b_i-a_i)^2}\]</span></p>
+<p>  由于<span class="math inline">\(e^x\)</span>在<span class="math inline">\(\mathbb{R}\)</span>上的单调性可知：</p>
+<p><span class="math display">\[e^{-st+s^2 \sum_{i=1}^{N}
+\frac{(b_i-a_i)^2}{N}}=e^{h(s)} \ge
+e^{h_{min}(s)}=e^{\frac{-2N^2t^2}{\sum_{i=1}^{N}(b_i-a_i)^2}}\]</span></p>
+<p>  故有以下不等式成立：</p>
+<p><span class="math display">\[P(\bar{X}-E(\bar{X}) \ge t) \leq exp
+\left( \frac{-2N^2t^2}{\sum_{i=1}^{N}(b_i-a_i)^2} \right)\]</span></p>
+<p>  同时：</p>
+<p><span class="math display">\[P(E(\bar{X})-\bar{X} \ge t) =
+P(-\bar{X}-E(-\bar{X}) \ge t)\]</span></p>
+<p>  令<span class="math inline">\(\bar{Z}=-\bar{X},
+E(\bar{Z})=E(-\bar{X})\)</span>，同上可证：</p>
+<p><span class="math display">\[P(E(\bar{X})-\bar{X} \ge t) =
+P(\bar{Z}-E(\bar{Z}) \ge t) \leq exp \left(
+\frac{-2N^2t^2}{\sum_{i=1}^{N}(b_i-a_i)^2} \right)\]</span></p>
+<p>  综上所述，有以下不等式成立：</p>
+<p><span class="math display">\[P \left( | \bar{X}-E(\bar{X}) | \ge t
+\right) \leq 2exp \left( -\frac{2N^2t^2}{\sum_{i=1}^{N}(b_i-a_i)^2}
+\right)\]</span></p>
+<p>  证毕.</p>
+<h2 id="参考">参考</h2>
+<p><strong>[1] Book: 李航.(2019).统计学习方法</strong><br>
+<strong>[2] Video: B站数学up主——简博士</strong><br>
+<strong>[3] Github:
+Dod-o/Statistical-Learning-Method_Code</strong><br>
+<strong>[4] Blog: 知乎,ziyoufeixiang,Hoeffding 不等式证明</strong>
+<strong>[5] Blog:
+CSDN,吃吃今天努力学习了吗,[Python]多项式曲线拟合(Polynomial Curve
+Fitting)</strong></p>
 
                 
               </div>
