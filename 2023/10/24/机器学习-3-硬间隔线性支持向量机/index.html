@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s2.loli.net/2023/07/26/mnOuBDrWQgCHMw3.jpg">
 <meta property="article:published_time" content="2023-10-24T12:45:55.000Z">
-<meta property="article:modified_time" content="2023-10-27T03:08:28.843Z">
+<meta property="article:modified_time" content="2023-10-29T14:55:14.832Z">
 <meta property="article:author" content="喵老师">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://s2.loli.net/2023/07/26/mnOuBDrWQgCHMw3.jpg">
@@ -226,7 +226,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          8.2k 字
+          13k 字
         
       </span>
     
@@ -237,7 +237,7 @@
         
         
         
-          69 分钟
+          108 分钟
         
       </span>
     
@@ -412,7 +412,7 @@ L(w,b,\lambda) &amp;= \frac{1}{2} \left( \sum_{i=1}^{N}\lambda_{i}y_ix_i \right)
 \end{equation}$$</p>
 <p>  记 $w^{<em>},b^{</em>}$ 为原始问题(2)的最优解，$\lambda^{*}$ 为对偶问题(4)的最优解，其同时也是优化问题(5)的最优解。根据定理：<strong>原始问题及其对偶问题具备强对偶关系是原始问题与其对偶问题满足KKT条件的充要条件可知</strong>：</p>
 <p>$$KKT条件:  \left {<br>
-\begin{array}{lr}<br>
+\begin{array}{l}<br>
 1-y_i(w^{<em>} \cdot x_i+b^{</em>}) \leq 0  \<br>
 \<br>
 \lambda_i^{<em>}(1-y_i(w^{</em>} \cdot x_i+b^{<em>}))=0 \<br>
@@ -443,11 +443,151 @@ L(w,b,\lambda) &amp;= \frac{1}{2} \left( \sum_{i=1}^{N}\lambda_{i}y_ix_i \right)
 \end{bmatrix}^{T}$</p>
 <p>  (2) 在最优解$\lambda^{<em>}$中选择一个正值分量$\lambda_j &gt; 0$，取出其下标$j$对应的数据$(x_j,y_j)$，基于$KKT$条件求解最优超平面的参数$w^{</em>},b^{*}$：</p>
 <p>$$w^{<em>}=\sum_{i=1}^{N}\lambda_i^{</em>}y_ix_i \space , \space b^{<em>}=y_j-\sum_{i=1}^{N}\lambda_i^{</em>}y_i(x_i^{T} \cdot x_j)$$</p>
-<p>  得到相应的分类模型：</p>
+<p>  (3) 得到相应的分类模型：</p>
 <p>$$f(x) = sign(w^{<em>} \cdot x + b^{</em>})$$</p>
 <h2 id="基于Python的算法实现">基于Python的算法实现</h2>
 <h3 id="基于numpy-pandas-cvxopt等的算法实现">基于numpy,pandas,cvxopt等的算法实现</h3>
 <h3 id="基于sklearn的算法实现">基于sklearn的算法实现</h3>
+<h2 id="附录">附录</h2>
+<h3 id="关于凸优化的相关知识">关于凸优化的相关知识</h3>
+<h4 id="基础概念">基础概念</h4>
+<p><strong>仿射集</strong><br>
+  设$C$为某一集合，若 $\forall x_1,x_2 \in C, \theta \in \mathbb{R}, \theta x_1+(1-\theta)x_2 \in C$，则称集合$C$为仿射集。</p>
+<p><strong>仿射函数</strong><br>
+  设有映射 $f: \mathbb{R}^{n} \rightarrow \mathbb{R}^{m}$，若 $f(x)=Ax+b, A \in \mathbb{R}^{m \times n}, b \in \mathbb{R}^{m}$，则称映射$f$为仿射函数。</p>
+<p><strong>凸集</strong><br>
+  设$C$为某一集合，若 $\forall x_1,x_2 \in C, \theta \in [0,1], \theta x_1+(1-\theta)x_2 \in C$，则称集合$C$为凸集。</p>
+<p><strong>凸函数</strong><br>
+  一个函数$f(x)$被称为凸函数，如果它的定义域 $dom f$ 为凸集，并且对 $\forall x_1,x_2 \in dom f, \alpha \in [0,1]$，有以下不等式成立：</p>
+<p>$$f[\alpha x_1+(1-\alpha) x_2] \leq \alpha f(x_1)+(1-\alpha)f(x_2)$$</p>
+<p><strong>最优化问题</strong><br>
+  最优化问题的基本形式：</p>
+<p>$$\begin{equation}<br>
+\begin{align*}<br>
+&amp; \min_{x} \quad f(x) \<br>
+&amp; \begin{array}{r}<br>
+s.t. &amp; m_{i}(x) \leq 0, &amp; i=1,2,\dots,M \<br>
+&amp; n_{j}(x) = 0, &amp; j=1,2,\dots,N<br>
+\end{array}<br>
+\end{align*}<br>
+\end{equation}$$</p>
+<ul>
+<li>$x=\begin{bmatrix}<br>
+x_1,x_2,\dots,x_n<br>
+\end{bmatrix}^{T},x \in \mathbb{R}^{n}$ 称为<strong>优化变量(Optimization Variable)</strong>.</li>
+<li>$f: \mathbb{R}^{n} \rightarrow \mathbb{R}$，称为<strong>目标函数(Objective Function)</strong>.</li>
+<li>$m_i: \mathbb{R}^{n} \rightarrow \mathbb{R}$，称为<strong>不等式约束(Inequality Constraint)</strong>.</li>
+<li>$n_j: \mathbb{R}^{n} \rightarrow \mathbb{R}$，称为<strong>等式约束(Equality Constraint)</strong>.</li>
+<li>$D = \left( dom \space f \right) \bigcap \left( \bigcap_{i=1}^{M} dom \space m_i \right) \bigcap \left( \bigcap_{i=1}^{N} dom \space n_j \right)$，称为最优化问题的<strong>域(Domain)</strong>，$x \in D$ 称为<strong>可行解(Feasible Solution)</strong>，$X = { x \vert x \in D }$ 称为<strong>可行解集(Feasible Solution Set)</strong>.</li>
+<li>$p^{*} = \inf { f(x) \vert x \in X }$，称为最优化问题的<strong>最优值(Optimum)</strong>.</li>
+<li>$f(x^{<em>})=p^{</em>}$，称$x^{*}$为最优化问题的<strong>最优解(Optimal Solution)</strong>.</li>
+<li>$X_{opt} = { x \vert x \in X,f(x)=p^{*} }$，称为最优化问题的<strong>最优解集(Optima Set)</strong>.</li>
+</ul>
+<p><strong>凸优化问题</strong><br>
+  若在优化问题(7)中，目标函数$f(x)$为凸函数，不等式约束$m_i(x)$为凸函数，等式约束$n_j(x)$为仿射函数，则称该优化问题为凸优化问题。</p>
+<h4 id="对偶关系">对偶关系</h4>
+<p><strong>拉格朗日函数</strong><br>
+  原问题(7)的拉格朗日函数为：</p>
+<p>$$L(x,\lambda,\eta)=f(x)+\sum_{i=1}^{M}\lambda_i m_i(x)+\sum_{j=1}^{N}\eta_j n_j(x)$$</p>
+<p>$$\lambda_i \ge 0, \quad i=1,2,\dots,M$$</p>
+<p><strong>原问题的无约束形式</strong><br>
+  原问题(7)的无约束形式为：</p>
+<p>$$\begin{equation}<br>
+\begin{align*}<br>
+&amp; \min_{x} \max_{\lambda,\eta} L(x,\lambda,\eta) \<br>
+&amp; \begin{array}{r}<br>
+s.t. \lambda_i \ge 0, \quad i=1,2,\dots,M \<br>
+\end{array}<br>
+\end{align*}<br>
+\end{equation}$$</p>
+<p>  原问题(7)与其无约束形式(8)是等价的，现证明这个结论。<br>
+<strong>证明:</strong><br>
+  令$h(x) = \max_{\lambda,\eta} L(x,\lambda,\eta)$,<br>
+  若优化变量$x$不满足某个不等式约束$m_i(x)$，即 $\exists i, m_i(x) &gt; 0$,则有：</p>
+<p>$$h(x)=\max_{\lambda,\eta} L(x,\lambda,\eta) \rightarrow +\infty$$</p>
+<p>  若优化变量$x $不满足某个等式约束$n_j(x)$，即 $\exists j,n_j(x) \ne 0$，则有：</p>
+<p>$$h(x)=\max_{\lambda,\eta} L(x,\lambda,\eta) \rightarrow +\infty$$</p>
+<p>  若优化变量$x$满足所有的不等式约束$m_i(x)$与等式约束$n_j(x)$,即 $\forall i,j, m_i(x) \leq 0, n_j(x)=0$，则有:</p>
+<p>$$h(x) = \max_{\lambda,\eta} L(x,\lambda,\eta) &lt; +\infty$$</p>
+<p>$$\lambda_i = 0, \quad i=1,2,\dots,M$$</p>
+<p>  设集合$S_1,S_2$分别为：</p>
+<p>$$S_1 = { x \vert \exists i,m_i(x) &gt; 0 } \cup { x \vert \exists j, n_j(x) \ne 0 }$$</p>
+<p>$$S_2 = { x \vert \forall i,j, m_i(x) \leq 0,n_j(x) = 0 }$$</p>
+<p>  有:</p>
+<p>$$S_1 \cup S_2 = \mathbb{R}^{n}, S_1 \cap S_2 = \emptyset$$</p>
+<p>  则无约束问题(8)可以写为</p>
+<p>$$\min_{x} \max_{\lambda,\eta} L(x,\lambda,\eta) \Leftrightarrow \min_{x} h(x) = \left {<br>
+\begin{array}{l}<br>
++\infty, &amp; {x \in S_1}\<br>
+c(x)&lt;+\infty,&amp; {x \in S_2}\<br>
+\end{array} \right.$$</p>
+<p>$$\Rightarrow \min_{x} \max_{\lambda,\eta} L(x,\lambda,\eta) \Leftrightarrow \min_{x \in S_2} h(x)=\min_{x \in S_2} f(x)$$</p>
+<p>  故原问题(7)与其无约束形式(8)等价。<br>
+  证毕.</p>
+<p><strong>对偶问题</strong><br>
+  原问题(7)的拉格朗日对偶问题为：</p>
+<p>$$\begin{equation}<br>
+\begin{align*}<br>
+&amp; \max_{\lambda,\eta} \min_{x} L(x,\lambda,\eta)  \<br>
+&amp; \begin{array}{r}<br>
+s.t. \quad \lambda_i \ge 0, i = 1,2,\dots,M<br>
+\end{array}<br>
+\end{align*}<br>
+\end{equation}$$</p>
+<p><strong>弱对偶关系</strong><br>
+  原问题(7)与其对偶问题(9)满足弱对偶关系：</p>
+<p>$$\max_{\lambda,\eta} \min_{x} L(x,\lambda,\eta) \leq \min_{x} \max_{\lambda,\eta} L(x,\lambda,\eta)$$</p>
+<p><strong>证明:</strong><br>
+  令：</p>
+<p>$$A(\lambda,\eta)=\min_{x} L(x,\lambda,\eta),\quad B(x)=\max_{\lambda,\eta} L(x,\lambda,\eta)$$</p>
+<p>$$\because \min_{x}L(x,\lambda,\eta) \leq L(x,\lambda,\eta) \leq \max_{\lambda,\eta} L(x,\lambda,\eta)$$</p>
+<p>$$\Rightarrow A(\lambda,\eta) \leq B(x),\quad \forall \lambda,\eta, \forall x$$</p>
+<p>$$\Rightarrow \max_{\lambda,\eta} A(\lambda,\eta) \leq \min_{x} B(x)$$</p>
+<p>  即：</p>
+<p>$$\max_{\lambda,\eta} \min_{x} L(x,\lambda,\eta) \leq \min_{x} \max_{\lambda,\eta} L(x,\lambda,\eta)$$</p>
+<p>  证毕.</p>
+<p><strong>强对偶关系</strong><br>
+  若原问题(7)与其对偶问题(9)满足：</p>
+<p>$$\max_{\lambda,\eta} \min_{x} L(x,\lambda,\eta) = \min_{x} \max_{\lambda,\eta} L(x,\lambda,\eta)$$</p>
+<p>  则称原问题(7)与其对偶问题(9)满足强对偶关系。</p>
+<p><strong>强对偶关系的几何理解</strong><br>
+  设原问题为仅有不等式约束的优化问题：</p>
+<p>$$\begin{equation}<br>
+\begin{align*}<br>
+&amp; \min_{x} \quad f(x) \<br>
+&amp; \begin{array}{r}<br>
+s.t. &amp; m_{i}(x) \leq 0, &amp; i=1,2,\dots,M \<br>
+\end{array}<br>
+\end{align*}<br>
+\end{equation}$$</p>
+<p>  原问题(10)的拉格朗日函数为：</p>
+<p>$$L(x,\lambda)=f(x)+\sum_{i=1}^{M}\lambda_i m_i(x)$$</p>
+<p>  若原问题与其对偶问题满足强对偶关系，则有：</p>
+<p>$$\min_{x} \max_{\lambda} L(x,\lambda) = \max_{\lambda} \min_{x} L(x,\lambda)$$</p>
+<p>  <strong>鞍点的定义:</strong> 若 $\exists (\hat{w},\hat{z})$，使得：</p>
+<p>$$\sup_{z} \inf_{w} f(w,z) =f(\hat{w},\hat{z})= \inf_{w} \sup_{z} f(w,z)$$</p>
+<p>  则称$(\hat{w},\hat{z})$为$f(w,z)$的鞍点。$ \because f(\hat{w},z)= \inf_{w} f(w,z), f(w,\hat{z})=sup_{z} f(w,z)$，则以上等式也可以写成：</p>
+<p>$$\sup_{z} f(\hat{w},z)=f(\hat{w},\hat{z})=\inf_{w} f(w,\hat{z})$$</p>
+<center>
+    <img src="https://s2.loli.net/2023/10/29/lH3OtvE7UN9A15m.jpg" srcset="/img/loading.gif" lazyload width="60%" height="60%">
+    <div align="center">Image: 鞍点</div>
+</center>  
+<p>  结合鞍点以及强对偶关系的概率，我们可以得出结论：<strong>原问题的拉格朗日函数存在鞍点是原问题与对偶问题满足强对偶关系的充要条件，且鞍点即为原问题与对偶问题的最优解。</strong></p>
+<h4 id="凸二次规划">凸二次规划</h4>
+<p>  凸二次规划问题的基本形式为：</p>
+<p>$$\begin{equation}<br>
+\begin{align*}<br>
+&amp; \min_{x} \quad \frac{1}{2} x^{T}Px+q^{T}x+r  \<br>
+&amp; \begin{array}{r}<br>
+s.t. &amp; Gx \leq h \<br>
+&amp; Ax=b  \<br>
+\end{array}<br>
+\end{align*}<br>
+\end{equation}$$</p>
+<p>  其中，$x \in \mathbb{R}^{n}, P \in S_{+}^{n}$，为对称正定矩阵；$q,r \in \mathbb{R}^{n}; G \in \mathbb{R}^{M \times n}, h \in \mathbb{R}^{M}; A \in \mathbb{R}^{N \times n}, b \in \mathbb{R}^{N}$.<br>
+  结论：<strong>凸二次规划问题满足强对偶关系。</strong></p>
+<h4 id="KKT条件">KKT条件</h4>
+<p>  </p>
 
                 
               </div>
