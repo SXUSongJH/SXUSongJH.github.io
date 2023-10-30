@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s2.loli.net/2023/07/26/mnOuBDrWQgCHMw3.jpg">
 <meta property="article:published_time" content="2023-10-24T12:45:55.000Z">
-<meta property="article:modified_time" content="2023-10-30T13:35:36.214Z">
+<meta property="article:modified_time" content="2023-10-30T13:43:02.716Z">
 <meta property="article:author" content="喵老师">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://s2.loli.net/2023/07/26/mnOuBDrWQgCHMw3.jpg">
@@ -237,7 +237,7 @@
         
         
         
-          113 分钟
+          112 分钟
         
       </span>
     
@@ -359,15 +359,10 @@ margin(T_{train},S)=\max_{w,b} \min_{i=1,\dots,N}
 <p>  综上所述，寻找最优分离超平面的优化问题可以描述为<strong>最小几何间隔最大化</strong>：</p>
 <p><span class="math display">\[\begin{equation}
     \begin{split}
-    &amp; \cos 2x = \cos^2 x - \sin^2 x\\
-    &amp; \cos 2x = 2\cos^2 x - 1
+    &amp; \max_{w,b} \min_{i=1,2,\dots,N} \quad
+\frac{1}{||w||}y_i(w^Tx_i+b) \\
+    &amp; s.t. \quad y_i(w^Tx_i+b) &gt; 0, i=1,2,\dots,N\\
     \end{split}
-\end{equation}\]</span></p>
-<p><span class="math display">\[\begin{equation}
-    \begin{align*}
-    &amp; \max_{w,b} \min_{i=1,\dots,N} \frac{1}{||w||}y_i(w^Tx_i+b) \\
-    &amp; \space s.t. \space y_i(w^Tx_i+b) &gt; 0, i=1,2,\dots,N\\
-\end{align*}
 \end{equation}\]</span></p>
 <p>  其中称<span class="math inline">\(y_i(w^Tx_i+b)\)</span>为实例点<span class="math inline">\(x_i\)</span>到超平面<span class="math inline">\(S\)</span>的<strong>函数间隔</strong>；约束条件<span class="math inline">\(y_i(w^Tx_i+b) &gt;
 0\)</span>保证了该优化问题的可行解集为能够将训练数据集正确分类的超平面的集合。确定最优分离超平面需要找到最小几何间隔对应的实例点，这些实例点被称为<strong>支持向量</strong>。<br>
@@ -1210,20 +1205,5 @@ S_{+}^{n}\)</span>，为对称正定矩阵；<span class="math inline">\(q,r \in
   <noscript>
     <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
   </noscript>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>
