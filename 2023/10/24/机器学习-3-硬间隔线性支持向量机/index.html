@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s2.loli.net/2023/07/26/mnOuBDrWQgCHMw3.jpg">
 <meta property="article:published_time" content="2023-10-24T12:45:55.000Z">
-<meta property="article:modified_time" content="2023-10-31T15:19:11.204Z">
+<meta property="article:modified_time" content="2023-11-01T04:26:02.029Z">
 <meta property="article:author" content="喵老师">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://s2.loli.net/2023/07/26/mnOuBDrWQgCHMw3.jpg">
@@ -226,7 +226,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          19k 字
+          21k 字
         
       </span>
     
@@ -237,7 +237,7 @@
         
         
         
-          163 分钟
+          179 分钟
         
       </span>
     
@@ -389,7 +389,7 @@ margin(T_{train},S)=\max_{w,b} \min_{i=1,\dots,N}
 i=1,2,\dots,N
     \end{split}
 \end{equation}\]</span></p>
-<p>  通过求解优化问题(2)，我们便可以得到最优的分离超平面，以及一组唯一的参数<span class="math inline">\((w,b)\)</span>.</p>
+<p>  通过求解优化问题(2)，我们便可以得到最优的分离超平面参数<span class="math inline">\((w^{*},b^{*})\)</span>。可以证明在训练数据集线性可分的条件下，通过最小间隔最大化问题的求解，最优的分离超平面是唯一的。这部分证明将放在附录，有兴趣的读者可自行阅读。</p>
 <center>
 <img src="https://s2.loli.net/2023/10/25/DCZeJ5TOM93vtLS.jpg" srcset="/img/loading.gif" lazyload width="60%" height="60%">
 <div data-align="center">
@@ -509,9 +509,9 @@ b^{*}=y_j-\sum_{i=1}^{N}\lambda_i^{*}y_i(x_i^{T} \cdot x_j)\]</span></p>
 <p><span class="math display">\[f(x) = sign(w^{*} \cdot x +
 b^{*})\]</span></p>
 <h2 id="基于python的算法实现">基于Python的算法实现</h2>
-<h3 id="基于numpypandascvxopt等的算法实现">基于numpy,pandas,cvxopt等的算法实现</h3>
 <p>  导入所需要的Python包：</p>
-<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> math<br><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd<br><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt<br><span class="hljs-keyword">import</span> cvxopt<br><span class="hljs-keyword">from</span> sklearn.utils <span class="hljs-keyword">import</span> shuffle<br></code></pre></td></tr></tbody></table></figure>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> math<br><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd<br><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt<br><span class="hljs-keyword">import</span> cvxopt<br><span class="hljs-keyword">from</span> sklearn.utils <span class="hljs-keyword">import</span> shuffle<br><span class="hljs-keyword">from</span> sklearn.svm <span class="hljs-keyword">import</span> LinearSVC<br></code></pre></td></tr></tbody></table></figure>
+<h3 id="基于numpypandascvxopt等的算法实现">基于numpy,pandas,cvxopt等的算法实现</h3>
 <p>  首先我们来生成我们的训练数据集，为了便于进行可视化，我们依然选择在二维情况下构建数据集。由于硬间隔线性支持向量机假设训练数据集是线性可分的，我利用均匀分布在区域<span class="math inline">\(S_{p}=\{ (x_1,x_2) \vert x_1 \in (1,2), x_2 \in
 (3,4)\}\)</span>产生了30个正类的实例点，在区域<span class="math inline">\(S_{n}= \{ (x_1,x_2) \vert x_1 \in (3,4), x_2 \in
 (1,2)\}\)</span>产生了20个负类的实例点。以下是数据生成的代码：</p>
@@ -606,6 +606,37 @@ Image4: 最优分离超平面
 <p><span class="math display">\[f(x)=sign(w^{*} \cdot x +
 b^{*})\]</span></p>
 <h3 id="基于sklearn的算法实现">基于sklearn的算法实现</h3>
+<p>  下面我们使用<code>sklearn</code>库来完成这个分类任务，我们依然使用前文生成的由30个正类实例点与20个负类实例点构成的训练数据集，使用<code>sklearn.svm</code>中的<code>LinearSVC</code>进行分类的代码为：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">svm = LinearSVC(penalty=<span class="hljs-string">"l2"</span>,C=<span class="hljs-number">1.0</span>,loss=<span class="hljs-string">'hinge'</span>)<br>svm.fit(train_X,train_y)<br>w,b = svm.coef_[<span class="hljs-number">0</span>],svm.intercept_[<span class="hljs-number">0</span>]<br></code></pre></td></tr></tbody></table></figure>
+<p>  <code>LinearSVC</code>的一些主要参数为：</p>
+<ul>
+<li><code>penalty</code>:
+{'l1','l2'},default='l2'。设定惩罚项，SVC中默认为'l2'惩罚项，'l1'会导致稀疏的<code>coef_</code>向量。<br>
+</li>
+<li><code>loss</code>: {'hinge', 'squared_hinge'},
+default='squared_hinge'。设定损失函数，hinge是标准的SVM损失(如SVC类使用的)，而squared_hinge是hinge损失的平方。<br>
+</li>
+<li><code>dual</code>: bool,
+default=True。选择算法来解决对偶或原始优化问题。 当n_samples&gt;
+n_features时，首选dual = False。<br>
+</li>
+<li><code>tol</code>: float, default=1e-4。设置停止的条件。</li>
+<li><code>C</code>: float, default=1.0。正则化参数。
+正则化的强度与C成反比。必须严格设置为正的。</li>
+</ul>
+<p>  得到的最优分类超平面的参数为：</p>
+<p><span class="math display">\[w^{*}=\begin{bmatrix}
+    -0.8240 \\
+    0.7860 \\
+\end{bmatrix}, \quad b^{*}=0.0349\]</span></p>
+<p>  画出最优分离超平面<span class="math inline">\(S^{*}=\{x \vert w^{*}
+\cdot x + b^{*}=0\}\)</span>：</p>
+<center>
+<img src="https://s2.loli.net/2023/11/01/j2cTdOPCIbWKHEV.png" srcset="/img/loading.gif" lazyload width="60%" height="60%">
+<div data-align="center">
+Image4: 最优分离超平面
+</div>
+</center>
 <h2 id="附录">附录</h2>
 <h3 id="关于凸优化的相关知识">关于凸优化的相关知识</h3>
 <h4 id="基础概念">基础概念</h4>
@@ -857,6 +888,47 @@ S_{+}^{n}\)</span>，为对称正定矩阵；<span class="math inline">\(q,r \in
 \mathbb{R}^{n}; G \in \mathbb{R}^{M \times n}, h \in \mathbb{R}^{M}; A
 \in \mathbb{R}^{N \times n}, b \in \mathbb{R}^{N}\)</span>.<br>
   结论：<strong>凸二次规划问题满足强对偶关系。</strong></p>
+<h3 id="硬间隔线性支持向量机的解是唯一的">硬间隔线性支持向量机的解是唯一的</h3>
+<p><strong>结论:</strong> 如果训练数据集<span class="math inline">\(T_{train}\)</span>完全线性可分，通过最小间隔最大化问题的求解，存在唯一的分离超平面可以将所有样本点完全分开。<br>
+<strong>证明:</strong><br>
+  (1) 存在性的证明：<br>
+  由于训练数据集<span class="math inline">\(T_{train}\)</span>完全线性可分，由线性可分的定义可知存在分离超平面
+<span class="math inline">\(S = \{x \vert w \cdot x + b = 0\}\)</span>
+可将所有样本点完全正确分类。存在性得证。<br>
+  (2) 唯一性的证明：<br>
+  利用反证法来进行证明。假设优化问题(2)存在两个不同的最优解，分别记为<span class="math inline">\(w_{1}^{*},b_{1}^{*}\)</span>和<span class="math inline">\(w_{2}^{*},b_{2}^{*}\)</span>，意味着两个权值向量所对应的模都是最小值，记为<span class="math inline">\(a\)</span>：</p>
+<p><span class="math display">\[||w_{1}^{*}||=||w_{2}^{*}||=a\]</span></p>
+<p>  根据这两组参数可以构造一组新的参数：</p>
+<p><span class="math display">\[w=\frac{w_{1}^{*}+w_{2}^{*}}{2}, \quad
+b=\frac{b_{1}^{*}+b_{2}^{*}}{2}\]</span></p>
+<p>  新构造的参数<span class="math inline">\(w\)</span>的模长一定满足：</p>
+<p><span class="math display">\[||w||= || \frac{w_{1}^{*}+w_{2}^{*}}{2}
+|| \ge a\]</span></p>
+<p>  另一方面，由模长的三角不等式可得：</p>
+<p><span class="math display">\[||\frac{w_{1}^{*}+w_{2}^{*}}{2}|| =
+||\frac{1}{2}w_{1}^{*}+\frac{1}{2}w_{2}^{*}|| \leq
+\frac{1}{2}||w_{1}^{*}||+\frac{1}{2}||w_{2}^{*}||=a\]</span></p>
+<p>  从而有：</p>
+<p><span class="math display">\[|| \frac{w_{1}^{*}+w_{2}^{*}}{2}
+||=a\]</span></p>
+<p>  即：</p>
+<p><span class="math display">\[||w||=
+\frac{1}{2}||w_{1}^{*}||+\frac{1}{2}||w_{2}^{*}||\]</span></p>
+<p>  由此发现，<span class="math inline">\(w_{1}^{*}\)</span>和<span class="math inline">\(w_{2}^{*}\)</span>在同一直线上：</p>
+<p><span class="math display">\[w_{1}^{*}=\pm w_{2}^{*}\]</span></p>
+<p>  当<span class="math inline">\(w_{1}^{*}=
+w_{2}^{*}\)</span>时，与假设矛盾；当<span class="math inline">\(w_{1}^{*}=
+-w_{2}^{*}\)</span>时，违背了权重向量时非零向量的前提。唯一性得证。<br>
+  证毕.</p>
+<h2 id="参考">参考</h2>
+<p><strong>[1] Book: 李航,统计学习方法(第2版)</strong><br>
+<strong>[2] Book: 董平,机器学习中的统计思维(Python实现)</strong><br>
+<strong>[3] Video: bilibili,简博士,支持向量机系列</strong><br>
+<strong>[4] Video: bilibili,shuhuai008,支持向量机系列</strong><br>
+<strong>[5] Video:
+bilibili,欧拉的费米子,凸优化理论-中科大凌青</strong><br>
+<strong>[6] Blog:
+知乎,Lauer,[凸优化笔记6]-拉格朗日对偶、KKT条件</strong></p>
 
                 
               </div>
