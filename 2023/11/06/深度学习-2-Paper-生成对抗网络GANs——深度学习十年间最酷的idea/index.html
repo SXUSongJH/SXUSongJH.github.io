@@ -16,25 +16,25 @@
   <meta name="author" content="喵老师">
   <meta name="keywords" content="">
   
-    <meta name="description" content="本节主要介绍最优化问题的基本形式以及其分类。">
+    <meta name="description" content="本节主要介绍 Ian Goodfellow 于2014年提出的生成对抗网络模型框架。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="最优化理论-1.最优化问题的基本形式">
-<meta property="og:url" content="http://example.com/2023/08/03/%E6%9C%80%E4%BC%98%E5%8C%96%E7%90%86%E8%AE%BA-1-%E6%9C%80%E4%BC%98%E5%8C%96%E9%97%AE%E9%A2%98%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%BD%A2%E5%BC%8F/index.html">
+<meta property="og:title" content="深度学习-2-Paper:生成对抗网络GANs——深度学习二十年间最酷的idea!">
+<meta property="og:url" content="http://example.com/2023/11/06/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-2-Paper-%E7%94%9F%E6%88%90%E5%AF%B9%E6%8A%97%E7%BD%91%E7%BB%9CGANs%E2%80%94%E2%80%94%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%8D%81%E5%B9%B4%E9%97%B4%E6%9C%80%E9%85%B7%E7%9A%84idea/index.html">
 <meta property="og:site_name" content="喵老师&#39;s Blog">
-<meta property="og:description" content="本节主要介绍最优化问题的基本形式以及其分类。">
+<meta property="og:description" content="本节主要介绍 Ian Goodfellow 于2014年提出的生成对抗网络模型框架。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://s2.loli.net/2023/07/28/Df5KUh7yOLjebT9.png">
-<meta property="article:published_time" content="2023-08-02T17:02:57.000Z">
-<meta property="article:modified_time" content="2023-08-28T06:10:37.724Z">
+<meta property="og:image" content="https://s2.loli.net/2023/07/26/tDhLZgxV4HaIizX.jpg">
+<meta property="article:published_time" content="2023-11-06T12:27:07.000Z">
+<meta property="article:modified_time" content="2023-11-06T15:12:18.881Z">
 <meta property="article:author" content="喵老师">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://s2.loli.net/2023/07/28/Df5KUh7yOLjebT9.png">
+<meta name="twitter:image" content="https://s2.loli.net/2023/07/26/tDhLZgxV4HaIizX.jpg">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>最优化理论-1.最优化问题的基本形式 - 喵老师&#39;s Blog</title>
+  <title>深度学习-2-Paper:生成对抗网络GANs——深度学习二十年间最酷的idea! - 喵老师&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -197,13 +197,13 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('https://s2.loli.net/2023/07/28/vgB6ax1XKDRQzPJ.png') no-repeat center center; background-size: cover;">
+     style="background: url('https://s2.loli.net/2023/11/06/XzhncIsfp7lDA9G.png') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="最优化理论-1.最优化问题的基本形式"></span>
+            <span id="subtitle" data-typed-text="深度学习-2-Paper:生成对抗网络GANs——深度学习二十年间最酷的idea!"></span>
           
         </div>
 
@@ -214,8 +214,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-08-03 01:02" pubdate>
-          2023年8月3日 凌晨
+        <time datetime="2023-11-06 20:27" pubdate>
+          2023年11月6日 晚上
         </time>
       </span>
     
@@ -226,7 +226,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.3k 字
+          1.6k 字
         
       </span>
     
@@ -237,7 +237,7 @@
         
         
         
-          11 分钟
+          13 分钟
         
       </span>
     
@@ -274,57 +274,27 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">最优化理论-1.最优化问题的基本形式</h1>
+            <h1 id="seo-header">深度学习-2-Paper:生成对抗网络GANs——深度学习二十年间最酷的idea!</h1>
             
             
               <div class="markdown-body">
                 
-                <h1>最优化问题的基本形式</h1>
-<h2 id="最优化问题的定义">最优化问题的定义</h2>
-<p>  从一个可行解的集合$S$中，求出针对某一问题的最优的解$X^*$。</p>
-<h2 id="最优化问题的基本形式">最优化问题的基本形式</h2>
-<p>  最优化问题的基本形式为：<br>
-$$min \space\space f_0(x)$$</p>
-<p>$$s.t. \space\space f_i(x) \leq b_i, i=1,\dots,m$$</p>
-<p>  $x=\begin{bmatrix}<br>
-x_1,x_2,\dots,x_n \<br>
-\end{bmatrix},x\in \mathbb{R}^n$ 称为优化变量(Optimization Varriable).<br>
-  $f_0: \mathbb{R}^n \rightarrow \mathbb{R}$，称为目标函数(Objective Function).<br>
-  $f_i: \mathbb{R}^n \rightarrow \mathbb{R}$，称为不等式约束(Inequality Constraint).<br>
-  $S = {x \vert f_i(x) \leq b_i, i=1,\dots,m}$，称为可行解(Feasible Set).<br>
-  $X^{* }$称为最优解(Optimal)，如果$ X^{* } $满足：$ \forall x \in S $ 均有 $ f_0(X^{*}) \leq f_0(x) $.</p>
-<ul>
-<li>注：有时最优解不止一个，最优解的集合称为最优解集。</li>
-</ul>
-<h2 id="最优化问题的分类">最优化问题的分类</h2>
-<p>  根据最优化问题的目标函数、可行解的不同，可以将最优化问题分为多种类别，以下是一些比较常见的分类：</p>
-<ul>
-<li>
-<p><strong>线性规划/非线性规划</strong><br>
-  若目标函数$f_0$与不等式约束$f_i$均为线性函数，则该最优化问题称为线性规划问题，否则即为非线性规划问题。<br>
-  函数$f$为线性函数的充要条件：$f(\alpha x + \beta y) = \alpha f(x) + \beta f(y)$.</p>
-</li>
-<li>
-<p><strong>凸优化/非凸优化</strong><br>
-  若目标函数$f_0$为凸函数，且可行解$S$为凸集，则该最优化问题称为凸优化问题。<br>
-  集合$C$为凸集的充要条件：$\forall x_1,x_2 \in C, \forall \theta \in \mathbb{R}, \theta x_1 + (1-\theta)x_2 \in C$.<br>
-  函数$f$为凸函数的充要条件: $dom f$为凸集，且$\forall x_1,x_2 \in dom f, 0 \leq \theta \leq 1$，有以下不等式成立：<br>
-$$f(\theta x_1 + (1-\theta)x_2) \leq \theta f(x_1) + (1-\theta)f(x_2)$$</p>
-</li>
-<li>
-<p><strong>连续变量优化/离散变量优化</strong><br>
-  若可行解$S$是连续的，则该最优化问题为连续变量优化问题；若可行解$S$是离散的，则该最优化问题称为离散变量优化问题。<br>
-  离散变量优化问题中比较常见的为可行解均为整数的整数变量优化。</p>
-</li>
-<li>
-<p><strong>单目标优化/多目标优化</strong><br>
-  若目标函数$f_0$是唯一的，则为单目标优化问题；若有多个目标函数$f_{0}^{1},f_{0}^{2},\dots,f_{0}^{r}$，则为多目标优化问题。</p>
-</li>
-<li>
-<p><strong>无约束问题/等式约束问题/不等式约束问题</strong><br>
-  若最优化问题没有约束条件，只有目标函数，则称为无约束问题；若最优化问题的约束条件是一些等式，则称为等式约束问题；若最优化问题的约束条件是一些不等式，则称为不等式约束问题。</p>
-</li>
-</ul>
+                <h1>Generative Adversarial Nets</h1>
+<p>  生成对抗网络(GANs)是一种深度学习框架，由 lan Goodfellow 和他的同事们于2014年提出，论文成果发表于人工智能顶会NIPS(Neural Information Processing Systems)。GANs被认为是深度学习领域的一项重大突破，其应用涵盖图像生成、图像修复、语音和文本合成、风格迁移和艺术创作、欺骗检测等多个领域。图灵奖得主，被誉为深度学习三巨头之一的 Yann LeCunn 称赞GANs为 “the coolest idea in deep learning in the last 20 years.”。接下来，我们就来一起欣赏一下深度学习这二十年间最酷的idea！</p>
+<p>  论文链接：<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1406.2661">https://arxiv.org/abs/1406.2661</a></p>
+<h2 id="摘要">摘要</h2>
+<p>  图1是 lan Goodfellow 在GANs的原始论文中所写的摘要全文：</p>
+<center>
+    <img src="https://s2.loli.net/2023/11/06/fzbnJkFKo4cqOug.png" srcset="/img/loading.gif" lazyload width="60%" height="60%">
+    <div align="center">Image1: The Abstract of GANs</div>
+</center>  
+<p>  摘要显示这篇论文提出了一种全新的基于对抗过程的生成模型框架。在这个框架中，存在着两个基于神经网络的模型：生成模型$G$与判别模型$D$。生成模型$G$的作用是估计数据的真实分布；判别模型$D$是用于判断所输入的样本来自于真实数据而非$G$所生成的概率。生成模型$G$的训练过程是最大化判别模型$D$犯错的概率；判别模型$D$的训练过程是最小化$D$犯错的概率，整个GANs的训练过程可视为 Minimax的二元博弈过程。通过理论分析发现，存在一个唯一的最优解，使得生成模型$G$能够正确模拟训练数据的分布，同时判别模型所给出的概率几乎处处为$\frac{1}{2}$，即几乎不能分辨所输入的样本是来自于真实数据分布，还是生成模型$G$。</p>
+<h2 id="背景及主要思想">背景及主要思想</h2>
+<h3 id="背景">背景</h3>
+<p>  深度学习的目标是构建模型来表示在人工智能的应用中遇到的数据的概率分布，例如图像、音频、自然语言的语料等。在2014年之前，判别模型在这方面占据着主导，这些模型通常是利用反向传播算法、Dropout、ReLU等技术，直接学习一个从高维特征空间到实例类别的映射。与判别模型相比，生成模型的发展则有些相形见绌。这一方面是由于在与最大似然估计相关的策略中，有许多难以解决的概率计算问题；另一方面，判别模型在NLP任务中也难以利用分段线性单元的优势。</p>
+<h3 id="主要思想">主要思想</h3>
+<p>  本文的作者表示他们所提出的新的生成模型能够避开这些困难。生成对抗网络的主要思想可以概括为两个字——“对抗”，具体而言，在GANs框架的训练过程中，生成模型$G$的训练目标是最大化判别模型犯错的概率，即希望由生成模型$G$所生成的样本能够成功“骗过”判别模型；判别模型$D$的训练目标是最小化自身犯错的概率，即希望判别模型的“鉴伪”能力越高越好。当我们将生成模型$G$所生成的样本用于训练判别模型$D$，并交替着训练这两个模型，便会引发这两个模型之间的“对抗”，它们为了达到自身的训练目标便会在对抗中提升各自的性能。最终，通过若干次训练，我们能得到一个性能非常好的生成模型$G$，它所生成的样本以及与真实样本十分接近，以至于判别模型无法在所给的的参数量下分辨二者的区别，即生成模型所生成的样本几乎能够反映真实的数据分布。<br>
+  在GANs的论文中，lan Goodfellow 用一个十分形象的比喻来说明生成对抗网络的基本思想。假设我们的目标是能够制造足够逼真的假钞，我们只需要找来两个队伍，一方是制造假钞的犯罪集团，另一方是警察队伍，犯罪集团的目标是制造假钞并在不被发现的情况下使用假钞；警察队伍的目标是鉴别假钞。这样，我们并不需要做太多的事情，只需要将这两方放在一起，让他们彼此对抗。在对抗的过程中，警察队伍鉴别假钞的能力会越来越强，犯罪集团所制造的假钞也会越来越逼真，最终我们便能得到足够逼真的假钞。</p>
 
                 
               </div>
@@ -343,7 +313,7 @@ $$f(\theta x_1 + (1-\theta)x_2) \leq \theta f(x_1) + (1-\theta)f(x_2)$$</p>
     
       <span class="category-chain">
         
-  <a href="/categories/%E6%9C%80%E4%BC%98%E5%8C%96%E7%90%86%E8%AE%BA/" class="category-chain-item">最优化理论</a>
+  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="category-chain-item">深度学习</a>
   
   
 
@@ -363,8 +333,8 @@ $$f(\theta x_1 + (1-\theta)x_2) \leq \theta f(x_1) + (1-\theta)f(x_2)$$</p>
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>最优化理论-1.最优化问题的基本形式</div>
-      <div>http://example.com/2023/08/03/最优化理论-1-最优化问题的基本形式/</div>
+      <div>深度学习-2-Paper:生成对抗网络GANs——深度学习二十年间最酷的idea!</div>
+      <div>http://example.com/2023/11/06/深度学习-2-Paper-生成对抗网络GANs——深度学习十年间最酷的idea/</div>
     </div>
     <div class="license-meta">
       
@@ -376,7 +346,7 @@ $$f(\theta x_1 + (1-\theta)x_2) \leq \theta f(x_1) + (1-\theta)f(x_2)$$</p>
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年8月3日</div>
+          <div>2023年11月6日</div>
         </div>
       
       
@@ -408,18 +378,12 @@ $$f(\theta x_1 + (1-\theta)x_2) \leq \theta f(x_1) + (1-\theta)f(x_2)$$</p>
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/08/08/%E6%9C%80%E4%BC%98%E5%8C%96%E7%90%86%E8%AE%BA-2-%E4%BB%BF%E5%B0%84%E9%9B%86%E4%B8%8E%E4%BB%BF%E5%B0%84%E5%8C%85/" title="最优化理论-2.仿射集与仿射包">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">最优化理论-2.仿射集与仿射包</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/08/01/%E7%9F%A9%E9%98%B5%E5%88%86%E6%9E%90-2-%E5%90%91%E9%87%8F%E7%BB%84%E4%B8%8E%E7%BA%BF%E6%80%A7%E7%9B%B8%E5%85%B3%E6%80%A7/" title="矩阵分析-2.向量组与线性相关性">
-                        <span class="hidden-mobile">矩阵分析-2.向量组与线性相关性</span>
+                      <a href="/2023/10/24/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-3-%E7%A1%AC%E9%97%B4%E9%9A%94%E7%BA%BF%E6%80%A7%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA/" title="机器学习-3.硬间隔线性支持向量机">
+                        <span class="hidden-mobile">机器学习-3.硬间隔线性支持向量机</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
