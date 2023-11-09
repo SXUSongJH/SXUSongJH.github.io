@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s2.loli.net/2023/07/26/tDhLZgxV4HaIizX.jpg">
 <meta property="article:published_time" content="2023-11-06T12:27:07.000Z">
-<meta property="article:modified_time" content="2023-11-09T03:40:05.092Z">
+<meta property="article:modified_time" content="2023-11-09T03:51:30.284Z">
 <meta property="article:author" content="喵老师">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://s2.loli.net/2023/07/26/tDhLZgxV4HaIizX.jpg">
@@ -398,11 +398,11 @@ p_{g}(x)\log{\left( \frac{p_{g}(x)}{(p_{data}(x)+p_{g}(x))/2}
     &amp;= -2\log{2}+ KL \left( p_{data}(x) ||
 \frac{p_{data}(x)+p_{g}(x)}{2} \right) + KL \left( p_{g}(x) ||
 \frac{p_{data}(x)+p_{g}(x)}{2} \right) \\
-    &amp;= -2\log{2}+JS(p_{data}(x)||p_{g}(x))
+    &amp;= -2\log{2}+2JS(p_{data}(x)||p_{g}(x))
 \end{split}\]</span></p>
 <p>  完成对<span class="math inline">\(D\)</span>的最大化后，再对<span class="math inline">\(G\)</span>进行极小化：</p>
 <p><span class="math display">\[\min_{G} \max_{D} V(D,G) \Leftrightarrow
-\min_{G} \space J(G)=-2\log{2}+JS(p_{data}(x)||p_{g}(x))\]</span></p>
+\min_{G} \space J(G)=-2\log{2}+2JS(p_{data}(x)||p_{g}(x))\]</span></p>
 <p>  当 <span class="math inline">\(p_{g}(x)=p_{data}(x)\)</span>时，<span class="math inline">\(JS(p_{data}(x)||p_{g}(x))_{min}=0\)</span>，<span class="math inline">\(J(G)\)</span>达到最小，证毕。</p>
 
                 
