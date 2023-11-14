@@ -16,25 +16,25 @@
   <meta name="author" content="喵老师">
   <meta name="keywords" content="">
   
-    <meta name="description" content="本节主要介绍最优化问题的基本形式以及其分类。">
+    <meta name="description" content="本节主要介绍信息论中的熵、交叉熵以及KL散度的概念。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="最优化理论-1.最优化问题的基本形式">
-<meta property="og:url" content="http://example.com/2023/08/03/%E6%9C%80%E4%BC%98%E5%8C%96%E7%90%86%E8%AE%BA-1-%E6%9C%80%E4%BC%98%E5%8C%96%E9%97%AE%E9%A2%98%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%BD%A2%E5%BC%8F/index.html">
+<meta property="og:title" content="机器学习-4.交叉熵与KL散度">
+<meta property="og:url" content="http://example.com/2023/11/12/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-4-%E4%BA%A4%E5%8F%89%E7%86%B5%E4%B8%8EKL%E6%95%A3%E5%BA%A6/index.html">
 <meta property="og:site_name" content="喵老师&#39;s Blog">
-<meta property="og:description" content="本节主要介绍最优化问题的基本形式以及其分类。">
+<meta property="og:description" content="本节主要介绍信息论中的熵、交叉熵以及KL散度的概念。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://s2.loli.net/2023/07/28/Df5KUh7yOLjebT9.png">
-<meta property="article:published_time" content="2023-08-02T17:02:57.000Z">
-<meta property="article:modified_time" content="2023-08-28T06:10:37.724Z">
+<meta property="og:image" content="https://s2.loli.net/2023/07/26/mnOuBDrWQgCHMw3.jpg">
+<meta property="article:published_time" content="2023-11-12T03:06:15.000Z">
+<meta property="article:modified_time" content="2023-11-14T03:39:35.257Z">
 <meta property="article:author" content="喵老师">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://s2.loli.net/2023/07/28/Df5KUh7yOLjebT9.png">
+<meta name="twitter:image" content="https://s2.loli.net/2023/07/26/mnOuBDrWQgCHMw3.jpg">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>最优化理论-1.最优化问题的基本形式 - 喵老师&#39;s Blog</title>
+  <title>机器学习-4.交叉熵与KL散度 - 喵老师&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -197,13 +197,13 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('https://s2.loli.net/2023/07/28/vgB6ax1XKDRQzPJ.png') no-repeat center center; background-size: cover;">
+     style="background: url('https://s2.loli.net/2023/09/24/EWhbw1DSslpnm4i.jpg') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="最优化理论-1.最优化问题的基本形式"></span>
+            <span id="subtitle" data-typed-text="机器学习-4.交叉熵与KL散度"></span>
           
         </div>
 
@@ -214,8 +214,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-08-03 01:02" pubdate>
-          2023年8月3日 凌晨
+        <time datetime="2023-11-12 11:06" pubdate>
+          2023年11月12日 上午
         </time>
       </span>
     
@@ -226,7 +226,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.3k 字
+          7.4k 字
         
       </span>
     
@@ -237,7 +237,7 @@
         
         
         
-          11 分钟
+          63 分钟
         
       </span>
     
@@ -274,57 +274,176 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">最优化理论-1.最优化问题的基本形式</h1>
+            <h1 id="seo-header">机器学习-4.交叉熵与KL散度</h1>
             
             
               <div class="markdown-body">
                 
-                <h1>最优化问题的基本形式</h1>
-<h2 id="最优化问题的定义">最优化问题的定义</h2>
-<p>  从一个可行解的集合$S$中，求出针对某一问题的最优的解$X^*$。</p>
-<h2 id="最优化问题的基本形式">最优化问题的基本形式</h2>
-<p>  最优化问题的基本形式为：<br>
-$$min \space\space f_0(x)$$</p>
-<p>$$s.t. \space\space f_i(x) \leq b_i, i=1,\dots,m$$</p>
-<p>  $x=\begin{bmatrix}<br>
-x_1,x_2,\dots,x_n \<br>
-\end{bmatrix},x\in \mathbb{R}^n$ 称为优化变量(Optimization Varriable).<br>
-  $f_0: \mathbb{R}^n \rightarrow \mathbb{R}$，称为目标函数(Objective Function).<br>
-  $f_i: \mathbb{R}^n \rightarrow \mathbb{R}$，称为不等式约束(Inequality Constraint).<br>
-  $S = {x \vert f_i(x) \leq b_i, i=1,\dots,m}$，称为可行解(Feasible Set).<br>
-  $X^{* }$称为最优解(Optimal)，如果$ X^{* } $满足：$ \forall x \in S $ 均有 $ f_0(X^{*}) \leq f_0(x) $.</p>
+                <h1 id="交叉熵与kl散度">交叉熵与KL散度</h1>
+<p>  在机器学习中，我们经常使用信息熵、交叉熵、KL散度等概率，例如在决策树中，我们使用基于信息熵的信息增益来构造树形结构；而交叉熵常被用于分类问题的损失函数；KL散度则被用于衡量两个分布之间的差异。本文将会介绍这些常用的概率，以便于我们今后学习相应的机器学习模型。</p>
+<h2 id="信息熵-entropy">信息熵 (entropy)</h2>
+<h3 id="熵">熵</h3>
+<p>  在现实中，我们会接触到各种各样的信息，如何对信息进行量化便成为了一个重要的问题。信息论是应用数学的一个分支，由美国数学家香农提出并发展壮大，主要研究的是对一个事件包含信息的多少进行量化。<br>
+  信息论的基本思想是一个小概率事件发生了，要比大概率事件发生，提供的信息更多。在信息论中，我们认为事件的信息量具有以下三条性质：</p>
 <ul>
-<li>注：有时最优解不止一个，最优解的集合称为最优解集。</li>
+<li>大概率事件所包含的信息量较小。<br>
+</li>
+<li>小概率事件所包含的信息量较大。</li>
+<li>独立事件的信息量可以进行累加。</li>
 </ul>
-<h2 id="最优化问题的分类">最优化问题的分类</h2>
-<p>  根据最优化问题的目标函数、可行解的不同，可以将最优化问题分为多种类别，以下是一些比较常见的分类：</p>
-<ul>
-<li>
-<p><strong>线性规划/非线性规划</strong><br>
-  若目标函数$f_0$与不等式约束$f_i$均为线性函数，则该最优化问题称为线性规划问题，否则即为非线性规划问题。<br>
-  函数$f$为线性函数的充要条件：$f(\alpha x + \beta y) = \alpha f(x) + \beta f(y)$.</p>
-</li>
-<li>
-<p><strong>凸优化/非凸优化</strong><br>
-  若目标函数$f_0$为凸函数，且可行解$S$为凸集，则该最优化问题称为凸优化问题。<br>
-  集合$C$为凸集的充要条件：$\forall x_1,x_2 \in C, \forall \theta \in \mathbb{R}, \theta x_1 + (1-\theta)x_2 \in C$.<br>
-  函数$f$为凸函数的充要条件: $dom f$为凸集，且$\forall x_1,x_2 \in dom f, 0 \leq \theta \leq 1$，有以下不等式成立：<br>
-$$f(\theta x_1 + (1-\theta)x_2) \leq \theta f(x_1) + (1-\theta)f(x_2)$$</p>
-</li>
-<li>
-<p><strong>连续变量优化/离散变量优化</strong><br>
-  若可行解$S$是连续的，则该最优化问题为连续变量优化问题；若可行解$S$是离散的，则该最优化问题称为离散变量优化问题。<br>
-  离散变量优化问题中比较常见的为可行解均为整数的整数变量优化。</p>
-</li>
-<li>
-<p><strong>单目标优化/多目标优化</strong><br>
-  若目标函数$f_0$是唯一的，则为单目标优化问题；若有多个目标函数$f_{0}^{1},f_{0}^{2},\dots,f_{0}^{r}$，则为多目标优化问题。</p>
-</li>
-<li>
-<p><strong>无约束问题/等式约束问题/不等式约束问题</strong><br>
-  若最优化问题没有约束条件，只有目标函数，则称为无约束问题；若最优化问题的约束条件是一些等式，则称为等式约束问题；若最优化问题的约束条件是一些不等式，则称为不等式约束问题。</p>
-</li>
-</ul>
+<p>  由以上三条性质，我们定义了某一事件<span class="math inline">\(X=x\)</span>的<strong>自信息量</strong>(self-information)为:</p>
+<p><span class="math display">\[I(x)=-\log{P(x)}\]</span></p>
+<p>  其中<span class="math inline">\(X\)</span>为随机变量，表示某一事件；<span class="math inline">\(x\)</span>为随机变量<span class="math inline">\(X\)</span>的取值。当上式中的<span class="math inline">\(\log\)</span>以2为底数时，<span class="math inline">\(I(x)\)</span>的单位是比特(bit)或者香农(shannons)；当<span class="math inline">\(\log\)</span>以2为底数时，<span class="math inline">\(I(x)\)</span>单位是奈特(nats)。这两个单位之间可以通过对数换底公式相互转换。<br>
+  自信息量表示单个事件的信息量。若我们已知事件<span class="math inline">\(X\)</span>服从某一概率分布<span class="math inline">\(P(X)\)</span>，我们可以使用<strong>香农熵</strong>(Shannon
+entropy)来对整个概率分布所包含的信息总量进行量化：</p>
+<p><span class="math display">\[H(X)=\mathbb{E}_{X \sim
+P}[I(x)]\]</span></p>
+<p>  若随机变量<span class="math inline">\(X\)</span>为离散型随机变量，则熵可以写为求和形式：</p>
+<p><span class="math display">\[H(X)=\sum_{i=1}^{N}P(x_i)I(x_i)=-\sum_{i=1}^{N}P(x_i)\log{P(x_i)}\]</span></p>
+<p>  若随机变量<span class="math inline">\(X\)</span>为连续型随机变量，则熵可以写为积分形式：</p>
+<p><span class="math display">\[H(X)=\int_{\mathcal{X}}P(x)I(x)dx=-\int_{\mathcal{X}}P(x)\log{P(x)}dx\]</span></p>
+<h3 id="联合熵">联合熵</h3>
+<p>  若有两个随机变量<span class="math inline">\(X,Y\)</span>，且服从某个联合分布<span class="math inline">\(P(X,Y)\)</span>，我们可以使用联合熵来对联合概率分布所包含的信息量进行量化：</p>
+<p><span class="math display">\[H(X,Y)=-\sum_{x \in \mathcal{X}}\sum_{y
+\in \mathcal{Y}}P(x,y)\log{P(x,y)}\]</span></p>
+<p>  以上给出的是<span class="math inline">\(X,Y\)</span>为离散型随机变量的联合熵，若<span class="math inline">\(X,Y\)</span>为连续型随机变量，则依照熵的形式，联合熵也可以写成积分形式：</p>
+<p><span class="math display">\[H(X,Y)=-\int_{\mathcal{X}}\int_{\mathcal{Y}}P(x,y)\log{P(x,y)}
+dydx\]</span></p>
+<h3 id="条件熵">条件熵</h3>
+<p>  在数理统计中，我们还学习了条件概率分布，表示在某个事件发生后，另一个事件所发生的概率，在信息论中，用条件熵来表示条件概率分布所包含的信息。若有两个离散随机变量<span class="math inline">\(X,Y\)</span>，且已知联合概率分布<span class="math inline">\(P(X,Y)\)</span>，条件概率分布<span class="math inline">\(P(Y|X)\)</span>，则该条件分布的条件熵为：</p>
+<p><span class="math display">\[H(Y|X)=-\sum_{x \in \mathcal{X}}\sum_{y
+\in \mathcal{Y}}P(x,y)\log{P(y|x)}\]</span></p>
+<p>  当<span class="math inline">\(X,Y\)</span>为连续型随机变量时，上式可以写出积分形式：</p>
+<p><span class="math display">\[H(Y|X)=-\int_{\mathcal{X}}\int_{\mathcal{Y}}P(x,y)\log{P(y|x)dydx}\]</span></p>
+<h3 id="最大熵思想">最大熵思想</h3>
+<p>  既然信息熵可以用来表示信息量的大小，人们自然希望找到包含信息量最大的概率分布。当我们的概率分布中存在未知参数时，可以使用<strong>最大化分布的熵</strong>的思想来估计未知参数，这类方法在机器学习中被称为最大熵学习，这里不展开讨论最大熵学习，有兴趣的读者可查阅相关资料进行了解。<br>
+  通过最大熵思想，我们有一个非常有意思的发现：<strong>若有定义在整个实数轴上的随机变量<span class="math inline">\(X\)</span>，其均值为<span class="math inline">\(\mu\)</span>，方差为<span class="math inline">\(\sigma^{2}\)</span>，当<span class="math inline">\(X \sim N(\mu,\sigma^2)\)</span>时，熵 <span class="math inline">\(H(X)\)</span> 最大.</strong>
+这个结论的证明放在目录，有兴趣的读者可自行阅读。高斯分布具有最大的信息熵，这也是为什么在现实生活中大量随机事件都服从高斯分布，因为自然界总是偏向于制造最大的不确定性，从而包含最多的信息，即最大的熵。</p>
+<h2 id="交叉熵cross-entropy">交叉熵(cross entropy)</h2>
+<p>  在机器学习中，我们常常需要比较两个分布之间的相似程度，例如当我们用一个估计的分布去近似真实分布时，我们自然希望这两个分布越相似越好。交叉熵便是衡量两个分布之间相似程度的一种度量方法，因此经常被用作机器学习模型的损失函数。<br>
+  为了理解交叉熵为什么能够度量两个分布的相似程度，我们借助贝叶斯统计的思想来进行解释。根据贝叶斯思想，对于某一个事件<span class="math inline">\(X\)</span>，我们会有一个先验的认知，即<span class="math inline">\(X\)</span>的先验分布<span class="math inline">\(P_0(x)\)</span>，在先验认知下，事件<span class="math inline">\(X\)</span>带给我们的信息量为：</p>
+<p><span class="math display">\[I_{0}(x)=-\log{P_{0}(x)}\]</span></p>
+<p>  假设事件<span class="math inline">\(X\)</span>的真实分布为<span class="math inline">\(P_{1}(x)\)</span>，则<strong>我们在主观认知下，通过客观事实所得到的事件<span class="math inline">\(X\)</span>的概率分布所包含的信息总量</strong>为：</p>
+<p><span class="math display">\[H(P_0,P_1)=-\sum_{i=1}^{N}P_{1}(x)\log{P_{0}(x)}dx\]</span></p>
+<p>  当<span class="math inline">\(X\)</span>为连续型随机变量时，其积分形式为：</p>
+<p><span class="math display">\[H(P_{0},P_{1})=-\int_{\mathcal{X}}P_{1}(x)\log{P_{0}(x)}dx\]</span></p>
+<p>  上式即为分布<span class="math inline">\(P_0,P_1\)</span>的<strong>交叉熵</strong>。若交叉熵较大，说明在已有主观先验认知下，事件<span class="math inline">\(X\)</span>的实际情况带给我们的信息量较大，说明我们的先验认知与实际情况差别较大，即<span class="math inline">\(P_{0}(x)\)</span>与<span class="math inline">\(P_{1}(x)\)</span>的相似度较低；若交叉熵较小，说明在已有主观先验认知下，事件<span class="math inline">\(X\)</span>的实际情况带给我们的信息量较小，说明我们的先验认知与实际情况差别较小，即<span class="math inline">\(P_{0}(x)\)</span>与<span class="math inline">\(P_{1}(x)\)</span>的相似度较高。<br>
+  在机器学习中，我们希望学习到的概率分布<span class="math inline">\(P_{m}\)</span>与训练数据所估计的真实分布<span class="math inline">\(P_{t}\)</span>足够相似，这时我们通常将分布<span class="math inline">\(P_{m}\)</span>与<span class="math inline">\(P_{t}\)</span>的交叉熵作为损失函数，例如逻辑回归模型，通过最小化交叉熵来调整<span class="math inline">\(P_{m}\)</span>，使得<span class="math inline">\(P_{m}\)</span>与真实分布<span class="math inline">\(P_{t}\)</span>足够相似。<br>
+  另外，有一个非常有意思的结论，<strong>最小化交叉熵实际上是等价于极大似然估计</strong>，这个结论的证明将会放在附录。</p>
+<h2 id="kl散度kl-divergence">KL散度(KL Divergence)</h2>
+<p>  上文介绍了交叉熵，其可以用来衡量两个分布的相似程度。但交叉熵存在一个问题，即若我们主观的先验认知与客观实际完全一致，即<span class="math inline">\(P_{0}=P_{1}\)</span>，此时我们实际上并没有得到任何信息，但交叉熵的计算结果为<span class="math inline">\(P_{0}\)</span>的信息熵，并不为<span class="math inline">\(0\)</span>。因此，我们可以转而考虑信息的增量，KL散度实际上就时在考虑信息熵的增量，我们先给出两个分布<span class="math inline">\(P_0,P_1\)</span>的KL散度的计算公式：</p>
+<p><span class="math display">\[KL(P_1||P_0)=\mathbb{E}_{X \sim
+P_1}[\log{\frac{P_{1}(x)}{P_{0}(x)}}]\]</span></p>
+<p>  通过将上式进行调整，我们可以将<span class="math inline">\(P_{0}\)</span>与<span class="math inline">\(P_{1}\)</span>的KL散度写成<span class="math inline">\(P_{0}\)</span>与<span class="math inline">\(P_{1}\)</span>的交叉熵<span class="math inline">\(H(P_{0},P_{1})\)</span>与<span class="math inline">\(P_{0}\)</span>的信息熵之差：</p>
+<p><span class="math display">\[KL(P_{1}||P_{0})=H(P_{0},P_{1})-H(P_{0})\]</span></p>
+<p>  通过上式我们可以发现，当<span class="math inline">\(P_1\)</span>与<span class="math inline">\(P_0\)</span>的KL散度较大，说明在已有主观认知下，我们从客观事件获得信息增量较大，说明我们的主观认知与客观现实不一致，即<span class="math inline">\(P_1\)</span>与<span class="math inline">\(P_0\)</span>的相似度较低；当<span class="math inline">\(P_1\)</span>与<span class="math inline">\(P_0\)</span>的KL散度较小，说明在已有主观认知下，我们从客观事件获得信息增量较小，说明我们的主观认知与客观现实较为一致，即<span class="math inline">\(P_1\)</span>与<span class="math inline">\(P_0\)</span>的相似度较大；当<span class="math inline">\(P_1\)</span>与<span class="math inline">\(P_0\)</span>的KL散度等于0时，说明已有主观认知下，我们从客观事件中没有获得额外的信息，说明我们的主观认知与客观现实完全一致，即<span class="math inline">\(P_0=P_1\)</span>.<br>
+  KL散度衡量了一种信息增益，因此也被称为<strong>相对熵</strong>。在机器学习中我们同样可以使用KL散度作为损失函数。</p>
+<h2 id="附录">附录</h2>
+<h3 id="一-高斯分布具有最大的信息熵">(一) 高斯分布具有最大的信息熵</h3>
+<p><strong>结论:</strong> 已知定义在整个实数轴上的连续型随机变量<span class="math inline">\(X\)</span>的均值为<span class="math inline">\(\mu\)</span>，方差为<span class="math inline">\(\sigma^{2}\)</span>，当<span class="math inline">\(X \sim N(\mu,\sigma^{2})\)</span>，<span class="math inline">\(X\)</span>的信息熵<span class="math inline">\(H(X)\)</span>最大。<br>
+<strong>证明:</strong><br>
+  设随机变量<span class="math inline">\(X\)</span>的概率密度函数为<span class="math inline">\(p(x)\)</span>，由题意可知：</p>
+<p><span class="math display">\[E(X)=\int_{-\infty}^{+\infty}xp(x)dx=\mu,\quad
+Var(X)=\int_{-\infty}^{+\infty}(x-\mu)^{2}p(x)dx=\sigma^{2}\]</span></p>
+<p>  根据最大熵思想，可以得到如下一个带约束的优化问题：</p>
+<p><span class="math display">\[\begin{split}
+    \max_{p(x)} \quad &amp;
+H(X)=-\int_{-\infty}^{+\infty}p(x)\ln{p(x)}dx  \\
+    s.t. \quad &amp; \int_{-\infty}^{+\infty}p(x)=1 \\
+    &amp; \int_{-\infty}^{+\infty}xp(x)dx=\mu  \\
+    &amp; \int_{-\infty}^{+\infty}(x-\mu)^{2}p(x)dx=\sigma^{2}
+\end{split}\]</span></p>
+<p>  上述原问题的拉格朗日函数为：</p>
+<p><span class="math display">\[\begin{split}
+    Q(p(x),\lambda_1,\lambda_2,\lambda_3) =
+&amp;-\int_{-\infty}^{+\infty}p(x)\ln{p(x)}dx+\lambda_1 \left(
+\int_{-\infty}^{+\infty}p(x)-1 \right) \\
+    &amp;+ \lambda_2 \left( \int_{-\infty}^{+\infty}xp(x)dx-\mu
+\right)+\lambda_3 \left(
+\int_{-\infty}^{+\infty}(x-\mu)^{2}p(x)dx-\sigma^{2} \right)
+\end{split}\]</span></p>
+<p>  令<span class="math inline">\(\lambda=\begin{bmatrix}  \lambda_1,\lambda_2,\lambda_3
+\end{bmatrix}^{T}\)</span>，则原问题的无约束形式可以写为</p>
+<p><span class="math display">\[\begin{split}
+     \max_{p(x)}\min_{\lambda} \quad &amp;
+Q(p(x),\lambda_1,\lambda_2,\lambda_3)  \\
+     \space s.t. \quad &amp; \lambda \ge 0
+\end{split}\]</span></p>
+<p>  则原问题的对偶问题为：</p>
+<p><span class="math display">\[\begin{split}
+     \min_{\lambda}\max_{p(x)} \quad &amp;
+Q(p(x),\lambda_1,\lambda_2,\lambda_3)  \\
+     \space s.t. \quad &amp; \lambda \ge 0
+\end{split}\]</span></p>
+<p>  设<span class="math inline">\(p^{*}(x)\)</span>为原问题最优解，<span class="math inline">\(\lambda^{*}\)</span>为对偶问题最优解，由KKT条件得：</p>
+<p><span class="math display">\[\frac{\partial Q}{\partial p(x)}
+|_{p(x)=p^{*}(x)}=-[\ln{p^{*}(x)+1}]+\lambda_1^{*}+\lambda_2^{*}x+\lambda_3^{*}(x-\mu)^{2}=0\]</span></p>
+<p><span class="math display">\[\Rightarrow
+p^{*}(x)=e^{\lambda_1^{*}-1+\lambda_2^{*}x+\lambda_3^{*}(x-\mu)^{2}}\]</span></p>
+<p>  之后对<span class="math inline">\(p^{*}(x)\)</span>做一些变形：</p>
+<p><span class="math display">\[\begin{split}
+    p^{*}(x) &amp;=
+e^{\lambda_1^{*}-1+\lambda_2^{*}x+\lambda_3^{*}(x-\mu)^{2}}=e^{\lambda_1^{*}-1}e^{\lambda_3^{*}x^2+(\lambda_2^{*}-2\mu\lambda_3^{*})x+\mu^{2}\lambda_3^{*}}
+\\
+    &amp;=
+Ce^{\lambda_3^{*}[x^2+(\frac{\lambda_2^{*}}{\lambda_3^{*}}-2\mu)x+\mu^2]}
+= Ce^{\lambda_3^{*}[x-(\mu-\frac{\lambda_2^{*}}{2\lambda_3^{*}})]^{2}}
+\end{split}\]</span></p>
+<p>  由密度函数<span class="math inline">\(p^{*}(x)\)</span>的非负性以及正则性可知：<span class="math inline">\(C&gt;0,\lambda_3^{*}&lt;0\)</span>；指数部分中的二次函数
+<span class="math inline">\([x-(\mu-\frac{\lambda_2^{*}}{2\lambda_3^{*}})]^{2}\)</span>
+表明 <span class="math inline">\(p^{*}(x)\)</span>的对称轴为 <span class="math inline">\(\mu-\frac{\lambda_2^{*}}{2\lambda_3^{*}}\)</span>，由于对称的密度函数，其对称轴一定等于均值可知：<span class="math inline">\(\lambda_2^{*}=0\)</span>。<br>
+  由于<span class="math inline">\(\lambda_3^{*}&gt;0\)</span>，可设<span class="math inline">\(\lambda_3^{*}=-\beta\)</span>，则<span class="math inline">\(p^{*}(x)\)</span>可化简为：</p>
+<p><span class="math display">\[p^{*}(x)=Ce^{-\beta(x-\mu)^{2}}\]</span></p>
+<p>  将<span class="math inline">\(p^{*}(x)\)</span>代入正则化约束得：</p>
+<p><span class="math display">\[\begin{split}
+    1 &amp;=
+\int_{-\infty}^{+\infty}p^{*}(x)dx=C\int_{-\infty}^{+\infty}e^{-\beta(x-\mu)^{2}}dx
+\\
+    &amp;=C\int_{-\infty}^{+\infty}e^{-\beta
+y^{2}}dy=\frac{C}{\sqrt{\beta}}\int_{0}^{+\infty}
+z^{-\frac{1}{2}}e^{-z}dz \\
+    &amp;=\frac{C}{\sqrt{\beta}}\Gamma \left( \frac{1}{2} \right) =
+C\sqrt{\frac{\pi}{\beta}}
+\end{split}\]</span></p>
+<p>  从而得：<span class="math inline">\(C=\sqrt{\frac{\beta}{\pi}}\)</span>，再利用方差约束条件得：</p>
+<p><span class="math display">\[\begin{split}
+    \sigma^{2} &amp;= \int_{-\infty}^{+\infty}(x-\mu)^2p^{*}(x)dx =
+C\int_{-\infty}^{+\infty}(x-\mu)^{2}e^{-\beta(x-\mu)^{2}}dx  \\
+    &amp;=2C\int_{0}^{+\infty}y^{2}e^{-\beta  y^{2}}dx = \frac{C}{\beta
+\sqrt{\beta}} \int_{0}^{+\infty} z^{\frac{1}{2}}e^{-z}dz \\
+    &amp;= \frac{C}{\beta \sqrt{\beta}} \Gamma \left( \frac{3}{2}
+\right) = \sqrt{\frac{\beta}{\pi}} \cdot \frac{1}{\beta \sqrt{\beta}}
+\cdot \frac{\sqrt{\pi}}{2}= \frac{1}{2\beta}
+\end{split}\]</span></p>
+<p>  从而得：<span class="math inline">\(\beta =
+\frac{1}{2\sigma^{2}}\)</span>，联立：</p>
+<p><span class="math display">\[\left \{
+\begin{array}{l}
+p^{*}(x)=Ce^{-\beta(x-\mu)^{2}}  \\
+C=\sqrt{\frac{\beta}{\pi}}  \\
+\beta = \frac{1}{2\sigma^{2}} \\
+\end{array} \right.\]</span></p>
+<p>  解得：</p>
+<p><span class="math display">\[p^{*}(x)=\frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{(x-\mu)^{2}}{2\sigma^{2}}}\]</span></p>
+<p>  即当<span class="math inline">\(X \sim
+N(\mu,\sigma^{2})\)</span>时，熵<span class="math inline">\(H(X)\)</span>最大，证毕.</p>
+<h3 id="二-最小化交叉熵等价于极大似然估计">(二)
+最小化交叉熵等价于极大似然估计</h3>
+<p><strong>结论：</strong> 假设我们从训练数据集<span class="math inline">\(T_{train}\)</span>中所得到的数据的经验分布为<span class="math inline">\(P_{t}(x)=\frac{1}{N}\)</span>(最大熵思想)，<span class="math inline">\(N\)</span>为训练数据的样本容量，我们所需要学习的模型为<span class="math inline">\(P_{m}(x;\theta)\)</span>，则有：</p>
+<p><span class="math display">\[\min_{\theta}
+H(P_{t}(x),P_{m}(x;\theta)) \Leftrightarrow \max_{\theta} \prod_{x \in
+T} P_{m}(x;\theta)\]</span></p>
+<p><strong>证明:</strong></p>
+<p><span class="math display">\[\begin{split}
+    \max_{\theta} \prod_{x \in T} P_{m}(x;\theta) &amp; \Leftrightarrow
+\max_{\theta} \sum_{x \in T} \log{P_{m}(x;\theta)} \Leftrightarrow
+-\min_{\theta} \sum_{x \in T} \log{P_{m}(x;\theta)} \\
+    &amp; \Leftrightarrow -\min_{\theta} \sum_{i=1}^{N}
+\frac{1}{N}\log{P_{m}(x;\theta)} \Leftrightarrow \min_{\theta}
+\mathbb{E}_{X \sim P_{t}}[-\log{P_{m}(x;\theta)}]  \\
+    &amp; \Leftrightarrow \min_{\theta} H(P_{t}(x),P_{m}(x;\theta))
+\end{split}\]</span></p>
+<p>  证毕.</p>
 
                 
               </div>
@@ -343,7 +462,7 @@ $$f(\theta x_1 + (1-\theta)x_2) \leq \theta f(x_1) + (1-\theta)f(x_2)$$</p>
     
       <span class="category-chain">
         
-  <a href="/categories/%E6%9C%80%E4%BC%98%E5%8C%96%E7%90%86%E8%AE%BA/" class="category-chain-item">最优化理论</a>
+  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="category-chain-item">机器学习</a>
   
   
 
@@ -363,8 +482,8 @@ $$f(\theta x_1 + (1-\theta)x_2) \leq \theta f(x_1) + (1-\theta)f(x_2)$$</p>
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>最优化理论-1.最优化问题的基本形式</div>
-      <div>http://example.com/2023/08/03/最优化理论-1-最优化问题的基本形式/</div>
+      <div>机器学习-4.交叉熵与KL散度</div>
+      <div>http://example.com/2023/11/12/机器学习-4-交叉熵与KL散度/</div>
     </div>
     <div class="license-meta">
       
@@ -376,7 +495,7 @@ $$f(\theta x_1 + (1-\theta)x_2) \leq \theta f(x_1) + (1-\theta)f(x_2)$$</p>
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年8月3日</div>
+          <div>2023年11月12日</div>
         </div>
       
       
@@ -408,18 +527,12 @@ $$f(\theta x_1 + (1-\theta)x_2) \leq \theta f(x_1) + (1-\theta)f(x_2)$$</p>
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/08/08/%E6%9C%80%E4%BC%98%E5%8C%96%E7%90%86%E8%AE%BA-2-%E4%BB%BF%E5%B0%84%E9%9B%86%E4%B8%8E%E4%BB%BF%E5%B0%84%E5%8C%85/" title="最优化理论-2.仿射集与仿射包">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">最优化理论-2.仿射集与仿射包</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/08/01/%E7%9F%A9%E9%98%B5%E5%88%86%E6%9E%90-2-%E5%90%91%E9%87%8F%E7%BB%84%E4%B8%8E%E7%BA%BF%E6%80%A7%E7%9B%B8%E5%85%B3%E6%80%A7/" title="矩阵分析-2.向量组与线性相关性">
-                        <span class="hidden-mobile">矩阵分析-2.向量组与线性相关性</span>
+                      <a href="/2023/11/06/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-2-Paper-%E7%94%9F%E6%88%90%E5%AF%B9%E6%8A%97%E7%BD%91%E7%BB%9CGANs%E2%80%94%E2%80%94%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%8D%81%E5%B9%B4%E9%97%B4%E6%9C%80%E9%85%B7%E7%9A%84idea/" title="深度学习-2-Paper:生成对抗网络GANs——深度学习二十年间最酷的idea!">
+                        <span class="hidden-mobile">深度学习-2-Paper:生成对抗网络GANs——深度学习二十年间最酷的idea!</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
