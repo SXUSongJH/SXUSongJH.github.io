@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>Optimal Transport-1.Monge-Kantorovich Problem</title>
+      <link href="/2024/02/07/Optimal%20Transport-1-Monge-Kantorovich%20Problem/"/>
+      <url>/2024/02/07/Optimal%20Transport-1-Monge-Kantorovich%20Problem/</url>
+      
+        <content type="html"><![CDATA[<h1 id="monge-kantorovich-problem">Monge-Kantorovich Problem</h1><p>  最优传输理论(Optimal TransportTheroy)是应用数学的一个分支，主要研究的是概率分布之间的最优转移方式以及相关的距离度量。它的核心思想是通过最小化两个概率分布之间的转移成本，来定义这两个分布之间的距离。<br>  最优传输问题的历史可以追溯到18世纪。著名法国数学家 Monge在1781年提出了最优传输问题的早期形式，即Monge-Problem。他关注的是如何以最小的成本将一个土堆移动到另一个位置，这被看作是最优传输理论的起源。时至今日，很多介绍最优传输理论的科普文章依然喜欢使用“土堆移动、推土机”等例子来论述最优传输理论。Monge的工作奠定了这一理论的基础。另外一个对最优传输理论的发展具有关键作用的是前苏联数学家Kantorovich。Kantorovich在20世纪40年代从实际经济资源分配问题中重新导出了最优传输问题，他基于测度论对最优传输问题进行了严格的定义，并推导出了一系列重要的理论成果。Kantorovich的工作对最优传输理论的数学形式和理论基础的建立起到了关键作用。由于在线性规划和资源分配方面的重要贡献，Kantorovich于1975年获得诺贝尔经济学奖。此外还有多位数学家对最优传输理论的发展做出了重要贡献，Wassertein、Villani、Berg等数学家从理论、应用、数值计算等方面丰富了最优传输理论。  最优传输理论的应用涵盖多个领域，</p><ul><li><strong>1.图像处理和计算机视觉:</strong>在图像处理中，最优传输理论被用来衡量图像之间的相似性，从而进行图像匹配、图像检索等任务。在计算机视觉领域，它被用于解决图像生成和变换的问题。<br></li><li><strong>2.机器学习:</strong>在机器学习中，最优传输理论被应用于生成模型、领域自适应等问题，以提高模型的泛化性能。<br></li><li><strong>3.经济学和金融学:</strong>在经济学中，最优传输理论被用于研究资源的分配和经济结构的演变。在金融学中，它可以用来量化不同资产之间的差异和联系。<br></li><li><strong>4.统计学和信息论:</strong>最优传输理论在统计学和信息论中也有广泛的应用，尤其是在测度空间中定义概率分布之间的距离。</li></ul><p>  总的来说，最优传输理论在多个领域都展现了广泛的应用，其在处理概率分布之间的关系和相似性为研究者提供了有力的工具。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 最优传输理论 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>机器学习-7-线性判别分析</title>
       <link href="/2024/02/03/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-7-%E7%BA%BF%E6%80%A7%E5%88%A4%E5%88%AB%E5%88%86%E6%9E%90/"/>
       <url>/2024/02/03/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-7-%E7%BA%BF%E6%80%A7%E5%88%A4%E5%88%AB%E5%88%86%E6%9E%90/</url>
