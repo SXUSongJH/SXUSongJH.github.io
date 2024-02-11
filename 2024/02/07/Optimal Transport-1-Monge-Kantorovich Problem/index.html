@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s2.loli.net/2024/02/07/7iNUCpyQv3wnMLc.jpg">
 <meta property="article:published_time" content="2024-02-07T06:32:06.000Z">
-<meta property="article:modified_time" content="2024-02-11T17:14:23.283Z">
+<meta property="article:modified_time" content="2024-02-11T17:20:23.709Z">
 <meta property="article:author" content="喵老师">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://s2.loli.net/2024/02/07/7iNUCpyQv3wnMLc.jpg">
@@ -226,7 +226,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          6.4k 字
+          6.5k 字
         
       </span>
     
@@ -309,12 +309,12 @@ Monge(1746-1818)是法国著名的数学家和物理学家，他在数学、物�
 sur la théorie de déblais et de
 remblais(关于挖掘和填充的备忘录).</strong>
 Monge在著作中对该问题进行了论述，并提出了一种解决方案。<br>
-  Monge首先对所要研究的问题做出了一系列假设： -
-<strong>所要运输的土堆都是由质量相等的不可再分的分子所构成的，且土堆中分子的分布是均匀的。</strong>
--
-<strong>每个分子的运输价格都是相等的，与该分子的重量和它所被传输的距离成正比。</strong>
--
-<strong>总的运输价格是所运输的每个分子的质量乘以分子所传输的距离的总和。</strong></p>
+  Monge首先对所要研究的问题做出了一系列假设：</p>
+<ul>
+<li><strong>所要运输的土堆都是由质量相等的不可再分的分子所构成的，且土堆中分子的分布是均匀的。</strong></li>
+<li><strong>每个分子的运输价格都是相等的，与该分子的重量和它所被传输的距离成正比。</strong></li>
+<li><strong>总的运输价格是所运输的每个分子的质量乘以分子所传输的距离的总和。</strong></li>
+</ul>
 <p>基于以上的假设，Monge提出了"前向运输法"，并给出了从一维到三维的实例。</p>
 <h3 id="点到点的最优传输">点到点的最优传输</h3>
 <p>  我们首先来考虑最简单的两点运输情形，如下图1所示：</p>
@@ -352,7 +352,7 @@ Image4: Monge著作中的作图
 </div>
 </center>
 <h3 id="待解决的问题">待解决的问题</h3>
-<p>  虽然Monge借助“前向法”给出了最优传输问题的一种解决方法，但他同时也在著作中承认，实际的运输问题是非常复杂的，他的解法只是一种非常理想化的方法，并且这种方法也存在着缺陷，主要有以下几个方面：</p>
+<p>  虽然Monge借助“前向法”给出了最优传输问题的一种解决方法，但他同时也在著作中承认，实际的运输问题是非常复杂的，他的解法只是一种非常理想化的方法，并且这种方法也存在着缺陷，主要有以下几个方面:</p>
 <ul>
 <li><strong>1.被运输的每个分子的质量可能是不同的。</strong></li>
 <li><strong>2.每个区域的密度有可能不同，即面积相同的区域所含有的分子数量可能不相等。</strong></li>
@@ -389,9 +389,9 @@ m 个城市，每个工厂每个月的产能是固定的，记为 <span class="m
 <span class="math inline">\(\boldsymbol{U}(\boldsymbol{a},\boldsymbol{b})\)</span>
 为 <span class="math inline">\(n+m\)</span>
 个等式定义的凸多胞体，故最优传输问题是一个典型的线性规划问题。</p>
-<h2 id="概率视角">概率视角</h2>
+<h3 id="概率视角">概率视角</h3>
 <p>  Kantorovich使用测度论定义了被运输的对象。在Monge的理论中，运输是确定性的，即每个分子都不可再分，且会被整体被运输到另一个位置，<strong>Kantorovich放松了这种确定性条件，他认为每个分子是可以进行切分的，一个分子所包含的质量可以被运输到不同的位置，这种运输是具有概率性的</strong>。</p>
-<h3 id="离散概率分布运输问题">离散概率分布运输问题</h3>
+<h4 id="离散概率分布运输问题">离散概率分布运输问题</h4>
 <p>  设 <span class="math inline">\(X, Y\)</span>
 是两个服从多项分布的随机变量，取值于 <span class="math inline">\(\{
 1,2,\dotsb, d \}\)</span>。<span class="math inline">\(X,
@@ -417,13 +417,13 @@ d}_{+}\)</span>。则多项分布 <span class="math inline">\(\boldsymbol{\alpha
 \boldsymbol{\alpha}, Y \sim \boldsymbol{\beta} \}\]</span></p>
 <p><span class="math inline">\((X,Y)\)</span>表示取值于<span class="math inline">\(\mathcal{X} \times
 \mathcal{Y}\)</span>的联合分布。</p>
-<h3 id="连续概率分布运输问题">连续概率分布运输问题</h3>
+<h4 id="连续概率分布运输问题">连续概率分布运输问题</h4>
 <p>  连续分布的运输问题与离散问题相似，不同点在于随机变量 <span class="math inline">\(X,Y\)</span> 服从的是连续分布 <span class="math inline">\(\boldsymbol{\alpha},
 \boldsymbol{\beta}\)</span>，最优运输同样可以定义为：</p>
 <p><span class="math display">\[L_{\boldsymbol{C}}(\boldsymbol{\alpha},\boldsymbol{\beta})
 := \min_{(X,Y)} \{ \mathbb{E}_{(X,Y)}(c(X,Y)): X \sim
 \boldsymbol{\alpha}, Y \sim \boldsymbol{\beta} \}\]</span></p>
-<h3 id="局部前向法">局部前向法</h3>
+<h4 id="局部前向法">局部前向法</h4>
 <p>  通过求解离散分布和连续分布的最优传输问题，我们可以发现最优传输方案与Monge的"前向法"存在联系，下图5是最优传输的结果实例：</p>
 <center>
 <img src="https://s2.loli.net/2024/02/12/BZ8uThM5CcbQzm4.png" srcset="/img/loading.gif" lazyload width="60%" height="60%">
@@ -432,7 +432,7 @@ Image5: 概率分布最优传输结果实例
 </div>
 </center>
 <p>从右图离散分布的最优运输结果来看，最优运输是满足“局部前向法"的，即在满足边界分布的条件下，遵循前向运输法则。</p>
-<h2 id="参考">参考</h2>
+<h2 id="references">References</h2>
 <ul>
 <li><strong>[1] Book: Peyré G, Cuturi M. Computational optimal
 transport[J]. Center for Research in Economics and Statistics Working
