@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s2.loli.net/2024/02/07/7iNUCpyQv3wnMLc.jpg">
 <meta property="article:published_time" content="2024-02-15T12:38:15.000Z">
-<meta property="article:modified_time" content="2024-02-17T17:19:04.097Z">
+<meta property="article:modified_time" content="2024-02-17T17:25:37.054Z">
 <meta property="article:author" content="喵老师">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://s2.loli.net/2024/02/07/7iNUCpyQv3wnMLc.jpg">
@@ -226,7 +226,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          9.2k 字
+          9.4k 字
         
       </span>
     
@@ -237,7 +237,7 @@
         
         
         
-          77 分钟
+          79 分钟
         
       </span>
     
@@ -364,8 +364,12 @@ L_{\boldsymbol{D}^{p}}(\boldsymbol{\alpha,\boldsymbol{\beta}})^{1/p} =
 可以作为概率空间<span class="math inline">\(\sum_{n}\)</span>上的距离函数，则需要证明 <span class="math inline">\(W_{p}\)</span>
 满足概率空间中距离函数的性质，即非负性、同一性、对称性、三角不等式。<br>
   <strong>(1) 非负性证明</strong><br>
-   $ ,^{p} ^{n n}<em>{+} &lt; ,^{p} &gt;=</em>{ij}<em>{ij}^{p}</em>{ij}
-W_{p}(, ) .$<br>
+   <span class="math inline">\(\boldsymbol{P},\boldsymbol{D}^{p} \in
+\mathbb{R}^{n \times n}_{+} \Rightarrow \left&lt;
+\boldsymbol{P},\boldsymbol{D}^{p}
+\right&gt;=\sum_{ij}\boldsymbol{P}_{ij}\boldsymbol{D}^{p}_{ij} \ge 0
+\Rightarrow W_{p}(\boldsymbol{\alpha}, \boldsymbol{\beta}) \ge
+0.\)</span><br>
   <strong>(2) 同一性证明</strong><br>
   由度量矩阵的性质可知: <span class="math inline">\(\boldsymbol{D}_{i,i}=0, \forall i \in \{
 1,\dotsb,n \}\)</span>，则有 <span class="math inline">\(\boldsymbol{D}_{i,i}^{p}=0\)</span>，即成本矩阵
@@ -394,11 +398,11 @@ W_{p}(\boldsymbol{\alpha},\boldsymbol{\alpha})=0\]</span></p>
 \right&gt;^{\frac{1}{p}}\]</span></p>
 <p>  由于成本矩阵 <span class="math inline">\(\boldsymbol{D}^{p}\)</span> 是对称矩阵，故有：</p>
 <p><span class="math display">\[W_{p}(\boldsymbol{\alpha},\boldsymbol{\beta})=\left&lt;  \boldsymbol{P}^{*},\boldsymbol{D}^{p}
-\right&gt;^{\frac{1}{p}}=\left&lt;  \boldsymbol{P^{*}}^{T},\boldsymbol{D}^{p}
+\right&gt;^{\frac{1}{p}}=\left&lt;  \boldsymbol{(P^{*})^{T}},\boldsymbol{D}^{p}
 \right&gt;^{\frac{1}{p}}\]</span></p>
-<p>  <span class="math inline">\(\boldsymbol{P^{*}}^{T}\mathbf{1}_{n}=\boldsymbol{\beta},
+<p>  <span class="math inline">\(\boldsymbol{(P^{*})^{T}}\mathbf{1}_{n}=\boldsymbol{\beta},
 \boldsymbol{P}^{*}\mathbf{1}_{n}=\boldsymbol{\alpha} \Rightarrow
-\boldsymbol{P^{*}}^{T} \in
+\boldsymbol{(P^{*})^{T}} \in
 \boldsymbol{U}(\boldsymbol{\beta},\boldsymbol{\alpha})\)</span>. 由于
 <span class="math inline">\(\boldsymbol{U}(\boldsymbol{\beta},\boldsymbol{\alpha})\)</span>
 与 <span class="math inline">\(\boldsymbol{U}(\boldsymbol{\alpha},\boldsymbol{\beta})\)</span>
@@ -407,7 +411,7 @@ W_{p}(\boldsymbol{\alpha},\boldsymbol{\alpha})=0\]</span></p>
 \min_{\boldsymbol{P} \in
 \boldsymbol{U}(\boldsymbol{\beta},\boldsymbol{\alpha})} \left&lt;
 \boldsymbol{P},\boldsymbol{D}^{p} \right&gt;
-\right)^{\frac{1}{p}}=\left&lt;  \boldsymbol{P^{*}}^{T},\boldsymbol{D}^{p}
+\right)^{\frac{1}{p}}=\left&lt;  \boldsymbol{(P^{*})^{T}},\boldsymbol{D}^{p}
 \right&gt;^{\frac{1}{p}}\]</span></p>
 <p><span class="math display">\[\Rightarrow
 W_{p}(\boldsymbol{\alpha},\boldsymbol{\beta}) =
