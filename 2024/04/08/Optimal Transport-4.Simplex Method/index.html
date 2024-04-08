@@ -1,0 +1,1323 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="https://s2.loli.net/2023/07/15/AhaZCquL51QoPpk.png">
+  <link rel="icon" href="https://s2.loli.net/2023/07/15/AhaZCquL51QoPpk.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="喵老师">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="本节主要介绍解决线性规划问题的单纯形方法。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Optimal Transport-4.Simplex Method">
+<meta property="og:url" content="http://example.com/2024/04/08/Optimal%20Transport-4.Simplex%20Method/index.html">
+<meta property="og:site_name" content="喵老师&#39;s Blog">
+<meta property="og:description" content="本节主要介绍解决线性规划问题的单纯形方法。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2024/02/07/7iNUCpyQv3wnMLc.jpg">
+<meta property="article:published_time" content="2024-04-08T04:11:10.000Z">
+<meta property="article:modified_time" content="2024-04-08T13:55:20.937Z">
+<meta property="article:author" content="喵老师">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://s2.loli.net/2024/02/07/7iNUCpyQv3wnMLc.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>Optimal Transport-4.Simplex Method - 喵老师&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="alternate" href="/atom.xml" title="喵老师's Blog" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>喵老师&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/Daily/" target="_self">
+                <i class="iconfont icon-music"></i>
+                <span>日常</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://s2.loli.net/2024/02/07/5feWFxTjMVROtyp.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Optimal Transport-4.Simplex Method"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-04-08 12:11" pubdate>
+          2024年4月8日 中午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          16k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          134 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Optimal Transport-4.Simplex Method</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="simplex-method">Simplex Method</h1>
+<p>  单纯形方法(Simplex Method)是解决线性规划问题的一种重要算法。它由
+George Dantzig
+在1947年发明。线性规划问题涉及到在一系列线性等式或不等式约束条件下，找到一个线性函数的最大值或最小值。<strong>单纯形方法的基本思想是将问题的解空间视为一个几何形状（通常是多维的），这个几何形状的顶点代表可能的解。算法从这个形状的一个顶点开始，沿着边缘移动到相邻的顶点，以此方式逐步改进解，直到找到最优解为止。每一步都保证目标函数的值不会变差。</strong><br>
+  单纯形方法在实际应用中非常广泛，包括运筹学、工程优化、金融和经济学等领域。尽管存在某些局限性，它仍然是解决线性规划问题的一个强大工具。</p>
+<h2 id="linear-programming-form-of-ot-problem">Linear Programming Form
+of OT Problem</h2>
+<p>  在之前的章节中，我们已经介绍了 Kantorovich OT Problem
+的经济含义与数学形式，我们也说明了其能够转化为线性规划的标准形式，这里我们再回顾一下之前的内容。<br>
+<strong>数学形式</strong><br>
+  Kantorovich OT Problem 的数学形式如下(1)：</p>
+<p><span class="math display">\[\begin{equation}
+    L_{\boldsymbol{C}}(\boldsymbol{a}, \boldsymbol{b}) \quad
+\overset{\text{def.}}{=} \quad \min_{\boldsymbol{P} \in
+\boldsymbol{U}(\boldsymbol{a},\boldsymbol{b})} \left&lt;
+\boldsymbol{C},\boldsymbol{P} \right&gt;_{F}=\sum_{i,j}p_{ij}c_{ij}
+\end{equation}\]</span></p>
+<p>其中 <span class="math inline">\(\boldsymbol{a} \in
+\mathbb{R}^{n},\boldsymbol{b} \in \mathbb{R}^{m},
+\boldsymbol{P},\boldsymbol{C} \in \mathbb{R}^{n \times
+m}_{+}\)</span>，约束条件 <span class="math inline">\(\boldsymbol{U}(\boldsymbol{a},\boldsymbol{b})\)</span>
+为：</p>
+<p><span class="math display">\[\boldsymbol{U}(\boldsymbol{a},\boldsymbol{b}) =
+\{ \boldsymbol{P} \in \mathbb{R}^{n \times m}_{+}: \boldsymbol{P}
+\mathbf{1}_{m}=\boldsymbol{a} \quad and \quad \boldsymbol{P^{T}}
+\mathbf{1}_{n}=\boldsymbol{b} \}\]</span></p>
+<p><strong>经济含义</strong><br>
+  考虑一个实际问题，有 n 个生产木材的工厂，生产的木材需要供应给 m
+个城市，每个工厂每个月的产能是固定的，记为 <span class="math inline">\(\boldsymbol{a}, \boldsymbol{a} \in
+\mathbb{R}^{n}\)</span>；每个城市每个月木材的需求量也是固定的，记为
+<span class="math inline">\(\boldsymbol{b}, \boldsymbol{b} \in
+\mathbb{R}^{m}\)</span>。记 <span class="math inline">\(\boldsymbol{P} =
+[p_{ij}]_{n \times m} \in \mathbb{R}^{n \times m}_{+}\)</span>
+表示运输方案，其中 <span class="math inline">\(p_{ij}\)</span> 表示第 i
+个工厂运输到第 j 个城市的木材量。记 <span class="math inline">\(\boldsymbol{C} = [c_{ij}]_{n \times m} \in
+\mathbb{R}^{n \times m}_{+}\)</span> 表示运输成本，其中 <span class="math inline">\(c_{ij}\)</span>
+表示将单位木材从第i个工厂运输到第j个城市的成本。<br>
+  则 Kantorovich OT Problem
+实际上是在寻找满足供应与需求条件下，使得总成本最低的运输方案。</p>
+<p><strong>线性规划形式</strong></p>
+<p>  Kantorovich OT Problem
+实际上是一个线性规划问题，通过一定的变换，我们能够将原始的 Kantorovich
+OT Problem 转化为线性规划形式。<br>
+  将矩阵 <span class="math inline">\(\boldsymbol{P},\boldsymbol{C}\)</span>
+写成列向量形式：</p>
+<p><span class="math display">\[\boldsymbol{P}=\begin{bmatrix}
+    \boldsymbol{p_1}, \boldsymbol{p_2}, \cdots,\boldsymbol{p_m}
+\end{bmatrix},\quad \boldsymbol{C} = \begin{bmatrix}
+    \boldsymbol{c_1},\boldsymbol{c_2}, \cdots,\boldsymbol{c_m}
+\end{bmatrix}\]</span></p>
+<p>  构造向量 <span class="math inline">\(\boldsymbol{p},\boldsymbol{c}
+\in \mathbb{R}^{nm}, \boldsymbol{d} \in \mathbb{R}^{n+m}\)</span>，矩阵
+<span class="math inline">\(A \in \mathbb{R}^{(n+m) \times
+nm}\)</span>:</p>
+<p><span class="math display">\[\boldsymbol{p} = \begin{bmatrix}
+    \boldsymbol{p_{1}^{T}}, \boldsymbol{p_{2}^{T}}, \cdots,
+\boldsymbol{p_{m}^{T}}
+\end{bmatrix}^{T}, \quad \boldsymbol{c} = \begin{bmatrix}
+    \boldsymbol{c_{1}^{T}}, \boldsymbol{c_{2}^{T}}, \cdots,
+\boldsymbol{c_{m}^{T}}
+\end{bmatrix}^{T}\]</span></p>
+<p><span class="math display">\[\boldsymbol{A} = \begin{bmatrix}
+    \boldsymbol{1_{n}^{T}} \otimes \boldsymbol{I_{m}} \\
+    \boldsymbol{I_{n}} \otimes \boldsymbol{1_{m}^{T}} \\
+\end{bmatrix}, \quad \boldsymbol{d}=\begin{bmatrix}
+    \boldsymbol{a} \\
+    \boldsymbol{b} \\
+\end{bmatrix}\]</span></p>
+<p>其中，符号"<span class="math inline">\(\otimes\)</span>"表示矩阵的
+kronecker's product。则(1)式可以被转化为：</p>
+<p><span class="math display">\[\begin{equation}
+    \begin{split}
+        \min_{\boldsymbol{p} \in \mathbb{R^{nm}}} \quad
+&amp;\boldsymbol{c^{T}p} \\
+        s.t. \quad &amp; \boldsymbol{Ap} = \boldsymbol{d} \\
+        &amp; \boldsymbol{p} \ge \boldsymbol{0} \\
+    \end{split}
+\end{equation}\]</span></p>
+<p>  优化问题(2)即为 Kantorovich OT Problem 的线性规划形式。</p>
+<h2 id="theoretical-foundations-of-simplex-method">Theoretical
+Foundations of Simplex Method</h2>
+<p>  解决线性规划的单纯形算法的理论基础是<strong>凸多面体分解定理</strong>，在正式介绍单纯形算法之前，我们首先来介绍凸多面体分解定理。要想理解凸多面体分解定理，我们需要从凸多面体、极点、极方向等开始讲起。</p>
+<h3 id="polyhedron">Polyhedron</h3>
+<p><strong>凸包(Convex Hall)</strong><br>
+  凸包是点集中元素的凸组合所构成的集合。数学形似为：</p>
+<p><span class="math display">\[C \subseteq R^{n},Conv C= \{
+\sum_{i=1}^{n}\theta_{i}x_{i} | \forall x_i \in C, \forall \theta_{i}
+\in [0,1], \sum_{i=1}^{n}\theta_i = 1, i = 1,...,n \}\]</span></p>
+<p>  凸包是欧式空间中一组点集的最小凸集。</p>
+<center>
+<img src="https://s2.loli.net/2024/04/08/DfV5GLTQ8ncANRi.jpg" srcset="/img/loading.gif" lazyload width="60%" height="60%">
+<div data-align="center">
+Image1: 凸包
+</div>
+</center>
+<p><br></p>
+<p><strong>凸多面体(Convex Polyhedron)</strong><br>
+  凸多面体是有限个线性等式和不等式的解集。其数学形式为：</p>
+<p><span class="math display">\[P = \{ x | a_{i}^{T}x \leq b_i,
+i=1,...,m; c_{j}^{T}x = d_{j}, j=1,...,p \}\]</span></p>
+<p>  从凸多面体的数学形式上可以多面体是有限个半空间和超平面的交集，因此凸多面体也是凸集。</p>
+<center>
+<img src="https://s2.loli.net/2024/04/08/5yoEIzh3YAZRdX1.jpg" srcset="/img/loading.gif" lazyload width="60%" height="60%">
+<div data-align="center">
+Image2: 凸多面体
+</div>
+</center>
+<p><br></p>
+<p>  设线性规划问题(2)的可行解集为 <span class="math inline">\(S = \{
+\boldsymbol{x}| \boldsymbol{x} \in
+\mathbb{R}^{nm},\boldsymbol{Ax}=\boldsymbol{d},\boldsymbol{x} \ge 0
+\}\)</span>。由凸多面体的定义可知<strong>可行解集 <span class="math inline">\(S\)</span> 为凸多面体</strong>。</p>
+<h2 id="properties-of-convex-polyhedron">Properties of Convex
+Polyhedron</h2>
+<p><strong>极点(Extreme Point)</strong><br>
+  对于凸集<span class="math inline">\(C\)</span>，若 <span class="math inline">\(x \in C\)</span> 不能表示成 <span class="math inline">\(C\)</span> 中另外两点的凸组合，则称 <span class="math inline">\(x\)</span> 为凸集 <span class="math inline">\(C\)</span> 的极点。极点的数学形式为：</p>
+<p><span class="math display">\[Ep(C) = \{x | x \in C, \forall x_1,x_2
+\in C, \forall \theta \in [0,1], x \ne \theta x_1 + (1-\theta)x_2
+\}\]</span></p>
+<p>  通过极点的定义可以得知：<strong>极点不能落在凸集中另外两点组成的线段上。</strong></p>
+<p><strong>方向(Recession Direction)</strong><br>
+  对于凸集<span class="math inline">\(C\)</span>，若存在非零向量 <span class="math inline">\(d\)</span>，满足：对于任意 <span class="math inline">\(x \in C\)</span>，均有 <span class="math inline">\(x + \lambda d \in C, \forall \lambda &gt;
+0\)</span>，则称 <span class="math inline">\(d\)</span> 为凸集 <span class="math inline">\(C\)</span> 的一个方向。方向的数学形式为：</p>
+<p><span class="math display">\[d: d \ne 0, \forall x \in C, \forall
+\lambda &gt;0, x + \lambda d \in C\]</span></p>
+<p>  凸集<span class="math inline">\(C\)</span>中所有方向构成了一个方向锥：</p>
+<p><span class="math display">\[RDcone(C) = \{d | d \ne 0, \forall x \in
+C, \forall \lambda &gt;0, x + \lambda d \in C \}\]</span></p>
+<p><strong>极方向(Extreme Direction)</strong><br>
+  对于凸集<span class="math inline">\(C\)</span>，若方向 <span class="math inline">\(d\)</span>
+不能表示成另外两个方向的正线性组合，则称 <span class="math inline">\(d\)</span> 为凸集 <span class="math inline">\(C\)</span> 的极方向。极方向的数学形式为：</p>
+<p><span class="math display">\[Ed(C) = \{ d | d \in RDcone(C),\forall
+d_1,d_2 \in RDcone(C), \forall \lambda_1,\lambda_2 &gt; 0,d \ne
+\lambda_1 d_1 + \lambda_2 d_2 \}\]</span></p>
+<p>  <strong>凸集<span class="math inline">\(C\)</span>中任意一个方向<span class="math inline">\(d\)</span>可以表示成其极方向的线性组合。</strong></p>
+<center>
+<img src="https://s2.loli.net/2024/04/08/aTVmyZB4udYf7gA.jpg" srcset="/img/loading.gif" lazyload width="60%" height="60%">
+<div data-align="center">
+Image3: 极点、方向、极方向
+</div>
+</center>
+<p><br></p>
+<p><strong>极点与极方向的数学表示</strong><br>
+  设 <span class="math inline">\(\boldsymbol{x} \in \mathbb{R}^{n},
+\boldsymbol{A} \in \mathbb{R}^{m \times n}, \boldsymbol{b} \in
+\mathbb{R}^{m}, r(\boldsymbol{A})=m\)</span>，则有凸多面体：</p>
+<p><span class="math display">\[S = \{\boldsymbol{x} |
+\boldsymbol{Ax}=\boldsymbol{b},\boldsymbol{x} \ge0 \}\]</span></p>
+<p><strong>极点定理:</strong> <span class="math inline">\(\boldsymbol{x}
+\in S\)</span> 是凸多面体 <span class="math inline">\(S\)</span>
+的极点当且仅当存在 <span class="math inline">\(\boldsymbol{A}\)</span>
+的分块: <span class="math inline">\(\boldsymbol{A}=\begin{bmatrix}  \boldsymbol{B},\boldsymbol{N}
+\end{bmatrix}\)</span>，使得 <span class="math inline">\(\boldsymbol{x}\)</span> 可以表示为：</p>
+<p><span class="math display">\[\boldsymbol{x} = \begin{bmatrix}
+    \boldsymbol{B^{-1}b} \\
+    \boldsymbol{0} \\
+\end{bmatrix}, \quad \boldsymbol{A}=\begin{bmatrix}
+    \boldsymbol{B},\boldsymbol{N}
+\end{bmatrix},\boldsymbol{B} \in \mathbb{R}^{m \times m}\]</span></p>
+<p>其中，<span class="math inline">\(\boldsymbol{B}\)</span> 可逆，且
+<span class="math inline">\(\boldsymbol{B^{-1}b} \ge
+\boldsymbol{0}\)</span>。<br>
+  由极点定理可知，若 <span class="math inline">\(\boldsymbol{x}\)</span>
+为凸多面体 <span class="math inline">\(S\)</span> 的一个极点，则 <span class="math inline">\(\boldsymbol{x}\)</span> 正分量对应的矩阵 <span class="math inline">\(\boldsymbol{A}\)</span>
+的列必然线性无关。同时凸多面体的极点必然是有限个的。</p>
+<p><strong>极方向定理:</strong> <span class="math inline">\(\boldsymbol{d} \in \mathbb{R}^{n}\)</span>
+是凸多面体 <span class="math inline">\(S\)</span> 的极方向当且仅当存在
+<span class="math inline">\(\boldsymbol{A}\)</span> 的分块: <span class="math inline">\(\boldsymbol{A}=\begin{bmatrix}  \boldsymbol{B},\boldsymbol{N}
+\end{bmatrix}\)</span>， 使得 <span class="math inline">\(\boldsymbol{d}\)</span> 可以表示为:</p>
+<p><span class="math display">\[\boldsymbol{d} = t\begin{bmatrix}
+    -\boldsymbol{B^{-1}n_{j}} \\
+    \boldsymbol{e_{j}}
+\end{bmatrix},\quad \boldsymbol{A} = \begin{bmatrix}
+    \boldsymbol{B},\boldsymbol{N}
+\end{bmatrix},\boldsymbol{B} \in \mathbb{R}^{m \times m}\]</span></p>
+<p>其中，<span class="math inline">\(\boldsymbol{B}\)</span> 可逆，<span class="math inline">\(t &gt; 0, \boldsymbol{B^{-1}n_{j}} \leq
+0\)</span>，<span class="math inline">\(\boldsymbol{n_{j}}\)</span>
+为矩阵 <span class="math inline">\(\boldsymbol{N}\)</span>
+的第j列，<span class="math inline">\(\boldsymbol{e_{j}} \in
+\mathbb{R}^{n-m}\)</span> 的第j个分量为1，其余为0.</p>
+<h2 id="decomposition-of-convex-polyhedron">Decomposition of Convex
+Polyhedron</h2>
+<p>  设凸多面体 <span class="math inline">\(S\)</span> 的极点为 <span class="math inline">\(\boldsymbol{x_1,x_2,\dots,x_{k}}\)</span>，极方向为
+<span class="math inline">\(\boldsymbol{d_1,d_2,\dots,d_{I}}\)</span>，则
+<span class="math inline">\(\boldsymbol{x} \in S\)</span> 当且仅当 <span class="math inline">\(\boldsymbol{x}\)</span> 具有如下形式：</p>
+<p><span class="math display">\[\boldsymbol{x} =
+\sum_{i=1}^{k}\lambda_{i}\boldsymbol{x_{i}} +
+\sum_{j=1}^{I}\mu_{j}\boldsymbol{d_{j}}\]</span></p>
+<p>其中，<span class="math inline">\(\sum_{i=1}^{k}\lambda_{i}=1,\lambda_{i} \ge 0,
+i=1,\dots,k; \mu_{j} \ge 0, j = 1,\dots,I\)</span><br>
+  通过几何分析我们可以，该定理表示的含义为，<strong>以凸多面体的顶点构成的线段上的点为起点，以凸多面体的方向为方向所形成的所有射线的集合即为凸多么体中的点集。</strong></p>
+<center>
+<img src="https://s2.loli.net/2024/04/08/vYnHhyJeDd2PcTq.jpg" srcset="/img/loading.gif" lazyload width="60%" height="60%">
+<div data-align="center">
+Image4: 多面体的分解
+</div>
+</center>
+<p><br></p>
+<h2 id="simplex-method-of-linear-programming">Simplex Method of Linear
+Programming</h2>
+<p>  在介绍了单纯形方法的理论——凸多面体分解定理后，我们现在可以推导出单纯形算法，我们首先基于分解定理，对原始的线性规划问题做一些分析。</p>
+<h3 id="analysis-for-lp-based-on-decomposition-theroem">Analysis for LP
+Based on Decomposition Theroem</h3>
+<p>  线性规划问题的形式为：</p>
+<p><span class="math display">\[\begin{equation}
+    \begin{split}
+        \min_{\boldsymbol{c} \in \mathbb{R^{n}}} \quad
+&amp;\boldsymbol{c^{T}x} \\
+        s.t. \quad &amp; \boldsymbol{Ax} = \boldsymbol{b} \\
+        &amp; \boldsymbol{x} \ge \boldsymbol{0} \\
+    \end{split}
+\end{equation}\]</span></p>
+<p>其中，<span class="math inline">\(\boldsymbol{x} \in \mathbb{R}^{n},
+\boldsymbol{A} \in \mathbb{R}^{m \times n}, \boldsymbol{b} \in
+\mathbb{R}^{m}, r(\boldsymbol{A})=m\)</span>.<br>
+  定义可行解集 <span class="math inline">\(S = \{ \boldsymbol{x} |
+\boldsymbol{Ax}=\boldsymbol{b}
+\}\)</span>，则线性规划问题(3)也可以写成如下形式：</p>
+<p><span class="math display">\[\begin{equation}
+    \begin{split}
+        \min_{\boldsymbol{c} \in \mathbb{R^{n}}} \quad
+&amp;\boldsymbol{c^{T}x} \\
+        s.t. \quad &amp; \boldsymbol{x} \in S \\
+    \end{split}
+\end{equation}\]</span></p>
+<p>  由于可行解集 <span class="math inline">\(S\)</span>
+为一个凸多面体，设凸多面体 <span class="math inline">\(S\)</span>
+的极点为 <span class="math inline">\(\boldsymbol{x_1,x_2,\dots,x_{k}}\)</span>，极方向为
+<span class="math inline">\(\boldsymbol{d_1,d_2,\dots,d_{I}}\)</span>，则对
+<span class="math inline">\(\forall x \in S, \exists
+\lambda_{i},\mu_{j}\)</span>，使得:</p>
+<p><span class="math display">\[\boldsymbol{x} =
+\sum_{i=1}^{k}\lambda_{i}\boldsymbol{x_{i}} +
+\sum_{j=1}^{I}\mu_{j}\boldsymbol{d_{j}}\]</span></p>
+<p>其中，<span class="math inline">\(\sum_{i=1}^{k}\lambda_{i}=1,\lambda_{i} &gt; 0,
+i=1,\dots,k; \mu_{j} \ge 0, j = 1,\dots,I\)</span>.
+则优化问题(4)可以转化为：</p>
+<p><span class="math display">\[\begin{split}
+    \min_{\boldsymbol{c} \in \mathbb{R^{n}}} \quad
+&amp;\boldsymbol{c^{T}} \left(
+\sum_{i=1}^{k}\lambda_{i}\boldsymbol{x_{i}} +
+\sum_{j=1}^{I}\mu_{j}\boldsymbol{d_{j}} \right) \\
+    s.t. \quad &amp; \sum_{i=1}^{k}\lambda_{i}=1,\lambda_{i} \ge 0 \\
+    \quad &amp; \mu_{j} \ge 0
+\end{split}\]</span></p>
+<p>即：</p>
+<p><span class="math display">\[\begin{equation}
+    \begin{split}
+        \min_{\boldsymbol{c} \in \mathbb{R^{n}}} \quad
+&amp;\sum_{i=1}^{k}\lambda_{i}\boldsymbol{c^{T}x_{i}} +
+\sum_{j=1}^{I}\mu_{j}\boldsymbol{c^{T}d_{j}} \\
+        s.t. \quad &amp; \sum_{i=1}^{k}\lambda_{i}=1,\lambda_{i} \ge 0
+\\
+        \quad &amp; \mu_{j} \ge 0
+    \end{split}
+\end{equation}\]</span></p>
+<p>  对于优化问题(5)：</p>
+<ul>
+<li>若 <span class="math inline">\(\exists j, \boldsymbol{c^{T}d_{j}}
+&lt; 0\)</span>，令 <span class="math inline">\(\mu_{j} \rightarrow
++\infty\)</span>，则该问题的最小值为负无穷，无意义。<br>
+</li>
+<li>若 <span class="math inline">\(\forall j, \boldsymbol{c^{T}d_{j}}
+\ge 0\)</span>，则有 <span class="math inline">\(\mu_{j} = 0, \forall
+j\)</span>，该问题存在最优解。</li>
+</ul>
+<p>  通过以上的分析，优化问题(5)可被化为：</p>
+<p><span class="math display">\[\begin{equation}
+    \begin{split}
+        \min_{\boldsymbol{c} \in \mathbb{R^{n}}} \quad
+&amp;\sum_{i=1}^{k}\lambda_{i}\boldsymbol{c^{T}x_{i}} \\
+        s.t. \quad &amp; \sum_{i=1}^{k}\lambda_{i}=1,\lambda_{i} \ge 0
+\\
+    \end{split}
+\end{equation}\]</span></p>
+<p>  对于优化问题(6)，我们实际上只需要找到 i 使得 <span class="math inline">\(\boldsymbol{c^{T}x_{i}}\)</span>
+最小，此时令对应的 <span class="math inline">\(\lambda_{i}=1\)</span>，目标函数即为最小值。故优化问题(6)又可被转化为：</p>
+<p><span class="math display">\[\begin{equation}
+    \begin{split}
+        \min_{i} \quad \boldsymbol{c^{T}x_{i}} \\
+    \end{split}
+\end{equation}\]</span></p>
+<p>  故实际上，<strong>线性规划问题的最优值一定在其可行解集的某个极点上取到，其最优解也是某一个极点。</strong></p>
+<p><strong>结论</strong><br>
+  通过以上的分析，我们来总结一下得到的结论。考虑如下线性规划的形式：</p>
+<p><span class="math display">\[\begin{split}
+    \min_{\boldsymbol{c} \in \mathbb{R^{n}}} \quad
+&amp;\boldsymbol{c^{T}x} \\
+    s.t. \quad &amp; \boldsymbol{Ax} = \boldsymbol{b} \\
+    &amp; \boldsymbol{x} \ge \boldsymbol{0} \\
+\end{split}\]</span></p>
+<p>  其中，<span class="math inline">\(\boldsymbol{A} \in \mathbb{R}^{m
+\times n},r(\boldsymbol{A})=m\)</span>，记其可行解集为 <span class="math inline">\(S = \{ \boldsymbol{x} |
+\boldsymbol{Ax}=\boldsymbol{b},\boldsymbol{x} \ge \boldsymbol{0}
+\}\)</span>，设 <span class="math inline">\(S\)</span> 的极点为 <span class="math inline">\(\boldsymbol{x_1,x_2,\dots,x_{k}}\)</span>，极方向为
+<span class="math inline">\(\boldsymbol{d_1,d_2,\dots,d_{I}}\)</span>，则有：</p>
+<ul>
+<li><strong>线性规划有最优解当且仅当 <span class="math inline">\(\forall
+j, \boldsymbol{c^{T}d_{j}} \ge 0\)</span>.</strong></li>
+<li><strong>若线性规划有最优值，则必然可在某个极点上达到。</strong></li>
+</ul>
+<h2 id="mathematical-analysis-of-the-simplex-method">Mathematical
+Analysis of the Simplex Method</h2>
+<p>  有了前文中关于线性规划问题解的结论后，我们便能够比较容易地理解单纯形法的基本思想了。单纯形法的基本思想是<strong>首先找到可行解集的某一个极点，判断其是否为最优解，若是则算法终止，否则寻找一个更有的极点。</strong><br>
+  这里有两个核心问题，<strong>如何判断某一个极点是否是最优解</strong>？以及<strong>如何找到一个更优的极点</strong>?
+如果这两个问题解决了，我们便能够依据单纯形的基本思想完成整个算法的设计。接下来，我们便来分析这两个问题。<br>
+<strong>Analysis</strong><br>
+  设矩阵 <span class="math inline">\(\boldsymbol{A}\)</span>
+的某种分块为 <span class="math inline">\(\boldsymbol{A} =
+\begin{bmatrix}  \boldsymbol{B},\boldsymbol{N}
+\end{bmatrix}\)</span>，<span class="math inline">\(\boldsymbol{B} \in
+\mathbb{R}^{m}\)</span>，使得 <span class="math inline">\(\boldsymbol{B}\)</span> 可逆，且 <span class="math inline">\(\boldsymbol{B^{-1}b} \ge
+\boldsymbol{0}\)</span>，令：</p>
+<p><span class="math display">\[\boldsymbol{\bar{x}} = \begin{bmatrix}
+    \boldsymbol{B^{-1}b} \\
+    \boldsymbol{0} \\
+\end{bmatrix}\]</span></p>
+<p>由极点定理可知 <span class="math inline">\(\boldsymbol{\bar{x}}\)</span> 是可行解集 <span class="math inline">\(S\)</span> 的某一个极点。<strong>接下来我们要判断
+<span class="math inline">\(\boldsymbol{\bar{x}}\)</span>
+是否是最优解。</strong><br>
+  取 <span class="math inline">\(\boldsymbol{x} \in S\)</span>，根据矩阵
+<span class="math inline">\(\boldsymbol{A}\)</span>
+的分块结果，相应地将向量 <span class="math inline">\(\boldsymbol{x}\)</span> 与 <span class="math inline">\(\boldsymbol{c}\)</span> 进行分块：</p>
+<p><span class="math display">\[\boldsymbol{x} = \begin{bmatrix}
+    \boldsymbol{x_{B}} \\
+    \boldsymbol{x_{N}} \\
+\end{bmatrix}, \quad \boldsymbol{c} = \begin{bmatrix}
+    \boldsymbol{c_{B}} \\
+    \boldsymbol{c_{N}} \\
+\end{bmatrix}\]</span></p>
+<p><span class="math display">\[\boldsymbol{Ax}=\boldsymbol{b} \quad
+\Rightarrow \quad \begin{bmatrix}
+    \boldsymbol{B,N}
+\end{bmatrix}\begin{bmatrix}
+    \boldsymbol{x_{B}} \\
+    \boldsymbol{x_{N}} \\
+\end{bmatrix}=\boldsymbol{Bx_{B}}+\boldsymbol{Nx_{N}}=\boldsymbol{b}
+\quad \Rightarrow \quad \boldsymbol{x_{B}} =
+\boldsymbol{B^{-1}b}-\boldsymbol{B^{-1}Nx_{N}}\]</span></p>
+<p>  若对 <span class="math inline">\(\forall x \in S\)</span>，均有
+<span class="math inline">\(\boldsymbol{c^{T}x}-\boldsymbol{c^{T}\bar{x}} \ge
+0\)</span>，则 <span class="math inline">\(\boldsymbol{\bar{x}}\)</span>
+为最优解。对判断条件 <span class="math inline">\(\boldsymbol{c^{T}x}-\boldsymbol{c^{T}\bar{x}} \ge
+0\)</span> 做一些化简：</p>
+<p><span class="math display">\[\begin{split}
+    \boldsymbol{c^{T}x}-\boldsymbol{c^{T}\bar{x}} =&amp; \begin{bmatrix}
+        \boldsymbol{c_{B}^{T},c_{N}^{T}} \\
+    \end{bmatrix}\begin{bmatrix}
+        \boldsymbol{x_{B}} \\
+        \boldsymbol{x_{N}} \\
+    \end{bmatrix} - \begin{bmatrix}
+        \boldsymbol{c_{B}^{T},c_{N}^{T}} \\
+    \end{bmatrix}\begin{bmatrix}
+        \boldsymbol{B^{-1}b} \\
+        \boldsymbol{0} \\
+    \end{bmatrix} =
+\boldsymbol{c_{B}^{T}x_{B}}+\boldsymbol{c_{N}^{T}x_{N}} -
+\boldsymbol{c_{B}^{T}B^{-1}b}  \\
+    &amp;= \boldsymbol{c_{B}^{T}B^{-1}b} -
+\boldsymbol{c_{B}^{T}B^{-1}Nx_{N}}+\boldsymbol{c_{N}^{T}x_{N}} -
+\boldsymbol{c_{B}^{T}B^{-1}b} = \boldsymbol{c_{N}^{T}x_{N}} -
+\boldsymbol{c_{B}^{T}B^{-1}Nx_{N}} \\
+    &amp;= \left( \boldsymbol{c_{N}^{T}} - \boldsymbol{c_{B}^{T}B^{-1}N}
+\right)\boldsymbol{x_{N}}
+\end{split}\]</span></p>
+<p>  <strong>(1)</strong> 若 <span class="math inline">\(\boldsymbol{c_{N}^{T}} -
+\boldsymbol{c_{B}^{T}B^{-1}N} \ge \boldsymbol{0}\)</span>，则有 <span class="math inline">\(\boldsymbol{c^{T}x}-\boldsymbol{c^{T}\bar{x}} \ge
+0\)</span>，<span class="math inline">\(\boldsymbol{\bar{x}}\)</span>
+即为最优解，此时我们已经找到了最优解，算法可以终止了。<br>
+  <strong>(2)</strong> 若 <span class="math inline">\(\boldsymbol{c_{N}^{T}} -
+\boldsymbol{c_{B}^{T}B^{-1}N} \ngeq \boldsymbol{0}\)</span>，此时 <span class="math inline">\(\boldsymbol{\bar{x}}\)</span>
+不是最优解，我们需要<strong>寻找一个更优的极点。</strong><br>
+  不妨设 <span class="math inline">\(\boldsymbol{c_{N}^{T}} -
+\boldsymbol{c_{B}^{T}B^{-1}N}\)</span> 中的第j个分量小于零，即 <span class="math inline">\(\boldsymbol{c_{Nj}^{T}} -
+\boldsymbol{c_{B}^{T}B^{-1}n_{j}} &lt; 0\)</span>，记：</p>
+<p><span class="math display">\[\boldsymbol{d_{j}} = \begin{bmatrix}
+    -\boldsymbol{B^{-1}n_{j}} \\
+    \boldsymbol{e_{j}}
+\end{bmatrix}\]</span></p>
+<p>则：</p>
+<p><span class="math display">\[\boldsymbol{c^{T}d_{j}} =
+\begin{bmatrix}
+        \boldsymbol{c_{B}^{T},c_{N}^{T}} \\
+    \end{bmatrix}\begin{bmatrix}
+    -\boldsymbol{B^{-1}n_{j}} \\
+    \boldsymbol{e_{j}}
+\end{bmatrix} = \boldsymbol{c_{Nj}^{T}} -
+\boldsymbol{c_{B}^{T}B^{-1}n_{j}} &lt; 0\]</span></p>
+<p>记 <span class="math inline">\(\boldsymbol{r_{j}} =
+\boldsymbol{B^{-1}n_{j}}\)</span><br>
+  <strong>1.</strong> 若 <span class="math inline">\(\boldsymbol{r_{j}}
+\leq \boldsymbol{0}\)</span>，则 <span class="math inline">\(\boldsymbol{d_{j}} \ge
+0\)</span>，由极方向定理可知: <span class="math inline">\(\boldsymbol{d_{j}}\)</span> 为 <span class="math inline">\(S\)</span> 的一个极方向，则对 <span class="math inline">\(\forall \lambda \ge 0,
+\boldsymbol{\bar{x}}+\lambda \boldsymbol{d_{j}} \in
+S\)</span>，故有：</p>
+<p><span class="math display">\[\boldsymbol{c^{T}}\left(
+\boldsymbol{\bar{x}} + \lambda \boldsymbol{d_{j}} \right) =
+\boldsymbol{c^{T}\bar{x}}+\lambda \boldsymbol{c^{T}d_{j}} \rightarrow
+-\infty, \quad \lambda \rightarrow +\infty\]</span></p>
+<p>  <strong>2.</strong> 若 <span class="math inline">\(\boldsymbol{r_{j}} \nleq
+\boldsymbol{0}\)</span>，则 <span class="math inline">\(\boldsymbol{d_{j}} \ngeq
+\boldsymbol{0}\)</span>，故 <span class="math inline">\(\boldsymbol{d_{j}}\)</span> 不是极方向，此时：</p>
+<p><span class="math display">\[\boldsymbol{c^{T}}\left(
+\boldsymbol{\bar{x}} + \lambda \boldsymbol{d_{j}} \right) =
+\boldsymbol{c^{T}\bar{x}}+\lambda \boldsymbol{c^{T}d_{j}} &lt;
+\boldsymbol{c^{T}\bar{x}}\]</span></p>
+<p>  由上式可知沿着 <span class="math inline">\(\boldsymbol{d_{j}}\)</span>
+方向，能够使得目标函数下降，此时我们需要<strong>选取一个合适的步长 <span class="math inline">\(\lambda\)</span>，</strong>
+使得下降速度尽可能大，但又不会使得新得到的解 <span class="math inline">\(\boldsymbol{\bar{x}} + \lambda
+\boldsymbol{d_{j}}\)</span> 违反约束条件。<br>
+  首先来检验等式约束，对于 <span class="math inline">\(\forall \lambda
+\ge 0\)</span>：</p>
+<p><span class="math display">\[\begin{split}
+    \boldsymbol{A}\left( \boldsymbol{\bar{x}} + \lambda
+\boldsymbol{d_{j}} \right) =&amp; \boldsymbol{A\bar{x}} + \lambda
+\boldsymbol{Ad_{j}} \\
+    =&amp; \boldsymbol{b} + \lambda \begin{bmatrix}
+        \boldsymbol{B,N} \\
+    \end{bmatrix} \begin{bmatrix}
+        -\boldsymbol{B^{-1}n_{j}} \\
+        \boldsymbol{e_{j}} \\
+    \end{bmatrix} \\
+    =&amp; \boldsymbol{b} + \lambda \left( -\boldsymbol{n_{j}} +
+\boldsymbol{n_{j}} \right) \\
+    =&amp; \boldsymbol{b}  
+\end{split}\]</span></p>
+<p>  再来检验不等式约束：</p>
+<p><span class="math display">\[\boldsymbol{\bar{x}} + \lambda
+\boldsymbol{d_{j}} = \begin{bmatrix}
+    \boldsymbol{B^{-1}b} \\
+    \boldsymbol{0} \\
+\end{bmatrix} + \lambda \begin{bmatrix}
+    -\boldsymbol{B^{-1}n_{j}} \\
+    \boldsymbol{e_{j}}
+\end{bmatrix} \ge \boldsymbol{0}\]</span></p>
+<p><span class="math display">\[\Rightarrow \lambda \boldsymbol{e_{j}}
+\ge 0,\quad \boldsymbol{B^{-1}b}-\lambda
+\boldsymbol{B^{-1}n_{j}}=\boldsymbol{B^{-1}b} - \lambda
+\boldsymbol{r_{j}} \ge \boldsymbol{0}\]</span></p>
+<p>记 <span class="math inline">\(\boldsymbol{h} = \boldsymbol{B^{-1}b}
+\ge \boldsymbol{0}\)</span>，则：</p>
+<p><span class="math display">\[\boldsymbol{h}-\lambda
+\boldsymbol{r_{j}} \ge \boldsymbol{0} \quad \Leftrightarrow \quad
+\begin{bmatrix}
+    \boldsymbol{h_{1}} - \lambda \boldsymbol{r_{j1}} \\
+    \vdots \\
+    \boldsymbol{h_{m}} - \lambda \boldsymbol{r_{jm}} \\
+\end{bmatrix} \ge \boldsymbol{0} \quad \Leftrightarrow \quad \forall i,
+\boldsymbol{h_{i}} - \lambda \boldsymbol{r_{ji}} \ge 0\]</span></p>
+<p><span class="math display">\[\Rightarrow \quad \lambda \leq
+\frac{\boldsymbol{h_{i}}}{\boldsymbol{r_{ji}}}, \forall i,且
+\boldsymbol{r_{ji}} &gt; 0 \quad \Rightarrow \quad \lambda^{*} =
+\min_{i} \{ \frac{\boldsymbol{h_{i}}}{\boldsymbol{r_{ji}}} |
+\boldsymbol{r_{ji}} &gt; 0 \}\]</span></p>
+<p>  通过以上分析，我们找到了一个最佳的步长 <span class="math inline">\(\lambda^{*}\)</span>，有一个非常重要的结论：<strong>利用
+<span class="math inline">\(\lambda^{*}\)</span> 构造的新解 <span class="math inline">\(\boldsymbol{\hat{x}}=\boldsymbol{\bar{x}}+\lambda
+\boldsymbol{d_{j}}\)</span> 为可行解集 <span class="math inline">\(S\)</span> 的一个新的极点。</strong><br>
+  此时我们只需要重复以上步骤判断 <span class="math inline">\(\boldsymbol{\hat{x}}\)</span>
+是否是最优解，若是则算法终止，否则再构造下一个极点。</p>
+<h2 id="algorithm-steps-for-simplex-method">Algorithm Steps for Simplex
+Method</h2>
+<p>  输入: <span class="math inline">\(\boldsymbol{c} \in
+\mathbb{R}^{n}, \boldsymbol{A} \in \mathbb{R}^{m \times n},
+\boldsymbol{b} \in \mathbb{R}^{m}\)</span><br>
+  输出: <span class="math inline">\(\boldsymbol{x} \in
+\mathbb{R}^{n}\)</span><br>
+  算法步骤：<br>
+  (1) 确定某种 <span class="math inline">\(\boldsymbol{A}\)</span>
+的分块: <span class="math inline">\(\boldsymbol{A} =
+\begin{bmatrix}  \boldsymbol{B,N}
+\end{bmatrix}\)</span>，以及对应的初始极点：</p>
+<p><span class="math display">\[\boldsymbol{x} = \begin{bmatrix}
+    \boldsymbol{B^{-1}b} \\
+    \boldsymbol{0} \\
+\end{bmatrix}\]</span></p>
+<p>  (2) 判断 <span class="math inline">\(\boldsymbol{c_{N}^{T}} -
+\boldsymbol{c_{B}^{T}B^{-1}N} \ge \boldsymbol{0}?\)</span>
+若是，则算法终止，输出 <span class="math inline">\(\boldsymbol{x}\)</span>，否则转入下一步(3);<br>
+  (3) 找到 <span class="math inline">\(\boldsymbol{c_{N}^{T}} -
+\boldsymbol{c_{B}^{T}B^{-1}N}\)</span> 的负值分量<span class="math inline">\(j\)</span>，检验是否 <span class="math inline">\(\exists j\)</span>，使得 <span class="math inline">\(\boldsymbol{r_{j}}=\boldsymbol{Bn_{j}} \leq
+\boldsymbol{0}\)</span>，若存在，则该问题是无界的，无最小值，算法终止，否则转入(4);<br>
+  (4) 挑选一个<span class="math inline">\(j\)</span>，构造一个新的极点<span class="math inline">\(\boldsymbol{\bar{x}}\)</span>:</p>
+<p><span class="math display">\[\boldsymbol{\bar{x}} = \boldsymbol{x} +
+\lambda^{*} \boldsymbol{d_{j}},\quad \boldsymbol{d_{j}} =
+\begin{bmatrix}
+    -\boldsymbol{B^{-1}n_{j}} \\
+    \boldsymbol{e_{j}}
+\end{bmatrix},\quad \lambda^{*} = \min_{i} \{
+\frac{\boldsymbol{h_{i}}}{\boldsymbol{r_{ji}}} | \boldsymbol{r_{ji}}
+&gt; 0 \}\]</span></p>
+<p>  (5) 根据 <span class="math inline">\(\boldsymbol{\bar{x}}\)</span>，对矩阵<span class="math inline">\(\boldsymbol{A}\)</span>进行重新分块 <span class="math inline">\(\boldsymbol{A} =
+\begin{bmatrix}  \boldsymbol{\bar{B},\bar{N}}
+\end{bmatrix}\)</span>，重复(2)~(5)步。</p>
+<h2 id="python-impletation-of-simplex-method">Python Impletation of
+Simplex Method</h2>
+<p>  给定算法的输入：</p>
+<p><span class="math display">\[\boldsymbol{c}=\begin{bmatrix}
+    1 \\
+    2 \\
+    3 \\
+    4 \\
+    5 \\
+\end{bmatrix},\quad \boldsymbol{A}= \begin{bmatrix}
+    1 &amp; 1 &amp; 1 &amp; 1 &amp; 1 \\
+    2 &amp; 2 &amp; 3 &amp; 4 &amp; 5 \\
+\end{bmatrix},\quad \boldsymbol{b}=\begin{bmatrix}
+    10 \\
+    20 \\
+\end{bmatrix}\]</span></p>
+<p>  我们可以调用 Python 的 <code>scipy.optimize</code> 类中的
+<code>linprog</code>方法来执行单纯形算法，代码如下：</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.optimize <span class="im">import</span> linprog</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>c <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>]</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>A_eq <span class="op">=</span> [</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>],</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>] </span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>b_eq <span class="op">=</span> [</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="dv">10</span>, </span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="dv">20</span>  </span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> linprog(c, A_eq<span class="op">=</span>A_eq, b_eq<span class="op">=</span>b_eq, method<span class="op">=</span><span class="st">'simplex'</span>)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(result[<span class="st">'x'</span>])</span></code></pre></div>
+<p>  使用单纯形算法解得最优解为：</p>
+<p><span class="math display">\[\boldsymbol{x^{*}} = \begin{bmatrix}
+    10 &amp; 0 &amp; 0 &amp; 0 &amp; 0
+\end{bmatrix}^{T}\]</span></p>
+<h2 id="reference">Reference</h2>
+<p><strong>[1] Video: 最优化理论与方法-第十一讲-线性规划, superfatseven,
+B站.</strong><br>
+<strong>[2] Book: Boyd S P, Vandenberghe L. Convex optimization[M].
+Cambridge university press, 2004.</strong></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%9C%80%E4%BC%98%E4%BC%A0%E8%BE%93%E7%90%86%E8%AE%BA/" class="category-chain-item">最优传输理论</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Optimal Transport-4.Simplex Method</div>
+      <div>http://example.com/2024/04/08/Optimal Transport-4.Simplex Method/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>喵老师</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年4月8日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/03/16/Optimal%20Transport-3.Dual%20Problem/" title="Optimal Transport-3.Kantorovich-OT Dual Problem">
+                        <span class="hidden-mobile">Optimal Transport-3.Kantorovich-OT Dual Problem</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"OLzAG6UdDYLLDlQvyrFhe7ho-gzGzoHsz","appKey":"IuY7HMC7xJw1qmdlkBlrfMRq","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      京ICP证123456号
+    </a>
+  </span>
+  
+    
+      <span>
+        <a
+          href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=12345678"
+          rel="nofollow noopener"
+          class="beian-police"
+          target="_blank"
+        >
+          
+            <span style="visibility: hidden; width: 0">|</span>
+            <img src="/img/police_beian.png" srcset="/img/loading.gif" lazyload alt="police-icon"/>
+          
+          <span>京公网安备12345678号</span>
+        </a>
+      </span>
+    
+  
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+</html>
