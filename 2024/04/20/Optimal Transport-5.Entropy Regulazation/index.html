@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s2.loli.net/2024/02/07/7iNUCpyQv3wnMLc.jpg">
 <meta property="article:published_time" content="2024-04-20T04:44:17.000Z">
-<meta property="article:modified_time" content="2024-04-22T14:15:21.132Z">
+<meta property="article:modified_time" content="2024-04-22T14:23:30.688Z">
 <meta property="article:author" content="喵老师">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://s2.loli.net/2024/02/07/7iNUCpyQv3wnMLc.jpg">
@@ -237,7 +237,7 @@
         
         
         
-          100 分钟
+          101 分钟
         
       </span>
     
@@ -282,7 +282,7 @@
                 <h1 id="entropy-regularization">Entropy Regularization</h1>
 <p>  在之前的文章中，我们从概率视角描述了最优传输问题。设 <span class="math inline">\(X,Y\)</span> 是服从分布 <span class="math inline">\(\boldsymbol{\alpha},\boldsymbol{\beta}\)</span>
 的两个随机变量，运输矩阵为 <span class="math inline">\(\boldsymbol{P}\)</span>，成本矩阵为 <span class="math inline">\(\boldsymbol{C}\)</span>，则分布 <span class="math inline">\(\boldsymbol{\alpha},\boldsymbol{\beta}\)</span>
-之间的最优传输问题可以被定义为：</p>
+之间的最优传输问题可以被定义为(1)式：</p>
 <p><span class="math display">\[\begin{equation}
     L_{\boldsymbol{C}}(\boldsymbol{\alpha},\boldsymbol{\beta}) :=
 \min_{\boldsymbol{P} \in
@@ -294,7 +294,7 @@
 <p>  我们在之前讨论过，运输矩阵 <span class="math inline">\(\boldsymbol{P}\)</span> 可以看作随机变量 <span class="math inline">\(X,Y\)</span>
 的联合分布。从Monge的前向运输法到Kantorovich的局部前向运输，最优传输问题的解通常是满足边界条件下，"耦合度"最低的运输方式，即最优运输矩阵<span class="math inline">\(\boldsymbol{P}\)</span>
 是一个很稀疏的矩阵，其非零元素主要集中在对角线附近。如果我们用概率论与信息论的视角来分析，这意味原始最优传输问题的解是<strong>满足边际分布条件下，熵最小的联合分布。</strong><br>
-  熵正则的主要思想对联合分布<span class="math inline">\(\boldsymbol{P}\)</span>的信息熵进行惩罚，以期望求得的联合分布<span class="math inline">\(\boldsymbol{P^{*}}\)</span>的熵更大。熵正则的数学表达式如下：</p>
+  熵正则的主要思想对联合分布<span class="math inline">\(\boldsymbol{P}\)</span>的信息熵进行惩罚，以期望求得的联合分布<span class="math inline">\(\boldsymbol{P^{*}}\)</span>的熵更大。熵正则的数学表达式如下(2)式：</p>
 <p><span class="math display">\[\begin{equation}
     L_{\boldsymbol{C}}^{\varepsilon}(\boldsymbol{\alpha},\boldsymbol{\beta})
 := \min_{\boldsymbol{P} \in
@@ -304,7 +304,7 @@
 <p>  其中，常数 <span class="math inline">\(\varepsilon\)</span>
 为惩罚系数，用于控制对联合分布的熵的惩罚力度，<span class="math inline">\(\varepsilon\)</span> 越大，则我们解得的联合分布
 <span class="math inline">\(\boldsymbol{P^{*}}\)</span>
-的熵越大。除了这种形式，有一些文献也将熵正则的定义为如下形式：</p>
+的熵越大。除了这种形式，有一些文献也将熵正则的定义为如下形式(3)式：</p>
 <p><span class="math display">\[\begin{equation}
     L_{\boldsymbol{C}}^{\gamma}(\boldsymbol{\alpha},\boldsymbol{\beta})
 := \min_{\boldsymbol{P} \in
@@ -369,12 +369,12 @@ x^{2}}y^{2}+O(y^{2})\]</span></p>
 = \int_{-\infty}^{+\infty} \left[ f(x,t) - \frac{\partial f}{\partial
 x}y + \frac{1}{2} \frac{\partial^{2}f}{\partial x^{2}}y^{2} \right]
 \rho(y)dy\]</span></p>
-<p>  通过化简，我们得到了最终的<strong>扩散方程:</strong></p>
+<p>  通过化简，我们得到了最终的<strong>扩散方程(4):</strong></p>
 <p><span class="math display">\[\begin{equation}
     \frac{\partial f}{\partial t} = \frac{D}{2\tau}
 \frac{\partial^{2}f}{\partial x^{2}}
 \end{equation}\]</span></p>
-<p>  求解这个偏微分方程，我们发现<strong>随机过程<span class="math inline">\(f(x,t)\)</span>是一个高斯过程:</strong></p>
+<p>  求解这个偏微分方程，我们发现<strong>随机过程<span class="math inline">\(f(x,t)\)</span>是一个高斯过程(5):</strong></p>
 <p><span class="math display">\[\begin{equation}
     f(x,t) = \frac{1}{\sqrt{2\pi Ct}}\exp\left( -\frac{x^{2}}{2Ct}
 \right)
@@ -390,7 +390,7 @@ Image1: 扩散过程
 </div>
 </center>
 <p><br></p>
-<p>  举上面这个例子，我是想让读者对熵增的过程有一个直观的感受，最大熵原理便是基于熵增定律，选择熵最大的分布是一个理智的选择，因为这符合自然界的规律。言归正传，最大熵原理和最优传输的熵正则理论有什么联系了？实际上我们只要对(2)式做一个小的等价变形，就可以发现其中的联系了，(2)式实际上也等价于：</p>
+<p>  举上面这个例子，我是想让读者对熵增的过程有一个直观的感受，最大熵原理便是基于熵增定律，选择熵最大的分布是一个理智的选择，因为这符合自然界的规律。言归正传，最大熵原理和最优传输的熵正则理论有什么联系了？实际上我们只要对(2)式做一个小的等价变形，就可以发现其中的联系了，(2)式实际上也等价于(6)：</p>
 <p><span class="math display">\[\begin{equation}
     L_{\boldsymbol{C}}^{\eta}(\boldsymbol{\alpha},\boldsymbol{\beta}) :=
 \max_{\boldsymbol{P} \in
@@ -423,8 +423,8 @@ KL(\boldsymbol{P} || \boldsymbol{\alpha \beta^{T}}) \leq \gamma
 <p><span class="math display">\[\begin{split}
         &amp; \frac{1}{2} \left( H(\boldsymbol{\alpha}) +
 H(\boldsymbol{\beta}) \right) \leq H(\boldsymbol{P}) \leq
-H(\boldsymbol{\alpha}) + H(\bold{\boldsymbol{\beta}}) =
-H(\boldsymbol{\alpha \beta^{T}}) \\  
+H(\boldsymbol{\alpha}) + H(\boldsymbol{\beta}) = H(\boldsymbol{\alpha
+\beta^{T}}) \\  
         &amp; KL(\boldsymbol{P} || \boldsymbol{\alpha \beta^{T}}) =
 H(\boldsymbol{\alpha}) + H(\boldsymbol{\beta}) - H(\boldsymbol{P}) = I(X
 || Y)
@@ -1019,5 +1019,20 @@ UP-我在人间凑数的这几年.</strong></li>
   <noscript>
     <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
   </noscript>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>
