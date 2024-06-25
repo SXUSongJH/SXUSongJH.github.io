@@ -1,0 +1,890 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="https://s2.loli.net/2023/07/15/AhaZCquL51QoPpk.png">
+  <link rel="icon" href="https://s2.loli.net/2023/07/15/AhaZCquL51QoPpk.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="喵老师">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="本节主要介绍扩散模型损失函数的三种等价形式，即预测原始数据、预测噪声、分数匹配。另外还会介绍扩散系数该如何设置或者学习。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深度学习-7-生成模型5-扩散模型损失函数的三种等价形式">
+<meta property="og:url" content="http://example.com/2024/06/03/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-7-%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B5-%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0%E7%9A%84%E4%B8%89%E7%A7%8D%E7%AD%89%E4%BB%B7%E5%BD%A2%E5%BC%8F/index.html">
+<meta property="og:site_name" content="喵老师&#39;s Blog">
+<meta property="og:description" content="本节主要介绍扩散模型损失函数的三种等价形式，即预测原始数据、预测噪声、分数匹配。另外还会介绍扩散系数该如何设置或者学习。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2023/07/26/tDhLZgxV4HaIizX.jpg">
+<meta property="article:published_time" content="2024-06-03T08:01:44.000Z">
+<meta property="article:modified_time" content="2024-06-07T04:25:20.255Z">
+<meta property="article:author" content="喵老师">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://s2.loli.net/2023/07/26/tDhLZgxV4HaIizX.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>深度学习-7-生成模型5-扩散模型损失函数的三种等价形式 - 喵老师&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="alternate" href="/atom.xml" title="喵老师's Blog" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>喵老师&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/Daily/" target="_self">
+                <i class="iconfont icon-music"></i>
+                <span>日常</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://s2.loli.net/2023/07/17/Myx8RtuvNLKFgiZ.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="深度学习-7-生成模型5-扩散模型损失函数的三种等价形式"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-06-03 16:01" pubdate>
+          2024年6月3日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          9.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          77 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">深度学习-7-生成模型5-扩散模型损失函数的三种等价形式</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1>扩散模型损失函数的三种等价形式</h1>
+<p>  在前一个章节，我们推导了扩散模型 ELBO 的理论形式，将其作为模型训练的损失函数，然后分析了损失函数中各项的具体计算方法，推导出了 <strong>预测原始数据</strong> 的损失函数形式。这一节我们将会介绍扩散模型另外两种损失函数的形式，即 <strong>预测噪声</strong> 与 <strong>分数匹配</strong>。扩散模型的原始论文 DDPM [2]，便是使用的 <strong>预测噪声</strong> 的损失函数形式，而之后的宋飏等的基于分数的生成模型[3] 则是使用了 <strong>分数匹配</strong> 的损失函数形式。在这一节，我们将会证明这三种损失函数是等价的。</p>
+<h2 id="预测原始数据的损失函数形式">预测原始数据的损失函数形式</h2>
+<p>  首先，我们还是来回顾一下上一节的结论。在上一篇博客文章中，我们将损失函数分解为了 <strong>重构似然损失 $L_{0}$ 、去噪匹配损失 $L_{t-1}$ 、先验匹配损失 $L_{T}$</strong>。在这三项中，去噪匹配损失 $L_{t-1}$ 是损失函数中的主要部分，我们通过推导得到了其具体的计算公式：</p>
+<p>$$\begin{align}<br>
+D_{KL}(q(x_{t-1}|x_{t},x_{0}) || p_{\theta}(x_{t-1}|x_{t})) = \frac{1}{2\sigma_{q}^{2}(t)}\frac{\bar{\alpha}<em>{t-1}(1-\alpha</em>{t})^{2}}{(1-\bar{\alpha}<em>{t})^{2}} \left[ ||\hat{x}</em>{\theta}(x_{t-1},t) - x_{0}||_{2}^{2} \right] \tag{1}<br>
+\end{align}$$</p>
+<p>  从(1)式中我们可以看出，优化去噪匹配损失实际上是让模型在每一步尽可能地预测原始数据 $x_{0}$。通过多步的迭代，可以使得模型的输出值 $\hat{x}<em>{\theta}(x</em>{t-1},t)$ 与原始数据 $x_{0}$ 更加相似。</p>
+<h2 id="预测噪声的损失函数形式">预测噪声的损失函数形式</h2>
+<p>  通过上一篇博客的推导(15)，我们可以 $x_{0}$ 与 $x_{t}$ 之间所满足的等式：</p>
+<p>$$\begin{align}<br>
+x_{t} = \sqrt{\bar{\alpha}<em>{t}}x</em>{0} + \sqrt{1-\bar{\alpha}<em>{t}}\epsilon</em>{0} \tag{2}<br>
+\end{align}$$</p>
+<p>  基于 (2) 式，我们可以将 $x_{0}$ 用 $x_{t}$ 与 $\epsilon_{0}$ 来表示：</p>
+<p>$$\begin{align}<br>
+x_{0} = \frac{x_{t} - \sqrt{1-\bar{\alpha}<em>{t}}\epsilon</em>{0}}{\sqrt{\bar{\alpha}_{t}}} \tag{3}<br>
+\end{align}$$</p>
+<p>  通过 (3) 式，我们可以将编码器 $q(x_{t-1}|x_{t},x_{0})$ 所满足的高斯分布的均值 $\mu_{q}(x_{t},x_{0})$ 转化为关于原始数据 $x_{0}$ 与原始噪声 $\epsilon_{0}$ 的函数：</p>
+<p>$$\begin{align}<br>
+\mu_{q}(x_{t},x_{0}) = \frac{1}{\sqrt{\alpha_{t}}}x_{t} - \frac{1-\alpha_{t}}{\sqrt{\alpha_{t}(1-\bar{\alpha}<em>{t})}}\epsilon</em>{0} \tag{4} \<br>
+\end{align}$$</p>
+<p><strong>$Proof$</strong></p>
+<p>$$\begin{align}<br>
+\mu_{q}(x_{t},x_{0}) &amp;= \frac{\sqrt{\alpha_{t}}(1-\bar{\alpha}<em>{t-1})x</em>{t} + \sqrt{\bar{\alpha}<em>{t-1}}(1-\alpha</em>{t})x_{0}}{1-\bar{\alpha}<em>{t}} \notag \<br>
+&amp;= \frac{\sqrt{\alpha</em>{t}}(1-\bar{\alpha}<em>{t-1})x</em>{t} + \sqrt{\bar{\alpha}<em>{t-1}}(1-\alpha</em>{t})\frac{x_{t} - \sqrt{1-\bar{\alpha}<em>{t}}\epsilon</em>{0}}{\sqrt{\bar{\alpha}<em>{t}}}}{1-\bar{\alpha}</em>{t}} \notag \<br>
+&amp;= \frac{\sqrt{\alpha_{t}}(1-\bar{\alpha}<em>{t-1})x</em>{t} + (1-\alpha_{t})\frac{x_{t} - \sqrt{1-\bar{\alpha}<em>{t}}\epsilon</em>{0}}{\sqrt{\alpha}<em>{t}}}{1-\bar{\alpha}</em>{t}} \notag \<br>
+&amp;= \left( \frac{\sqrt{\alpha_{t}}(1-\bar{\alpha}<em>{t-1})}{1-\bar{\alpha}</em>{t}} + \frac{1-\alpha_{t}}{(1-\bar{\alpha}<em>{t})\sqrt{\alpha</em>{t}}} \right)x_{t} - \frac{(1-\alpha_{t})\sqrt{1-\bar{\alpha}<em>{t}}}{(1-\bar{\alpha}</em>{t})\sqrt{\alpha_{t}}}\epsilon_{0} \notag \<br>
+&amp;= \frac{1}{\sqrt{\alpha_{t}}}x_{t} - \frac{1-\alpha_{t}}{\sqrt{\alpha_{t}(1-\bar{\alpha}<em>{t})}}\epsilon</em>{0} \notag \<br>
+\end{align}$$</p>
+<p>  在前一节中，我们将解码器 $p_{\theta}(x_{t-1}|x_{t})$ 同样设置为高斯分布 $N(x_{t-1}; \mu_{\theta}(x_{t},t),\Sigma_{q}(t))$，且高斯分布的均值 $\mu_{\theta}(x_{t},t)$ 具有与编码器的均值 $\mu_{q}(x_{t},x_{0})$ 相同的形式，故解码器 $p_{\theta}(x_{t-1}|x_{t})$ 同样可以用 (4) 式的形式表示，只是在解码过程中，我们没有 $\epsilon_{0}$ 的信息，故神经网络需要根据 $x_{t},t$ 的信息预测噪声 $\epsilon_{0}$。综上所述，我们可以解码器的均值重写为：</p>
+<p>$$\begin{align}<br>
+\mu_{\theta}(x_{t},t) = \frac{1}{\sqrt{\alpha_{t}}}x_{t} - \frac{1-\alpha_{t}}{\sqrt{\alpha_{t}(1-\bar{\alpha}<em>{t})}}\hat{\epsilon}</em>{\theta}(x_{t},t) \tag{5} \<br>
+\end{align}$$</p>
+<p>  这样，我们可以将编码器 $q(x_{t-1}|x_{t},x_{0})$ 与解码器 $p_{\theta}(x_{t-1}|x_{t})$ 之间的 KL Divergence (1) 式用噪声的预测误差重新表示：</p>
+<p>$$\begin{align}<br>
+D_{KL}(q(x_{t-1}|x_{t},x_{0}) || p_{\theta}(x_{t-1}|x_{t})) = \frac{1}{2\sigma_{q}^{2}(t)} \frac{(1-\alpha_{t})^{2}}{(1-\bar{\alpha}<em>{t})\alpha</em>{t}}\left[ || \hat{\epsilon}<em>{\theta}(x</em>{t},t) - \epsilon_{0} ||_{2}^{2} \right] \tag{6} \<br>
+\end{align}$$</p>
+<p><strong>$Proof$</strong></p>
+<p>$$\begin{align}<br>
+&amp; D_{KL}(q(x_{t-1}|x_{t},x_{0}) || p_{\theta}(x_{t-1}|x_{t})) \notag \<br>
+&amp;= \frac{1}{2\sigma_{q}^{2}(t)} \left[ ||\mu_{q} - \mu_{\theta} ||<em>{2}^{2} \right] \notag \<br>
+&amp;= \frac{1}{2\sigma</em>{q}^{2}(t)} \left[ ||\frac{1}{\sqrt{\alpha_{t}}}x_{t} - \frac{1-\alpha_{t}}{\sqrt{\alpha_{t}(1-\bar{\alpha}<em>{t})}}\epsilon</em>{0} - \frac{1}{\sqrt{\alpha_{t}}}x_{t} + \frac{1-\alpha_{t}}{\sqrt{\alpha_{t}(1-\bar{\alpha}<em>{t})}}\hat{\epsilon}</em>{\theta}(x_{t},t) ||<em>{2}^{2} \right] \notag \<br>
+&amp;= \frac{1}{2\sigma</em>{q}^{2}(t)} \left[ || \frac{1-\alpha_{t}}{\sqrt{\alpha_{t}(1-\bar{\alpha}<em>{t})}}\hat{\epsilon}</em>{\theta}(x_{t},t) - \frac{1-\alpha_{t}}{\sqrt{\alpha_{t}(1-\bar{\alpha}<em>{t})}}\epsilon</em>{0} ||<em>{2}^{2} \right] \notag \<br>
+&amp;= \frac{1}{2\sigma</em>{q}^{2}(t)} \frac{(1-\alpha_{t})^{2}}{(1-\bar{\alpha}<em>{t})\alpha</em>{t}}\left[ || \hat{\epsilon}<em>{\theta}(x</em>{t},t) - \epsilon_{0} ||_{2}^{2} \right] \notag \<br>
+\end{align}$$</p>
+<p>  (6) 式表明在训练过程中，我们的解码器每一步都需要尽可能地去预测原始噪声 $\epsilon_{0}$。在前向加噪过程中，我们是将原始噪声 $\epsilon_{0}$ 不断地加到原始数据 $x_{0}$ 中(2)，直至原始数据变为近似高斯噪声，故如果编码器能够根据 $x_{t},t$ 很好地预测噪声 $\epsilon_{0}$，则在解码过程中，我们可以从高斯噪声开始，每一步逐步减去编码器所预测的原始噪声 $\hat{\epsilon}<em>{\theta}(x</em>{t},t)$，从而将高斯噪声还原回原始数据 $x_{0}$。以上过程可以用下图1表示。</p>
+<center>
+    <img src="https://s2.loli.net/2024/06/06/li8W17MkhEJOeBp.png" srcset="/img/loading.gif" lazyload width="80%" height="80%">
+    <div align="center">Image1: 预测噪声训练过程</div>
+</center>  
+<center>
+    <img src="https://s2.loli.net/2024/06/06/zvlHM8wZNYAcueU.png" srcset="/img/loading.gif" lazyload width="80%" height="80%">
+    <div align="center">Image2: DDPM原始论文的训练与采样算法</div>
+</center>  
+<p>  在图2右侧的采样过程中，每一步解码，即减去预测的噪声后还加了一个噪声项 $\sigma_{t}z$，这一处理是模仿了前向扩散过程中的随机性，确保每一步生成的样本不是确定的，而是带有一定的随机性，从而可以生成多样化的样本。这是关键的，因为如果每一步都只是简单的去噪而不引入新的随机性，生成的样本将会缺乏多样性。</p>
+<h2 id="分数匹配的损失函数形式">分数匹配的损失函数形式</h2>
+<p>  在 DDPM 之后，Yang Song 等 [3] 在 2021 年提出了基于 VDM 的 Score-Based Generative Model (SGM)。在这篇论文中，作者使用 SDEs 建立起了扩散模型前向加噪与逆向去噪的一般框架，并利用得分函数作为损失函数来优化模型。关于 SGM 我们将会在下一篇博客中详细讨论，接下来我们主要来介绍一下基于分数的损失函数。<br>
+  为了得分函数函数，我们首先来介绍一下概率统计中的 Tweedie 公式。<br>
+  Tweedie 公式表明，给定从指数族分布中抽取的样本，其真实均值可以通过样本的最大似然估计（也称为经验均值）加上一些涉及估计得分的修正项来估计。在只有一个观测样本的情况下，经验均值就是该样本本身。Tweedie 公式通常用于减轻样本偏差；如果观测到的样本全部位于真实分布的一端，那么负得分会变大，并将样本的最大似然估计值校正到真实均值。<br>
+  具体来讲，假设我们从一个指数分布中抽取一些样本，但这些样本偏向分布的一端。单纯地使用这些样本的均值 (最大似然估计) 会偏离真实的分布均值。Tweedie 公式会通过添加一个修正项来纠正这种偏差。这个修正项会通过样本分布和得分函数来计算。得分函数是统计学中的一个概念，它是指对数似然函数关于参数的导数。如果样本都位于分布的一端，得分函数会变大，修正项会变大，从而将估计的均值向真实均值方向校正。<br>
+  给定一个高斯随机变量 $z \sim N(z;\mu_{z},\Sigma_{z})$，由Tweedie 可以得到：</p>
+<p>$$\begin{align}<br>
+\mathbb{E}[\mu_{z}|z] = z + \Sigma_{z}\nabla_{z}\log{p(z)} \tag{7}<br>
+\end{align}$$</p>
+<p>  在 VDM 中，通过高斯假设，我们推导了前向加噪过程中 $x_{t}$ 所满足的高斯分布：</p>
+<p>$$\begin{align}<br>
+q(x_{t}|x_{0}) = N(x_{t}; \sqrt{\bar{\alpha}<em>{t}}x</em>{0}, (1 - \bar{\alpha}_{t})\boldsymbol{I}) \tag{8}<br>
+\end{align}$$</p>
+<p>  利用 Tweedie 公式，我们可以给出 $x_{t}$ 在给定样本情况下的后验均值的修正估计：</p>
+<p>$$\begin{align}<br>
+\mathbb{E}[\mu_{x_{t}}|x_{t}] = x_{t} + (1 - \bar{\alpha}<em>{t})\nabla</em>{x_{t}}\log{p(x_{t})} \tag{9}<br>
+\end{align}$$</p>
+<p>  由于在逆向去噪过程中，我们是不知道原始数据 $x_{0}$ 的，我们需要对 $x_{0}$ 进行估计，前文中的预测原始数据的损失函数便是在做这件事。这里，通过结合 $x_{t}$ 的真实均值 $\sqrt{\bar{\alpha}<em>{t}}x</em>{0}$，我们可以给出后向去噪过程中 $x_{0}$ 的估计值：</p>
+<p>$$\begin{align}<br>
+x_{0} = \frac{x_{t} + (1 - \bar{\alpha}<em>{t})\nabla\log{p(x</em>{t})}}{\sqrt{\bar{\alpha}_{t}}} \tag{10} \<br>
+\end{align}$$</p>
+<p>  其中，$\nabla\log{p(x_{t})}$ 为 $\nabla_{x_{t}}\log{p(x_{t})}$ 的简写形式。需要指出的是，在后向去噪过程中，$x_{t}$ 所满足的高斯分布的均值是未知的，故解码过程中，(10)式中的得分函数 $\nabla\log{p(x_{t})}$ 是未知的。而在前向加噪过程中，基于高斯假设，我们已经得知 $x_{t}$ 的所满足的高斯分布(8)，故得分函数是可以计算的。<br>
+  现在我们需要将前向加噪过程中的 $x_{t-1}$ 的均值改写成含有得分函数的形式，将(10)带入 $\mu_{q}(x_{t},x_{0})$ 的原始表达式，通过推导可以得到以下等式成立：</p>
+<p>$$\begin{align}<br>
+\mu_{q}(x_{t},x_{0}) = \frac{1}{\sqrt{\alpha_{t}}}x_{t} + \frac{1-\alpha_{t}}{\sqrt{\alpha_{t}}}\nabla\log{p(x_{t})} \tag{11} \<br>
+\end{align}$$</p>
+<p><strong>$Proof$</strong></p>
+<p>$$\begin{align}<br>
+\mu_{q}(x_{t},x_{0}) &amp;= \frac{\sqrt{\alpha_{t}}(1-\bar{\alpha}<em>{t-1})x</em>{t} + \sqrt{\bar{\alpha}<em>{t-1}}(1-\alpha</em>{t})x_{0}}{1-\bar{\alpha}<em>{t}} \notag \<br>
+&amp;= \frac{\sqrt{\alpha</em>{t}}(1-\bar{\alpha}<em>{t-1})x</em>{t} + \sqrt{\bar{\alpha}<em>{t-1}}(1-\alpha</em>{t})\frac{x_{t} + (1 - \bar{\alpha}<em>{t})\nabla\log{p(x</em>{t})}}{\sqrt{\bar{\alpha}<em>{t}}}}{1-\bar{\alpha}</em>{t}} \notag \<br>
+&amp;= \frac{\sqrt{\alpha_{t}}(1-\bar{\alpha}<em>{t-1})x</em>{t} + (1-\alpha_{t})\frac{x_{t} + (1 - \bar{\alpha}<em>{t})\nabla\log{p(x</em>{t})}}{\sqrt{\alpha}<em>{t}}}{1-\bar{\alpha}</em>{t}} \notag \<br>
+&amp;= \left( \frac{\sqrt{\alpha_{t}}(1-\bar{\alpha}<em>{t-1})}{1-\bar{\alpha}</em>{t}} + \frac{1-\alpha_{t}}{(1-\bar{\alpha}<em>{t})\sqrt{\alpha</em>{t}}} \right)x_{t} - \frac{1-\alpha_{t}}{\sqrt{\alpha_{t}}}\nabla\log{p(x_{t})} \notag \<br>
+&amp;= \frac{1}{\sqrt{\alpha_{t}}}x_{t} + \frac{1-\alpha_{t}}{\sqrt{\alpha_{t}}}\nabla\log{p(x_{t})} \notag \<br>
+\end{align}$$</p>
+<p>  因此，我们可以将逆向去噪过程中 $x_{t-1}$ 的均值设置成与前向过程相同的形式，只是得分函数需要由神经网络进行估计：</p>
+<p>$$\begin{align}<br>
+\mu_{\theta}(x_{t},t) = \frac{1}{\sqrt{\alpha_{t}}}x_{t} + \frac{1-\alpha_{t}}{\sqrt{\alpha_{t}}}s_{\theta}(x_{t},t) \tag{12} \<br>
+\end{align}$$</p>
+<p>  结合 (11)、(12)式，我们可以得出基于得分函数的 $q(x_{t-1} | x_{t},x_{0})$ 与 $p_{\theta}(x_{t-1}|x_{t})$ 之间的KL Divergence 的表达式：</p>
+<p>$$\begin{align}<br>
+D_{KL}(q(x_{t-1}|x_{t},x_{0}) || p_{\theta}(x_{t-1}|x_{t})) = \frac{1}{2\sigma_{q}^{2}(t)} \frac{(1-\alpha_{t})^{2}}{\alpha_{t}}\left[ || s_{\theta}(x_{t},t) - \nabla\log{p(x_{t})} ||_{2}^{2} \right] \tag{13}<br>
+\end{align}$$</p>
+<p><strong>$Proof$</strong></p>
+<p>$$\begin{align}<br>
+&amp; D_{KL}(q(x_{t-1}|x_{t},x_{0}) || p_{\theta}(x_{t-1}|x_{t})) \notag \<br>
+&amp;= \frac{1}{2\sigma_{q}^{2}(t)} \left[ ||\mu_{q} - \mu_{\theta} ||<em>{2}^{2} \right] \notag \<br>
+&amp;= \frac{1}{2\sigma</em>{q}^{2}(t)} \left[ ||\frac{1}{\sqrt{\alpha_{t}}}x_{t} + \frac{1-\alpha_{t}}{\sqrt{\alpha_{t}}}s_{\theta}(x_{t},t) - \frac{1}{\sqrt{\alpha_{t}}}x_{t} - \frac{1-\alpha_{t}}{\sqrt{\alpha_{t}}}\nabla\log{p(x_{t})} ||<em>{2}^{2} \right] \notag \<br>
+&amp;= \frac{1}{2\sigma</em>{q}^{2}(t)} \left[ || \frac{1-\alpha_{t}}{\sqrt{\alpha_{t}}}s_{\theta}(x_{t},t) - \frac{1-\alpha_{t}}{\sqrt{\alpha_{t}}}\nabla\log{p(x_{t})} \right] \notag \<br>
+&amp;= \frac{1}{2\sigma_{q}^{2}(t)} \frac{(1-\alpha_{t})^{2}}{\alpha_{t}}\left[ || s_{\theta}(x_{t},t) - \nabla\log{p(x_{t})} ||_{2}^{2} \right] \notag \<br>
+\end{align}$$</p>
+<p>  这样我们就可以得到基于得分函数的损失函数，在解码过程中，神经网络需要通过给定的 $x_{t}, t$ 去预测真实的得分函数。得分函数给出了似然函数的梯度，即使得似然函数最大的方向，去噪过程中数据由高斯噪声，沿着神经网络所预测出的这个方向移动，从而到达最大的重构似然。<br>
+  实际上，数据在去噪过程移动的方向应该是噪声的反向，即“去噪”，这是符合我们的直觉的。事实也的确如此，联立 (3) 式与 (10) 式，我们可以得到得分函数与原始噪声之间的联系：</p>
+<p>$$\begin{align}<br>
+\nabla\log{p(x_{t})} = -\frac{1}{\sqrt{1-\bar{\alpha}<em>{t}}}\epsilon</em>{0} \tag{14}<br>
+\end{align}$$</p>
+<p>  得分函数衡量了如何在数据空间移动以使得对数似然最大化，由于在前向过程中，我们是将噪声不断地加入到图片中，因此在逆向过程中，我们很自然地应该向反方向移动，即逐渐去噪，以得到更高的对数似然，即与原始图片更加相似。<br>
+  以上我们推导了扩散模型损失函数的三种等价形式，包括 <strong>预测原始数据、预测噪声、得分匹配</strong>。关于得分匹配损失函数，在下一节关于 Score-Based Generative Model 中将会有更加详细的解释。</p>
+<h2 id="Reference">Reference</h2>
+<p><strong>[1] Paper: Luo C. Understanding diffusion models: A unified perspective[J]. arXiv preprint arXiv:2208.11970, 2022.</strong><br>
+<strong>[2] Paper: Ho J, Jain A, Abbeel P. Denoising diffusion probabilistic models[J]. Advances in neural information processing systems, 2020, 33: 6840-6851.</strong><br>
+<strong>[3] Paper: Yang Song,  Jascha Sohl-Dickstein, et al, “Score-Based Generative Modeling through Stochastic Differential Equations,” in International Conference on Learning Representations, 2021.</strong><br>
+<strong>[4] Video: 想不出来昵称又想改, 扩散模型-Diffusion Model【李宏毅2023】, Blibili</strong><br>
+<strong>[5] Blog: 苏剑林, 生成扩散模型漫谈(1-3), 科学空间</strong></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="category-chain-item">深度学习</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>深度学习-7-生成模型5-扩散模型损失函数的三种等价形式</div>
+      <div>http://example.com/2024/06/03/深度学习-7-生成模型5-扩散模型损失函数的三种等价形式/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>喵老师</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年6月3日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/05/23/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-6-%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B4-%E5%8F%98%E5%88%86%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B/" title="深度学习-6-生成模型4-变分扩散模型">
+                        <span class="hidden-mobile">深度学习-6-生成模型4-变分扩散模型</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"OLzAG6UdDYLLDlQvyrFhe7ho-gzGzoHsz","appKey":"IuY7HMC7xJw1qmdlkBlrfMRq","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      京ICP证123456号
+    </a>
+  </span>
+  
+    
+      <span>
+        <a
+          href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=12345678"
+          rel="nofollow noopener"
+          class="beian-police"
+          target="_blank"
+        >
+          
+            <span style="visibility: hidden; width: 0">|</span>
+            <img src="/img/police_beian.png" srcset="/img/loading.gif" lazyload alt="police-icon"/>
+          
+          <span>京公网安备12345678号</span>
+        </a>
+      </span>
+    
+  
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
